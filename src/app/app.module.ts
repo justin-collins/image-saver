@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImageViewerMaterialModule } from './material.module';
 import { ISVRRoutingModule } from './app.routing';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
 	declarations: [
@@ -14,6 +15,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
+		CoreModule,
 		ISVRRoutingModule,
 		ImageViewerMaterialModule
 	],

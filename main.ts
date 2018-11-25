@@ -2,7 +2,7 @@ import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
-const exec = require('child_process').exec;
+// const exec = require('child_process').exec;
 let win, serve;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
@@ -45,7 +45,7 @@ function createWindow() {
 		win = null;
 
 		if (serve) {
-			exec('taskkill /F /im node.exe');
+			// exec('taskkill /F /im node.exe');
 		}
 	});
 
