@@ -1,0 +1,90 @@
+@import 'helpers';
+
+@mixin text-format($size:$fontSize, $lineHeight:null, $color:null, $position:null, $weight:null, $transform:null, $family:null){
+	@if _is-size($size) {
+		font-size: $size;
+	} @else {
+		@error "`#{$size}` is not a valid length for the `$font-size` argument " +
+			"in the `text-format` mixin.";
+	}
+
+	@if $lineHeight == null{line-height: $size;}
+	@else {line-height: $lineHeight;}
+
+	@if $color != null {color:$color;}
+	@if $position != null {text-align:$position;}
+	@if $weight != null {font-weight:$weight;}
+	@if $transform != null {text-transform:$transform;}
+	@if $family != null {font-family:$family;}
+}
+
+@mixin unlistify{
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+
+@mixin mat-icon-size($size: 24px) {
+	@if _is-size($size) {
+		font-size: $size;
+		line-height: $size;
+		height: $size;
+		width: $size;
+	} @else {
+		@error "`#{$size}` is not a valid length for the `$font-size` argument " +
+			"in the `mat-icon-size` mixin.";
+	}
+}
+
+// breakpoints
+$S:600px !default;
+$M:1100px !default;
+$L:1300px !default;
+
+// media queries
+@mixin MQ($canvas) {
+	@if $canvas == S {
+		@media only screen and (max-width: $S) { @content; }
+	}
+	@else if $canvas == M {
+		@media only screen and (max-width: $M) { @content; }
+	}
+	@else if $canvas == L {
+		@media only screen and (max-width: $L) { @content; }
+	}
+}
+
+//mixins used from thoughtbot/bourbon#5.0.0
+@mixin size($width, $height: $width) {
+  @if _is-size($height) {
+    height: $height;
+  } @else {
+    @error "`#{$height}` is not a valid length for the `$height` argument " +
+           "in the `size` mixin.";
+  }
+
+  @if _is-size($width) {
+    width: $width;
+  } @else {
+    @error "`#{$width}` is not a valid length for the `$width` argument " +
+           "in the `size` mixin.";
+  }
+}
+
+@mixin position($position, $box-edge-values) {
+  $box-edge-values: _unpack-shorthand($box-edge-values);
+  $offsets: (
+    top:    nth($box-edge-values, 1),
+    right:  nth($box-edge-values, 2),
+    bottom: nth($box-edge-values, 3),
+    left:   nth($box-edge-values, 4),
+  );
+
+  position: $position;
+
+  @each $offset, $value in $offsets {
+    @if _is-length($value) {
+      #{$offset}: $value;
+    }
+  }
+}
