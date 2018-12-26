@@ -25,6 +25,7 @@ export class DatabaseService {
 		return DatabaseService.createDb(DatabaseService.dbPath).pipe(
 			flatMap((newDB) => {
 				DatabaseService.db = newDB;
+				DatabaseService.db.run(`PRAGMA foreign_keys = true`);
 				return DatabaseService.exec(schema);
 			})
 		)

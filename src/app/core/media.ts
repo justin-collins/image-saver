@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 export class Media {
 	protected id: number;
 	public url: string;
+	public type: MediaType;
 
 	public static get(id: number): Observable<Media> {
 		const sql = 'SELECT * FROM media WHERE id = $id';
@@ -16,8 +17,8 @@ export class Media {
 	}
 
 	public insert(): Observable<Media> {
-		const sql = 'INSERT INTO media (url) VALUES ($url)';
-		const values = { $url: this.url };
+		const sql = 'INSERT INTO media (url, type) VALUES ($url, $type)';
+		const values = { $url: this.url, $type: this.type };
 
 		return DatabaseService.insert(sql, values).pipe(
 			map((result) => {
@@ -33,4 +34,10 @@ export class Media {
 
         return this;
     }
+}
+
+export enum MediaType {
+	Image = 'Image',
+	Gif = 'Gif',
+	Video = 'Video'
 }

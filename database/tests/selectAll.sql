@@ -1,1 +1,3 @@
-select * from media
+select * from media;
+
+select * from mediaType;
