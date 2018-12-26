@@ -1,5 +1,5 @@
 import { DatabaseService } from './core/database.service';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 
 @Component({
 	selector: 'isvr-root',
@@ -7,7 +7,12 @@ import { Component } from '@angular/core';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-	constructor( ) {
-		DatabaseService.initialize();
+	public loading: boolean = true;
+
+	constructor(private changeDetection: ChangeDetectorRef) {
+		DatabaseService.initialize().subscribe(() => {
+			this.loading = false;
+			changeDetection.detectChanges();
+		});
 	}
 }

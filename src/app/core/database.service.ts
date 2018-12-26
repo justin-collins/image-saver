@@ -18,24 +18,22 @@ export class DatabaseService {
 
 	constructor() { }
 
-	public static initialize(): void {
+	public static initialize(): Observable<any> {
 		DatabaseService.initPaths();
-		console.log(DatabaseService.dbPath);
+
+		const schema = fs.readFileSync(DatabaseService.schemaPath, { encoding: 'utf8' });
+		return DatabaseService.createDb(DatabaseService.dbPath).pipe(
+			flatMap((newDB) => {
+				DatabaseService.db = newDB;
+				return DatabaseService.exec(schema);
+			})
+		)
 	}
-	// 	const schema = fs.readFileSync(DatabaseService.schemaPath, { encoding: 'utf8' });
-	// 	DatabaseService.createDb(DatabaseService.dbPath).pipe(
-	// 		flatMap((newDB) => {
-	// 			DatabaseService.db = newDB;
-	// 			return DatabaseService.exec(schema);
-	// 		})
-	// 	).subscribe();
-	// }
 
 	private static initPaths(): void {
-		const rootPath = remote.app.getAppPath();
-		const appPath = rootPath.slice(0, rootPath.indexOf('node_modules'));
+		const appPath = remote.app.getAppPath();
 		DatabaseService.dbFolder = path.join(appPath, 'database');
-		DatabaseService.dbPath = path.join(DatabaseService.dbFolder, 'database.sql');
+		DatabaseService.dbPath = path.join(DatabaseService.dbFolder, 'database.db');
 		DatabaseService.schemaPath = path.join(DatabaseService.dbFolder, 'database.schema.sql');
 	}
 
@@ -52,17 +50,72 @@ export class DatabaseService {
 		});
 	}
 
-	// private static exec(sql: string): Observable<void> {
-	// 	return Observable.create((observer) => {
-	// 		DatabaseService.db.exec(sql, (err) => {
-	// 			if (err) {
-	// 				observer.error(err);
-	// 			} else {
-	// 				observer.next();
-	// 				observer.complete();
-	// 			}
-	// 		});
-	// 	});
-	// }
+	private static exec(sql: string): Observable<void> {
+		return Observable.create((observer) => {
+			DatabaseService.db.exec(sql, (err) => {
+				if (err) {
+					observer.error(err);
+				} else {
+					observer.next();
+					observer.complete();
+				}
+			});
+		});
+	}
 
+	private static change(sql: string, values: {}): Observable<dbResult> {
+		return Observable.create((observer) => {
+			DatabaseService.db.run(sql, values, function (err) {
+				if (err) {
+					observer.error(err);
+				} else {
+					observer.next({ changes: this.changes, lastID: this.lastID });
+					observer.complete();
+				}
+			});
+		});
+	}
+
+	public static selectOne(sql: string, values: {}): Observable<{}> {
+		return Observable.create((observer) => {
+			DatabaseService.db.get(sql, values, (err, row) => {
+				if (err) {
+					observer.error(err);
+				} else {
+					observer.next(row);
+					observer.complete();
+				}
+			});
+		});
+	}
+
+	public static selectAll(sql: string, values: {}): Observable<Array<{}>> {
+		return Observable.create((observer) => {
+			DatabaseService.db.all(sql, values, (err, rows) => {
+				if (err) {
+					observer.error(err);
+				} else {
+					observer.next(rows);
+					observer.complete();
+				}
+			});
+		});
+	}
+
+	public static insert(sql: string, values: {}): Observable<dbResult> {
+		return DatabaseService.change(sql, values);
+	}
+
+	public static update(sql: string, values: {}): Observable<dbResult> {
+		return DatabaseService.change(sql, values);
+	}
+
+	public static delete(sql: string, values: {}): Observable<dbResult> {
+		return DatabaseService.change(sql, values);
+	}
+}
+
+export interface dbResult {
+    changes: number;
+    lastID: number;
 }

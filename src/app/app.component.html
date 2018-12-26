@@ -1,1 +1,8 @@
-<router-outlet></router-outlet>
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+
+<mat-sidenav-container class="mat-typography" *ngIf="!loading">
+	<mat-sidenav mode="side" opened>Sidenav content</mat-sidenav>
+	<mat-sidenav-content>
+		<router-outlet></router-outlet>
+	</mat-sidenav-content>
+</mat-sidenav-container>
