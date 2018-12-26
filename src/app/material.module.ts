@@ -2,20 +2,38 @@ import { NgModule } from '@angular/core';
 
 import {
 	MatButtonModule,
+	MatCardModule,
+	MatDialogModule,
+	MatIconModule,
+	MatInputModule,
+	MatListModule,
 	MatProgressBarModule,
-	MatSidenavModule
+	MatSidenavModule,
+	MatSnackBarModule
 } from '@angular/material';
 
 @NgModule({
 	imports: [
 		MatButtonModule,
+		MatCardModule,
+		MatDialogModule,
+		MatIconModule,
+		MatInputModule,
+		MatListModule,
 		MatProgressBarModule,
-		MatSidenavModule
+		MatSidenavModule,
+		MatSnackBarModule
 	],
 	exports: [
 		MatButtonModule,
+		MatCardModule,
+		MatDialogModule,
+		MatIconModule,
+		MatInputModule,
+		MatListModule,
 		MatProgressBarModule,
-		MatSidenavModule
+		MatSidenavModule,
+		MatSnackBarModule
 	]
 })
 export class ImageViewerMaterialModule { }

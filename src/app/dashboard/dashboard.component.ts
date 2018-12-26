@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Media, MediaType } from '../core/media';
+import { Component, OnInit, NgZone } from '@angular/core';
+import { Media } from '../core/media';
 
 @Component({
 	selector: 'isvr-dashboard',
@@ -7,10 +7,15 @@ import { Media, MediaType } from '../core/media';
 	styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+	public media: Media[];
 
-	constructor() { }
+	constructor(private _ngZone: NgZone) { }
 
 	ngOnInit() {
+		Media.getAll().subscribe((results) => {
+			this._ngZone.run(() => {
+				this.media = results;
+			}
+		});
 	}
-
 }

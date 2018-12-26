@@ -1,0 +1,42 @@
+@import 'includes';
+
+:host {
+	display: block;
+}
+
+.isvr-alert {
+	padding: 12px 20px;
+	border: 1px solid transparent;
+
+	&.info {
+		background-color: #d9edf7;
+		border-color: #bcdff1;
+		color: #31708f;
+	}
+
+	&.warning {
+		background-color: #fcf8e3;
+		border-color: #faf2cc;
+		color: #8a6d3b;
+	}
+
+	&.success {
+		background-color: #dff0d8;
+		border-color: #d0e9c6;
+		color: #3c763d;
+	}
+
+	&.danger {
+		background-color: #f2dede;
+		border-color: #ebcccc;
+		color: #a94442;
+	}
+
+	::ng-deep a {
+		color: #15658a;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}

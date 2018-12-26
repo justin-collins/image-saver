@@ -1,5 +1,5 @@
 import { DatabaseService } from './core/database.service';
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 
 @Component({
 	selector: 'isvr-root',
@@ -9,10 +9,11 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 export class AppComponent {
 	public loading: boolean = true;
 
-	constructor(private changeDetection: ChangeDetectorRef) {
+	constructor(private _ngZone: NgZone) {
 		DatabaseService.initialize().subscribe(() => {
-			this.loading = false;
-			changeDetection.detectChanges();
+			this._ngZone.run(() => {
+				this.loading = false;
+			});
 		});
 	}
 }

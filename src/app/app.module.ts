@@ -6,6 +6,8 @@ import { ImageViewerMaterialModule } from './material.module';
 import { ISVRRoutingModule } from './app.routing';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
 	declarations: [
@@ -15,7 +17,9 @@ import { CoreModule } from './core/core.module';
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
+		FormsModule,
 		CoreModule,
+		SharedModule,
 		ISVRRoutingModule,
 		ImageViewerMaterialModule
 	],

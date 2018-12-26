@@ -1,3 +1,5 @@
-<p>
-  dashboard works!
-</p>
+<isvr-preview-large *ngFor="let singleMedia of media" [media]="singleMedia"></isvr-preview-large>
+
+<button mat-fab isvrNewMediaButton class="add-btn" matTooltip="Add New Media" matTooltipPosition="left">
+	<mat-icon>add</mat-icon>
+</button>
