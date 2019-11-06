@@ -12,10 +12,12 @@ export class DashboardComponent implements OnInit {
 	constructor(private _ngZone: NgZone) { }
 
 	ngOnInit() {
-		Media.getAll().subscribe((results) => {
-			this._ngZone.run(() => {
-				this.media = results;
-			});
+		Media.getAll().subscribe(this.mediaLoaded);
+	}
+
+	private mediaLoaded = (mediaResponse: Media[]): void => {
+		this._ngZone.run(() => {
+			this.media = mediaResponse;
 		});
 	}
 }

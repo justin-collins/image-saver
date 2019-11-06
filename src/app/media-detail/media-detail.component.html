@@ -1,0 +1,5 @@
+<div *ngIf="media">
+	<img [src]="media.url" [alt]="media.title">
+</div>
+
+<mat-progress-bar mode="indeterminate"  *ngIf="!media"></mat-progress-bar>

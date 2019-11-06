@@ -4,10 +4,10 @@ import { Observable } from "rxjs";
 import { MediaType } from "./mediaType";
 
 export class Media {
-	protected id: number;
+	public id: number;
 	public title: string;
 	public url: string;
-	protected type: MediaType;
+	public type: MediaType;
 
 	public static getAll(): Observable<Media[]> {
 		const sql = 'SELECT * FROM media';

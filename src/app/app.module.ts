@@ -8,11 +8,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { MediaDetailComponent } from './media-detail/media-detail.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		DashboardComponent
+		DashboardComponent,
+		MediaDetailComponent
 	],
 	imports: [
 		BrowserModule,

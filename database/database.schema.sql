@@ -7,9 +7,28 @@ INSERT OR IGNORE INTO mediaType(type) VALUES ('IMAGE'), ('GIF'), ('VIDEO'), ('AU
 
 CREATE TABLE IF NOT EXISTS `media` (
 	`id`	INTEGER PRIMARY KEY,
-	'title'	TEXT,
+	`title`	TEXT,
 	`url`	TEXT NOT NULL,
-	'type'	Text NOT NULL REFERENCES mediaType(type)
+	`type`	Text NOT NULL REFERENCES mediaType(type),
+	`created_at` DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS `tagType` (
+	`type`	TEXT PRIMARY KEY NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `tags` (
+	`id`	INTEGER PRIMARY KEY,
+	`title`	TEXT NOT NULL,
+	`type`	TEXT NOT NULL REFERENCES tagType(type)
+);
+
+CREATE TABLE IF NOT EXISTS `mediaTagMap` (
+	`id`	INTEGER PRIMARY KEY,
+	`media_id` INTEGER,
+	`tag_id` INTEGER,
+	FOREIGN KEY(`media_id`) REFERENCES media(`id`),
+	FOREIGN KEY(`tag_id`) REFERENCES tags(`id`)
 );
 
 COMMIT;
