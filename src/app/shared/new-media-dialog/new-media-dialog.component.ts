@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Media } from 'src/app/core/media';
 import { MessagingService } from 'src/app/core/messaging.service';
 

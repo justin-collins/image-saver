@@ -1,5 +1,5 @@
 import { Directive, Output, EventEmitter, HostListener } from '@angular/core';
-import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NewMediaDialogComponent } from './new-media-dialog/new-media-dialog.component';
 
 @Directive({
