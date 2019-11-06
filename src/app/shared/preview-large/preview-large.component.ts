@@ -12,7 +12,6 @@ export class PreviewLargeComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
-		console.log(this.media);
 		if (!this.media) {
 			console.error('A media must be provided for the preview component');
 		}

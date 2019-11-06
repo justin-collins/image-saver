@@ -1,6 +1,7 @@
 import { DatabaseService } from "./database.service";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
+import { MediaType } from "./mediaType";
 
 export class Media {
 	protected id: number;
@@ -61,9 +62,10 @@ export class Media {
 			return;
 		}
 
-		if (this.urlIsImage(this.url)) return MediaType.Image;
-		else if (this.urlIsGif(this.url)) return MediaType.Gif;
-		else if (this.urlIsVideo(this.url)) return MediaType.Video;
+		if (this.urlIsImage(this.url)) return MediaType.IMAGE;
+		else if (this.urlIsGif(this.url)) return MediaType.GIF;
+		else if (this.urlIsVideo(this.url)) return MediaType.VIDEO;
+		else if (this.urlIsAudio(this.url)) return MediaType.AUDIO;
 		else console.error('Unknown file extension');
 	}
 
@@ -82,6 +84,11 @@ export class Media {
 		return (match && match.length > 0) ? true : false;
 	}
 
+	private urlIsAudio(url: string): boolean {
+		let match = url.match(/^((https?|ftp):)?\/\/.*(mp3)$/);
+		return (match && match.length > 0) ? true : false;
+	}
+
 	public inferTitleFromUrl(): string {
 		if (!this.url) return '';
 
@@ -97,10 +104,4 @@ export class Media {
 
         return this;
     }
-}
-
-export enum MediaType {
-	Image = 'Image',
-	Gif = 'Gif',
-	Video = 'Video'
 }

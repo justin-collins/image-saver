@@ -3,7 +3,7 @@ BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS `mediaType` (
 	`type`	TEXT PRIMARY KEY NOT NULL
 );
-INSERT OR IGNORE INTO mediaType(type) VALUES ('Image'), ('Gif'), ('Video');
+INSERT OR IGNORE INTO mediaType(type) VALUES ('IMAGE'), ('GIF'), ('VIDEO'), ('AUDIO');
 
 CREATE TABLE IF NOT EXISTS `media` (
 	`id`	INTEGER PRIMARY KEY,

@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
 		Media.getAll().subscribe((results) => {
 			this._ngZone.run(() => {
 				this.media = results;
-			}
+			});
 		});
 	}
 }
