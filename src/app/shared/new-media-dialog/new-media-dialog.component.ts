@@ -27,7 +27,7 @@ export class NewMediaDialogComponent implements OnInit {
 		this.mediaService.insert(this.newMedia).subscribe(() => {
 			this._ngZone.run(() => {
 				this.messagingService.message('Media Saved!');
-				this.dialogRef.close();
+				this.dialogRef.close(this.newMedia);
 			});
 		});
 	}

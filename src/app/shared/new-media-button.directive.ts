@@ -25,7 +25,7 @@ export class NewMediaButtonDirective {
 
 		this.newMediaDialogRef = this.dialog.open(NewMediaDialogComponent, this.newMediaDialogConfig);
 		this.newMediaDialogRef.afterClosed().subscribe((result) => {
-			if (result) this.mediaSaved.emit(true);
+			if (result) this.mediaSaved.emit(result);
 			this.newMediaDialogRef = null;
 		});
 	}

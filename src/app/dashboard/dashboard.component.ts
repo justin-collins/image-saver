@@ -16,6 +16,10 @@ export class DashboardComponent implements OnInit {
 				private _ngZone: NgZone) { }
 
 	ngOnInit() {
+		this.loadAllMedia();
+	}
+
+	private loadAllMedia(): void {
 		this.mediaService.getAll().subscribe(this.mediaLoaded);
 	}
 
@@ -23,5 +27,9 @@ export class DashboardComponent implements OnInit {
 		this._ngZone.run(() => {
 			this.media = mediaResponse;
 		});
+	}
+
+	public newMediaAdded(newMedia: Media): void {
+		this.media.unshift(newMedia);
 	}
 }

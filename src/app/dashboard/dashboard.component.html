@@ -6,6 +6,6 @@
 
 <h2 *ngIf="media && media.length === 0">Use the button below to add Media</h2>
 
-<button mat-fab isvrNewMediaButton class="add-btn" matTooltip="Add New Media" matTooltipPosition="left">
+<button mat-fab isvrNewMediaButton class="add-btn" matTooltip="Add New Media" matTooltipPosition="left" (mediaSaved)="newMediaAdded($event)">
 	<mat-icon>add</mat-icon>
 </button>
