@@ -1,0 +1,16 @@
+@import 'includes';
+
+.image-frame {
+	@include size(100%, 100%);
+
+	.image {
+		@include size(100%, 100%);
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+
+	.video {
+		@include size(100%, 100%);
+	}
+}

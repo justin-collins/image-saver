@@ -1,5 +1,6 @@
-<div *ngIf="media">
-	<img [src]="media.url" [alt]="media.title">
+<div class="image-frame" *ngIf="media">
+	<div *ngIf="media.type === mediaType.IMAGE || media.type === mediaType.GIF" class="image" [ngStyle]="{'background-image': 'url(' + media.url + ')'}"></div>
+	<video *ngIf="media.type === mediaType.VIDEO" class="video" [src]="media.url" autoplay loop controls></video>
 </div>
 
 <mat-progress-bar mode="indeterminate"  *ngIf="!media"></mat-progress-bar>

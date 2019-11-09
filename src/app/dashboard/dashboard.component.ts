@@ -9,6 +9,8 @@ import { Media } from '../core/media';
 export class DashboardComponent implements OnInit {
 	public media: Media[];
 
+	public numCols: number = 4;
+
 	constructor(private _ngZone: NgZone) { }
 
 	ngOnInit() {

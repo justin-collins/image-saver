@@ -1,6 +1,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Media } from '../core/media';
 import { ActivatedRoute } from '@angular/router';
+import { MediaType } from '../core/mediaType';
 
 @Component({
 	selector: 'isvr-media-detail',
@@ -9,6 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MediaDetailComponent implements OnInit {
 	public media: Media;
+
+	public mediaType = MediaType;
 
 	constructor(private activatedRoute: ActivatedRoute,
 		private _ngZone: NgZone) {

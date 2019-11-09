@@ -4,3 +4,9 @@
 	display: inline-block;
 	@include position(fixed, null 20px 20px null);
 }
+
+mat-grid-tile {
+	::ng-deep .mat-figure {
+		align-items: start;
+	}
+}

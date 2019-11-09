@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Media } from 'src/app/core/media';
 import { Router } from '@angular/router';
+import { MediaType } from 'src/app/core/mediaType';
 
 @Component({
 	selector: 'isvr-preview-large',
@@ -9,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class PreviewLargeComponent implements OnInit {
 	@Input() media: Media;
+
+	public mediaType = MediaType;
 
 	constructor(private router: Router) { }
 

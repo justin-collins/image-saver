@@ -1,4 +1,8 @@
-<isvr-preview-large *ngFor="let singleMedia of media" [media]="singleMedia"></isvr-preview-large>
+<mat-grid-list [cols]="numCols" rowHeight="1:1.5" gutterSize="0.5%">
+	<mat-grid-tile *ngFor="let singleMedia of media">
+		<isvr-preview-large [media]="singleMedia"></isvr-preview-large>
+	</mat-grid-tile>
+</mat-grid-list>
 
 <button mat-fab isvrNewMediaButton class="add-btn" matTooltip="Add New Media" matTooltipPosition="left">
 	<mat-icon>add</mat-icon>
