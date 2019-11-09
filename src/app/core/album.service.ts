@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Album } from './album';
 import { DatabaseService } from './database.service';
 import { map } from 'rxjs/operators';
+import { Media } from './media';
 
 @Injectable({
 	providedIn: 'root'
@@ -35,6 +36,21 @@ export class AlbumService {
 		);
 	}
 
+	public getAllMedia(album: Album): Observable<Media[]> {
+		const sql = `SELECT media.id, media.title, media.type, media.url FROM mediaAlbumsMap INNER JOIN media ON media.id == mediaAlbumsMap.media_id WHERE mediaAlbumsMap.album_id == $albumId AND media.trashed == 0;`;
+		const values = { $albumId: album.id };
+
+		return DatabaseService.selectAll(sql, values).pipe(
+			map((rows) => {
+				const media: Media[] = [];
+				for (const row of rows) {
+					media.push(new Media().fromRow(row));
+				}
+				return media;
+			})
+		);
+	}
+
 	public insert(album: Album): Observable<Album> {
 		const sql = `INSERT INTO albums (title) VALUES ($title)`;
 		const values = { $title: album.title };
@@ -47,4 +63,15 @@ export class AlbumService {
 		);
 	}
 
+	public update(album: Album): Observable<Album> {
+		let albumCoverId = (album.cover)? album.cover.id : null;
+		const sql = `UPDATE albums SET title = $title, cover_media_id = $coverMediaId WHERE id == $albumId`;
+		const values = { $title: album.title, $coverMediaId: albumCoverId, $albumId: album.id };
+
+		return DatabaseService.update(sql, values).pipe(
+			map(() => {
+				return album;
+			})
+		);
+	}
 }

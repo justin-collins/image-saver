@@ -13,6 +13,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlbumPreviewComponent } from './album-preview/album-preview.component';
 import { NewAlbumDialogComponent } from './new-album-dialog/new-album-dialog.component';
 import { NewAlbumButtonDirective } from './new-album-button.directive';
+import { MediaSelectorDialogComponent } from './media-selector-dialog/media-selector-dialog.component';
+import { EditAlbumDialogComponent } from './edit-album-dialog/edit-album-dialog.component';
+import { EditAlbumButtonDirective } from './edit-album-button.directive';
 
 @NgModule({
 	imports: [
@@ -31,7 +34,8 @@ import { NewAlbumButtonDirective } from './new-album-button.directive';
 		AlertComponent,
 		AlbumPreviewComponent,
 		NewAlbumButtonDirective,
-		NewAlbumDialogComponent
+		NewAlbumDialogComponent,
+		EditAlbumButtonDirective
 	],
 	declarations: [
 		PreviewLargeComponent,
@@ -42,12 +46,16 @@ import { NewAlbumButtonDirective } from './new-album-button.directive';
 		AlertComponent,
 		AlbumPreviewComponent,
 		NewAlbumButtonDirective,
-		NewAlbumDialogComponent
+		NewAlbumDialogComponent,
+		MediaSelectorDialogComponent,
+		EditAlbumDialogComponent,
+		EditAlbumButtonDirective
 	],
 	entryComponents: [
 		NewMediaDialogComponent,
 		ConfirmDialogComponent,
-		NewAlbumDialogComponent
+		NewAlbumDialogComponent,
+		EditAlbumDialogComponent
 	]
 })
 export class SharedModule { }

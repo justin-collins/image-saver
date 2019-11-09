@@ -22,8 +22,8 @@ export class MediaService {
 	}
 
 	private getBulk(trashed: boolean = false): Observable<Media[]> {
-		const sql = `SELECT * FROM media WHERE trashed == ${trashed} ORDER BY created_at DESC`;
-		const values = {};
+		const sql = `SELECT * FROM media WHERE trashed == $trashed ORDER BY created_at DESC`;
+		const values = {$trashed: trashed};
 
 		return DatabaseService.selectAll(sql, values).pipe(
 			map((rows) => {
@@ -68,9 +68,9 @@ export class MediaService {
 	}
 
 	private changeTrashed(media: Media, trashed: boolean): Observable<Media> {
-		let trashedAtValue = (trashed)? 'CURRENT_TIMESTAMP' : 'NULL';
-		const sql = `UPDATE media SET trashed = ${trashed}, trashed_at = ${trashedAtValue} WHERE id == ${media.id}`;
-		const values = {};
+		let trashedAtValue = (trashed)? 'CURRENT_TIMESTAMP' : null;
+		const sql = `UPDATE media SET trashed = $trashed, trashed_at = $trashedAtValue WHERE id == $mediaId`;
+		const values = {$trashed: trashed, $trashedAtValue: trashedAtValue,  $mediaId: media.id};
 
 		return DatabaseService.update(sql, values).pipe(
 			map(() => {
@@ -81,8 +81,8 @@ export class MediaService {
 	}
 
 	public delete(media: Media): Observable<boolean> {
-		const sql = `DELETE from media WHERE id == ${media.id}`;
-		const values = {};
+		const sql = `DELETE from media WHERE id == $mediaId`;
+		const values = {$mediaId: media.id};
 
 		return DatabaseService.delete(sql, values).pipe(
 			map(() => {

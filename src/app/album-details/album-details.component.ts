@@ -2,6 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { Album } from '../core/album';
 import { AlbumService } from '../core/album.service';
 import { ActivatedRoute } from '@angular/router';
+import { Media } from '../core/media';
 
 @Component({
 	selector: 'isvr-album-details',
@@ -10,6 +11,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AlbumDetailsComponent implements OnInit {
 	public album: Album;
+	public media: Media[];
+
+	public numCols: number = 5;
 
 	constructor(private albumService: AlbumService,
 		private activatedRoute: ActivatedRoute,
@@ -32,10 +36,24 @@ export class AlbumDetailsComponent implements OnInit {
 		this.albumService.get(albumId).subscribe(this.albumLoaded);
 	}
 
-	private albumLoaded = (albumResponse): void => {
+	private albumLoaded = (albumResponse: Album): void => {
 		this._ngZone.run(() => {
 			this.album = albumResponse;
+			this.loadAlbumMedia();
 		});
 	}
 
+	private loadAlbumMedia(): void {
+		this.albumService.getAllMedia(this.album).subscribe(this.mediaLoaded);
+	}
+
+	private mediaLoaded = (mediaResponse: Media[]): void => {
+		this._ngZone.run(() => {
+			this.media = mediaResponse;
+		});
+	}
+
+	public albumEdited(editedAlbum: Album): void {
+		this.album = editedAlbum;
+	}
 }

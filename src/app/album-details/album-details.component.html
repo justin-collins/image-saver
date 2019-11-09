@@ -1,1 +1,12 @@
-<p>album-details works!</p>
+<div *ngIf="album && media">
+	<div class="info">
+		<h1>{{album.title}}&nbsp;&nbsp;<button mat-icon-button matTooltip="Edit Album" isvrEditAlbumButton [album]="album" (albumSaved)="albumEdited($event)"><mat-icon>edit</mat-icon></button></h1>
+		<p>{{media.length}} Item{{media.length > 1 ? 's' : ''}}</p>
+	</div>
+
+	<mat-grid-list [cols]="numCols" gutterSize="0.5%">
+		<mat-grid-tile *ngFor="let singleMedia of media">
+			<isvr-preview-large [media]="singleMedia" (mediaTrashed)="mediaRemoved($event)"></isvr-preview-large>
+		</mat-grid-tile>
+	</mat-grid-list>
+</div>
