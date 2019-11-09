@@ -4,6 +4,7 @@ import { DatabaseService } from './database.service';
 import { ImageViewerMaterialModule } from '../material.module';
 import { MessagingService } from './messaging.service';
 import { MediaService } from './media.service';
+import { AlbumService } from './album.service';
 
 @NgModule({
 	declarations: [],
@@ -14,7 +15,8 @@ import { MediaService } from './media.service';
 	providers: [
 		DatabaseService,
 		MessagingService,
-		MediaService
+		MediaService,
+		AlbumService
 	]
 })
 export class CoreModule { }

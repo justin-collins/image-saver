@@ -14,8 +14,8 @@ var dialog = require('electron');
 export class NewMediaDialogComponent implements OnInit {
 	public newMedia: Media;
 
-	constructor(private mediaService: MediaService,
-				public dialogRef: MatDialogRef<NewMediaDialogComponent>,
+	constructor(public dialogRef: MatDialogRef<NewMediaDialogComponent>,
+				private mediaService: MediaService,
 				private messagingService: MessagingService,
 				private _ngZone: NgZone) {
 		this.newMedia = new Media();

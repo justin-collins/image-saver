@@ -10,6 +10,9 @@ import { FormsModule } from '@angular/forms';
 import { AlertComponent } from './alert/alert.component';
 import { CoreModule } from '../core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AlbumPreviewComponent } from './album-preview/album-preview.component';
+import { NewAlbumDialogComponent } from './new-album-dialog/new-album-dialog.component';
+import { NewAlbumButtonDirective } from './new-album-button.directive';
 
 @NgModule({
 	imports: [
@@ -25,7 +28,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 		NewMediaButtonDirective,
 		ConfirmDialogComponent,
 		ConfirmButtonDirective,
-		AlertComponent
+		AlertComponent,
+		AlbumPreviewComponent,
+		NewAlbumButtonDirective,
+		NewAlbumDialogComponent
 	],
 	declarations: [
 		PreviewLargeComponent,
@@ -33,11 +39,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 		NewMediaDialogComponent,
 		ConfirmButtonDirective,
 		ConfirmDialogComponent,
-		AlertComponent
+		AlertComponent,
+		AlbumPreviewComponent,
+		NewAlbumButtonDirective,
+		NewAlbumDialogComponent
 	],
 	entryComponents: [
 		NewMediaDialogComponent,
-		ConfirmDialogComponent
+		ConfirmDialogComponent,
+		NewAlbumDialogComponent
 	]
 })
 export class SharedModule { }

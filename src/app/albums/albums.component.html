@@ -1,1 +1,11 @@
-<p>albums works!</p>
+<mat-grid-list [cols]="numCols" gutterSize="0.5%">
+	<mat-grid-tile *ngFor="let album of albums">
+		<isvr-album-preview [album]="album"></isvr-album-preview>
+	</mat-grid-tile>
+</mat-grid-list>
+
+<h2 *ngIf="albums && albums.length === 0">Use the button below to add an Album</h2>
+
+<button mat-fab isvrNewAlbumButton class="add-btn" matTooltip="Add New Album" matTooltipPosition="left" (albumSaved)="newAlbumAdded($event)">
+	<mat-icon>add</mat-icon>
+</button>

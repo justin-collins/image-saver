@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MediaDetailComponent } from './media-detail/media-detail.component';
 import { AlbumsComponent } from './albums/albums.component';
 import { TrashComponent } from './trash/trash.component';
+import { AlbumDetailsComponent } from './album-details/album-details.component';
 
 const routes: Routes = [
 	{ path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -18,6 +19,10 @@ const routes: Routes = [
 	{
 		path: 'albums',
 		component: AlbumsComponent
+	},
+	{
+		path: 'albums/:albumId/detail',
+		component: AlbumDetailsComponent
 	},
 	{
 		path: 'trash',

@@ -1,0 +1,60 @@
+@import 'includes';
+
+:host {
+	@include size(100%, 100%);
+	display: block;
+}
+
+.container,
+.media-frame,
+.image,
+.video,
+.filler {
+	@include size(100%, 100%);
+}
+
+.container {
+	position: relative;
+	padding: 5px;
+	cursor: pointer;
+	background-color: transparent;
+	transition: background-color 150ms ease-out;
+
+	.media-frame {
+		position: relative;
+	}
+
+	&:hover {
+		background-color: lightblue;
+	}
+}
+
+.video {
+	background-color: black;
+}
+
+.image {
+	background-color: black;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.filler {
+	background-color: gray;
+	text-align: center;
+
+	mat-icon {
+		@include mat-icon-size(250px);
+		color: #fff;
+	}
+}
+
+.title {
+	@include position(absolute, null null 5px 5px);
+	width: calc(100% - 10px);
+	padding: 10px;
+	background-color: rgba(0, 0, 0, 0.5);
+	color: #fff;
+	z-index: 2;
+}
