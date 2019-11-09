@@ -6,7 +6,7 @@
 				<video *ngIf="singleMedia.type === mediaType.VIDEO" class="video" [src]="singleMedia.url" autoplay loop></video>
 			</div>
 			<h4 mat-line>{{singleMedia.title}}</h4>
-			<p mat-line> Created: {{singleMedia.createdAt | date:'short'}} </p>
+			<p mat-line> Trashed: {{singleMedia.trashedAt | date:'short'}} </p>
 			<div class="actions">
 				<button mat-icon-button matTooltip="Permanently Delete" (click)="preventDefault($event)" isvrConfirmButton message="Permanently Delete '{{singleMedia.title}}?'" (onConfirmed)="permanentlyDelete(singleMedia)"><mat-icon>delete_outline</mat-icon></button>
 				<button mat-icon-button matTooltip="Restore" (click)="restore(singleMedia); preventDefault($event)"><mat-icon>restore</mat-icon></button>

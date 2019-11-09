@@ -4,8 +4,23 @@
 	display: block;
 	@include size(300px, 100%);
 	padding: 20px;
+	background-color: lightgray;
 
 	@include MQ(M) {
 		width: 200px;
 	}
+}
+
+h3 {
+	margin: 0;
+	padding: 5px 0;
+}
+
+p {
+	margin: 0;
+	padding: 0;
+}
+
+.timestamp {
+	@include text-format(12px);
 }

@@ -68,7 +68,8 @@ export class MediaService {
 	}
 
 	private changeTrashed(media: Media, trashed: boolean): Observable<Media> {
-		const sql = `UPDATE media SET trashed = ${trashed} WHERE id == ${media.id}`;
+		let trashedAtValue = (trashed)? 'CURRENT_TIMESTAMP' : 'NULL';
+		const sql = `UPDATE media SET trashed = ${trashed}, trashed_at = ${trashedAtValue} WHERE id == ${media.id}`;
 		const values = {};
 
 		return DatabaseService.update(sql, values).pipe(

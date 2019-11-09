@@ -34,7 +34,6 @@ export class NewMediaDialogComponent implements OnInit {
 	}
 
 	public getLocalFileUrl(event): void {
-		console.log(event);
 		this.newMedia.url = 'file://' + event.target.files[0].path;
 	}
 }

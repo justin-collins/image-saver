@@ -7,6 +7,7 @@ export class Media {
 	public type: MediaType;
 	public trashed: Boolean;
 	public createdAt: Date;
+	public trashedAt: Date;
 
 	public fromRow(row: object): Media {
         this.id = row['id'];
@@ -14,7 +15,8 @@ export class Media {
         this.url = row['url'];
 		this.type = row['type'];
 		this.trashed = row['trashed'];
-		this.createdAt = row['created_at'];
+		this.createdAt = new Date(row['created_at'] + 'Z');
+		this.trashedAt = new Date(row['trashed_at'] + 'Z');
 
         return this;
     }
