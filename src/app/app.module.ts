@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { MediaDetailComponent } from './media-detail/media-detail.component';
 import { AlbumsComponent } from './albums/albums.component';
 import { TrashComponent } from './trash/trash.component';
+import { MediaDetailDrawerComponent } from './media-detail/media-detail-drawer/media-detail-drawer.component';
 
 @NgModule({
 	declarations: [
@@ -18,7 +19,8 @@ import { TrashComponent } from './trash/trash.component';
 		DashboardComponent,
 		MediaDetailComponent,
 		AlbumsComponent,
-		TrashComponent
+		TrashComponent,
+		MediaDetailDrawerComponent
 	],
 	imports: [
 		BrowserModule,

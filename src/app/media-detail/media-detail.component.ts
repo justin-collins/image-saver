@@ -3,16 +3,19 @@ import { Media } from '../core/media';
 import { ActivatedRoute } from '@angular/router';
 import { MediaType } from '../core/mediaType';
 import { MediaService } from '../core/media.service';
+import { ISVRAnimations } from '../shared/animations';
 
 @Component({
 	selector: 'isvr-media-detail',
 	templateUrl: './media-detail.component.html',
-	styleUrls: ['./media-detail.component.scss']
+	styleUrls: ['./media-detail.component.scss'],
+	animations: [ISVRAnimations.drawerOpen]
 })
 export class MediaDetailComponent implements OnInit {
 	public media: Media;
 
 	public mediaType = MediaType;
+	public drawerIsOpen: boolean = false;
 
 	constructor(private mediaService: MediaService,
 		private activatedRoute: ActivatedRoute,
@@ -41,4 +44,7 @@ export class MediaDetailComponent implements OnInit {
 		});
 	}
 
+	public toggleDrawer(): void {
+		this.drawerIsOpen = !this.drawerIsOpen;
+	}
 }

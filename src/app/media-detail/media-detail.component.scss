@@ -1,5 +1,9 @@
 @import 'includes';
 
+mat-sidenav-content {
+	padding-right: 20px; //space for drawer
+}
+
 .media-frame {
 	@include size(100%, 100%);
 	background-color: black;
@@ -13,5 +17,33 @@
 
 	.video {
 		@include size(100%, 100%);
+	}
+}
+
+.drawer-toggle-btn {
+	width: 26px;
+	height: calc(100% - 64px);
+	@include position(fixed, 64px 0 null null);
+	z-index: 20;
+	color: #5E5F60;
+	background-color: #F3F4F5;
+	border: 1px solid #c4c5c6;
+	cursor: pointer;
+	transition: background-color 150ms ease-out;
+
+	.chevron {
+		@include position(absolute, 50% 0 null null);
+		transform-origin: 50% 50%;
+		transform: rotate(0);
+	}
+
+	&.open {
+		.chevron {
+			transform: rotate(-180deg);
+		}
+	}
+
+	&:hover {
+		background-color: darken(#F3F4F5, 3%);
 	}
 }

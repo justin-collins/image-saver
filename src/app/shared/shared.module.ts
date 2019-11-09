@@ -9,11 +9,13 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { FormsModule } from '@angular/forms';
 import { AlertComponent } from './alert/alert.component';
 import { CoreModule } from '../core/core.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		FormsModule,
+		BrowserAnimationsModule,
 		ImageViewerMaterialModule,
 		CoreModule
 	],

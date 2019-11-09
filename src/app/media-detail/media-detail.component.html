@@ -1,6 +1,18 @@
-<div class="media-frame" *ngIf="media">
-	<div *ngIf="media.type === mediaType.IMAGE || media.type === mediaType.GIF" class="image" [ngStyle]="{'background-image': 'url(' + media.url + ')'}"></div>
-	<video *ngIf="media.type === mediaType.VIDEO" class="video" [src]="media.url" autoplay loop controls></video>
-</div>
+<mat-sidenav-container>
+	<mat-sidenav-content>
+		<div class="media-frame" *ngIf="media">
+			<div *ngIf="media.type === mediaType.IMAGE || media.type === mediaType.GIF" class="image" [ngStyle]="{'background-image': 'url(' + media.url + ')'}"></div>
+			<video *ngIf="media.type === mediaType.VIDEO" class="video" [src]="media.url" autoplay loop controls></video>
+		</div>
 
-<mat-progress-bar mode="indeterminate"  *ngIf="!media"></mat-progress-bar>
+		<mat-progress-bar mode="indeterminate"  *ngIf="!media"></mat-progress-bar>
+
+		<div class="drawer-toggle-btn" (click)="toggleDrawer()" [ngClass]="{open:drawerIsOpen}" [@drawerOpen]="drawerIsOpen">
+			<mat-icon class="chevron">keyboard_arrow_left</mat-icon>
+		</div>
+	</mat-sidenav-content>
+
+	<mat-sidenav #sidenav mode="side" position="end" [opened]="drawerIsOpen">
+    	<isvr-media-detail-drawer [media]="media" *ngIf="media"></isvr-media-detail-drawer>
+  </mat-sidenav>
+</mat-sidenav-container>
