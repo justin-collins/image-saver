@@ -74,4 +74,15 @@ export class AlbumService {
 			})
 		);
 	}
+
+	public removeMedia(media: Media, album: Album): Observable<Album> {
+		const sql = `DELETE FROM mediaAlbumsMap WHERE album_id == $albumId AND media_id == $mediaId`;
+		const values = { $albumId: album.id, $mediaId: media.id };
+
+		return DatabaseService.update(sql, values).pipe(
+			map(() => {
+				return album;
+			})
+		);
+	}
 }

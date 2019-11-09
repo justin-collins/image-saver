@@ -4,13 +4,14 @@ import { Media } from './media';
 import { DatabaseService } from './database.service';
 import { map } from 'rxjs/operators';
 import { MediaType } from './mediaType';
+import { AlbumService } from './album.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class MediaService {
 
-	constructor() { }
+	constructor(private albumService: AlbumService) { }
 
 
 	public getAll(): Observable<Media[]> {
@@ -68,9 +69,9 @@ export class MediaService {
 	}
 
 	private changeTrashed(media: Media, trashed: boolean): Observable<Media> {
-		let trashedAtValue = (trashed)? 'CURRENT_TIMESTAMP' : null;
-		const sql = `UPDATE media SET trashed = $trashed, trashed_at = $trashedAtValue WHERE id == $mediaId`;
-		const values = {$trashed: trashed, $trashedAtValue: trashedAtValue,  $mediaId: media.id};
+		let trashedAtValue = (trashed)? 'CURRENT_TIMESTAMP' : 'NULL';
+		const sql = `UPDATE media SET trashed = $trashed, trashed_at = ${trashedAtValue} WHERE id == $mediaId`;
+		const values = {$trashed: trashed, $mediaId: media.id};
 
 		return DatabaseService.update(sql, values).pipe(
 			map(() => {
@@ -81,6 +82,10 @@ export class MediaService {
 	}
 
 	public delete(media: Media): Observable<boolean> {
+		// this.albumService.removeMedia(media.id).subscribe(()=>{
+
+		// });
+
 		const sql = `DELETE from media WHERE id == $mediaId`;
 		const values = {$mediaId: media.id};
 
