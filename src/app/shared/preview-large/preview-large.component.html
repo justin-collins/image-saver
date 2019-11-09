@@ -1,13 +1,18 @@
-<mat-card (click)="navigateToDetails()">
-	<mat-card-header>
-		<mat-card-title>{{media.title}}</mat-card-title>
-	</mat-card-header>
-	<img *ngIf="media.type === mediaType.IMAGE || media.type === mediaType.GIF" mat-card-image [src]="media.url" [alt]="media.title">
-	<video *ngIf="media.type === mediaType.VIDEO" mat-card-image [src]="media.url" autoplay loop></video>
-	<mat-card-actions>
-		<button mat-icon-button [matMenuTriggerFor]="actions" (click)="preventDefault($event)"><mat-icon>more_horiz</mat-icon></button>
-		<mat-menu #actions="matMenu" yPosition="above">
-			<button mat-menu-item (click)="trashMedia()">Trash</button>
-		</mat-menu>
-	</mat-card-actions>
-</mat-card>
+<div class="container" (click)="navigateToDetails()">
+
+
+	<div class="media-frame">
+		<div *ngIf="media.type === mediaType.IMAGE || media.type === mediaType.GIF" class="image" [ngStyle]="{'background-image': 'url(' + media.url + ')'}"></div>
+		<video *ngIf="media.type === mediaType.VIDEO" class="video" [src]="media.url" autoplay loop></video>
+	</div>
+
+	<div class="drawer">
+		<div class="title">{{media.title}}</div>
+		<div class="actions">
+			<button class="white" mat-icon-button [matMenuTriggerFor]="actions" (click)="preventDefault($event)"><mat-icon>more_horiz</mat-icon></button>
+			<mat-menu #actions="matMenu" yPosition="above">
+				<button mat-menu-item (click)="trashMedia()">Trash</button>
+			</mat-menu>
+		</div>
+	</div>
+</div>

@@ -2,6 +2,7 @@
 
 .media-frame {
 	@include size(100%, 100%);
+	background-color: black;
 
 	.image {
 		@include size(100%, 100%);

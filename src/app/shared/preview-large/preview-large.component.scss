@@ -1,16 +1,72 @@
-mat-card {
-	max-width: 400px;
+@import 'includes';
+
+:host {
+	@include size(100%, 100%);
+	display: block;
+}
+
+.container,
+.media-frame,
+.image,
+.video {
+	@include size(100%, 100%);
+}
+
+.container {
+	position: relative;
+	padding: 5px;
 	cursor: pointer;
+	background-color: transparent;
+	transition: background-color 150ms ease-out;
+	overflow: hidden;
 
-	.mat-card-image {
-		margin-bottom: 0;
-	}
-
-	.mat-card-actions {
-		padding: 0;
+	.media-frame {
+		position: relative;
+		bottom: 0;
+		z-index: 2;
+		transition: bottom 150ms ease-out;
 	}
 
 	&:hover {
 		background-color: lightblue;
+
+		.media-frame {
+			bottom: 60px;
+		}
+	}
+}
+
+.video {
+	background-color: black;
+}
+
+.image {
+	background-color: black;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.drawer {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	@include position(absolute, null 20px 10px null);
+
+	.title {
+		padding: 0 10px;
+		word-break: break-all;
+		text-align: left;
+	}
+
+	.actions {
+		@include size(40px);
+		float: right;;
+		background-color: rgba(0, 0, 0, .5);
+		border-radius: 50%;
+
+		button.white {
+			color: #fff;
+		}
 	}
 }
