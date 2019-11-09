@@ -24,3 +24,16 @@ p {
 .timestamp {
 	@include text-format(12px);
 }
+
+.albums {
+	margin: 15px 0;
+
+	ul {
+		margin: 0;
+		padding: 0;
+	}
+
+	li {
+		list-style: none;
+	}
+}

@@ -51,6 +51,21 @@ export class AlbumService {
 		);
 	}
 
+	public getAlbumsByMedia(media: Media): Observable<Album[]> {
+		const sql = `SELECT albums.id, albums.title FROM mediaAlbumsMap INNER JOIN albums ON albums.id == mediaAlbumsMap.album_id WHERE mediaAlbumsMap.media_id = $mediaId`;
+		const values = {$mediaId: media.id};
+
+		return DatabaseService.selectAll(sql, values).pipe(
+			map((rows) => {
+				const album: Album[] = [];
+				for (const row of rows) {
+					album.push(new Album().fromRow(row));
+				}
+				return album;
+			})
+		);
+	}
+
 	public insert(album: Album): Observable<Album> {
 		const sql = `INSERT INTO albums (title) VALUES ($title)`;
 		const values = { $title: album.title };

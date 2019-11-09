@@ -1,3 +1,10 @@
 <button mat-button (click)="openSource()"><mat-icon>open_in_new</mat-icon>&nbsp;&nbsp;Source</button>
 <h3>{{media.title}}</h3>
 <p class="timestamp"><b>Added At:</b> {{media.createdAt | date:'short'}}</p>
+
+<div class="albums" *ngIf="albums">
+	<p>Albums:</p>
+	<ul>
+		<li *ngFor="let album of albums"><a [routerLink]="['/albums', album.id, 'detail']">{{album.title}}</a></li>
+	</ul>
+</div>
