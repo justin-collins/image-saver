@@ -4,6 +4,8 @@
 	</mat-grid-tile>
 </mat-grid-list>
 
+<h2 *ngIf="media && media.length === 0">Use the button below to add Media</h2>
+
 <button mat-fab isvrNewMediaButton class="add-btn" matTooltip="Add New Media" matTooltipPosition="left">
 	<mat-icon>add</mat-icon>
 </button>

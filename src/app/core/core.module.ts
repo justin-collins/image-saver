@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DatabaseService } from './database.service';
 import { ImageViewerMaterialModule } from '../material.module';
 import { MessagingService } from './messaging.service';
+import { MediaService } from './media.service';
 
 @NgModule({
 	declarations: [],
@@ -12,7 +13,8 @@ import { MessagingService } from './messaging.service';
 	],
 	providers: [
 		DatabaseService,
-		MessagingService
+		MessagingService,
+		MediaService
 	]
 })
 export class CoreModule { }

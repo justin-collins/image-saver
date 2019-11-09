@@ -1,16 +1,8 @@
 <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<mat-toolbar color="primary">
+	<a mat-button routerLink="dashboard" routerLinkActive="active">Dashboard</a>
+</mat-toolbar>
 
-<mat-sidenav-container class="mat-typography" *ngIf="!loading">
-	<mat-sidenav mode="side" opened>
-		<mat-nav-list>
-			<mat-list-item routerLink="dashboard" routerLinkActive="active">
-				<mat-icon mat-list-icon color="accent">dashboard</mat-icon>
-				<h4 matLine>Dashboard</h4>
-			</mat-list-item>
-		</mat-nav-list>
-	</mat-sidenav>
-
-	<mat-sidenav-content>
-		<router-outlet></router-outlet>
-	</mat-sidenav-content>
-</mat-sidenav-container>
+<div class="container" *ngIf="!loading">
+	<router-outlet></router-outlet>
+</div>

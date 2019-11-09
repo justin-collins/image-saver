@@ -2,6 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { Media } from '../core/media';
 import { ActivatedRoute } from '@angular/router';
 import { MediaType } from '../core/mediaType';
+import { MediaService } from '../core/media.service';
 
 @Component({
 	selector: 'isvr-media-detail',
@@ -13,7 +14,8 @@ export class MediaDetailComponent implements OnInit {
 
 	public mediaType = MediaType;
 
-	constructor(private activatedRoute: ActivatedRoute,
+	constructor(private mediaService: MediaService,
+		private activatedRoute: ActivatedRoute,
 		private _ngZone: NgZone) {
 		this.activatedRoute.params.subscribe(this.initialize);
 	}
@@ -30,7 +32,7 @@ export class MediaDetailComponent implements OnInit {
 	}
 
 	private loadMedia(mediaId: number): void {
-		Media.get(mediaId).subscribe(this.mediaLoaded);
+		this.mediaService.get(mediaId).subscribe(this.mediaLoaded);
 	}
 
 	private mediaLoaded = (mediaResponse): void => {

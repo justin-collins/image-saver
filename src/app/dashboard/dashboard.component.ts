@@ -1,5 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Media } from '../core/media';
+import { MediaService } from '../core/media.service';
 
 @Component({
 	selector: 'isvr-dashboard',
@@ -9,12 +10,13 @@ import { Media } from '../core/media';
 export class DashboardComponent implements OnInit {
 	public media: Media[];
 
-	public numCols: number = 4;
+	public numCols: number = 5;
 
-	constructor(private _ngZone: NgZone) { }
+	constructor(private mediaService: MediaService,
+				private _ngZone: NgZone) { }
 
 	ngOnInit() {
-		Media.getAll().subscribe(this.mediaLoaded);
+		this.mediaService.getAll().subscribe(this.mediaLoaded);
 	}
 
 	private mediaLoaded = (mediaResponse: Media[]): void => {

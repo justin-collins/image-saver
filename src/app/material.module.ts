@@ -8,8 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @NgModule({
 	imports: [
@@ -21,8 +21,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 		MatInputModule,
 		MatListModule,
 		MatProgressBarModule,
-		MatSidenavModule,
-		MatSnackBarModule
+		MatSnackBarModule,
+		MatToolbarModule
 	],
 	exports: [
 		MatButtonModule,
@@ -33,8 +33,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 		MatInputModule,
 		MatListModule,
 		MatProgressBarModule,
-		MatSidenavModule,
-		MatSnackBarModule
+		MatSnackBarModule,
+		MatToolbarModule
 	]
 })
 export class ImageViewerMaterialModule { }
