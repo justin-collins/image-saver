@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MediaDetailComponent } from './media-detail/media-detail.component';
+import { AlbumsComponent } from './albums/albums.component';
+import { TrashComponent } from './trash/trash.component';
 
 const routes: Routes = [
 	{ path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -12,6 +14,14 @@ const routes: Routes = [
 	{
 		path: 'media/:mediaId/detail',
 		component: MediaDetailComponent
+	},
+	{
+		path: 'albums',
+		component: AlbumsComponent
+	},
+	{
+		path: 'trash',
+		component: TrashComponent
 	}
 ];
 

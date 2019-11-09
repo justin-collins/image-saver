@@ -1,6 +1,9 @@
 <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+
 <mat-toolbar color="primary">
 	<a mat-button routerLink="dashboard" routerLinkActive="active">Dashboard</a>
+	<a mat-button routerLink="albums" routerLinkActive="active">Albums</a>
+	<a mat-button routerLink="trash" routerLinkActive="active">Trash</a>
 </mat-toolbar>
 
 <div class="container" *ngIf="!loading">

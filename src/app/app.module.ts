@@ -9,12 +9,16 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { MediaDetailComponent } from './media-detail/media-detail.component';
+import { AlbumsComponent } from './albums/albums.component';
+import { TrashComponent } from './trash/trash.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		DashboardComponent,
-		MediaDetailComponent
+		MediaDetailComponent,
+		AlbumsComponent,
+		TrashComponent
 	],
 	imports: [
 		BrowserModule,

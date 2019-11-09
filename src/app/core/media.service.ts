@@ -14,7 +14,15 @@ export class MediaService {
 
 
 	public getAll(): Observable<Media[]> {
-		const sql = 'SELECT * FROM media';
+		return this.getBulk(false);
+	}
+
+	public getTrashed(): Observable<Media[]> {
+		return this.getBulk(true);
+	}
+
+	private getBulk(trashed: boolean = false): Observable<Media[]> {
+		const sql = `SELECT * FROM media WHERE trashed == ${trashed} ORDER BY created_at DESC`;
 		const values = {};
 
 		return DatabaseService.selectAll(sql, values).pipe(
@@ -29,7 +37,7 @@ export class MediaService {
 	}
 
 	public get(id: number): Observable<Media> {
-		const sql = 'SELECT * FROM media WHERE id = $id';
+		const sql = `SELECT * FROM media WHERE id = $id`;
 		const values = { $id: id };
 
 		return DatabaseService.selectOne(sql, values).pipe(
@@ -40,13 +48,55 @@ export class MediaService {
 	public insert(media: Media): Observable<Media> {
 		this.validate(media);
 
-		const sql = 'INSERT INTO media (url, title, type) VALUES ($url, $title, $type)';
+		const sql = `INSERT INTO media (url, title, type) VALUES ($url, $title, $type)`;
 		const values = { $url: media.url, $title: media.title, $type: media.type };
 
 		return DatabaseService.insert(sql, values).pipe(
 			map((result) => {
-				media.id = result.lastID
+				media.id = result.lastID;
 				return media;
+			})
+		);
+	}
+
+	public trash(media: Media): Observable<Media> {
+		return this.changeTrashed(media, true);
+	}
+
+	public restore(media: Media): Observable<Media> {
+		return this.changeTrashed(media, false);
+	}
+
+	private changeTrashed(media: Media, trashed: boolean): Observable<Media> {
+		const sql = `UPDATE media SET trashed = ${trashed} WHERE id == ${media.id}`;
+		const values = {};
+
+		return DatabaseService.update(sql, values).pipe(
+			map(() => {
+				media.trashed = trashed;
+				return media;
+			})
+		);
+	}
+
+	public delete(media: Media): Observable<boolean> {
+		const sql = `DELETE from media WHERE id == ${media.id}`;
+		const values = {};
+
+		return DatabaseService.delete(sql, values).pipe(
+			map(() => {
+				return true;
+			})
+		);
+	}
+
+	public deleteAllTrashed(): Observable<boolean> {
+		const sql = `DELETE from media WHERE trashed == 1`;
+		const values = {};
+
+		return DatabaseService.delete(sql, values).pipe(
+			map(() => {
+				return true;
 			})
 		);
 	}
@@ -74,7 +124,7 @@ export class MediaService {
 	}
 
 	private urlIsImage(url: string): boolean {
-		let match = url.match(/^((https?|ftp):)?\/\/.*(jpeg|jpg|png|bmp)$/);
+		let match = url.match(/(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:jpe?g|gif|png|bmp))(?:\?([^#]*))?(?:#(.*))?/);
 		return (match && match.length > 0) ? true : false;
 	}
 

@@ -1,0 +1,22 @@
+<div *ngIf="trashedMedia && trashedMedia.length > 0">
+	<mat-list>
+		<mat-list-item *ngFor="let singleMedia of trashedMedia"  (click)="navigateToDetails(singleMedia)">
+			<div class="media-frame" matListAvatar>
+				<div *ngIf="singleMedia.type === mediaType.IMAGE || singleMedia.type === mediaType.GIF" class="image" [ngStyle]="{'background-image': 'url(' + singleMedia.url + ')'}"></div>
+				<video *ngIf="singleMedia.type === mediaType.VIDEO" class="video" [src]="singleMedia.url" autoplay loop></video>
+			</div>
+			<h4 mat-line>{{singleMedia.title}}</h4>
+			<p mat-line> Created: {{singleMedia.createdAt | date:'short'}} </p>
+			<div class="actions">
+				<button mat-icon-button matTooltip="Permanently Delete" (click)="preventDefault($event)" isvrConfirmButton message="Permanently Delete '{{singleMedia.title}}?'" (onConfirmed)="permanentlyDelete(singleMedia)"><mat-icon>delete_outline</mat-icon></button>
+				<button mat-icon-button matTooltip="Restore" (click)="restore(singleMedia); preventDefault($event)"><mat-icon>restore</mat-icon></button>
+			</div>
+		</mat-list-item>
+	</mat-list>
+
+	<button mat-fab class="clear-btn" color="warn" matTooltip="Delete all permanently" matTooltipPosition="left" isvrConfirmButton message="Permanently delete all media in trash?'" (onConfirmed)="permanentlyDeleteAll()">
+		<mat-icon>delete</mat-icon>
+	</button>
+</div>
+
+<h2 *ngIf="trashedMedia && trashedMedia.length === 0">Trash is currently empty</h2>

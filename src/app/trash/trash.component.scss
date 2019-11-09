@@ -1,0 +1,41 @@
+@import 'includes';
+
+h2 {
+	padding: 10px;
+	margin: 0;
+}
+
+.clear-btn {
+	display: inline-block;
+	@include position(fixed, null 20px 20px null);
+}
+
+mat-list-item {
+	cursor: pointer;
+
+	.actions {
+		display: flex;
+		flex-direction: row;
+	}
+
+	&:hover {
+		background-color: lightblue;
+	}
+}
+
+.mat-list-base .mat-list-item .mat-list-avatar {
+	@include size(60px, 60px);
+}
+
+.media-frame {
+	.image {
+		@include size(100%, 100%);
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+
+	.video {
+		@include size(100%, 100%);
+	}
+}

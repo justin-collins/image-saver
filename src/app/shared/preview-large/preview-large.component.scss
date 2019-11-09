@@ -2,7 +2,15 @@ mat-card {
 	max-width: 400px;
 	cursor: pointer;
 
+	.mat-card-image {
+		margin-bottom: 0;
+	}
+
+	.mat-card-actions {
+		padding: 0;
+	}
+
 	&:hover {
-		background-color: red;
+		background-color: lightblue;
 	}
 }

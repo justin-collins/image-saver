@@ -32,4 +32,12 @@ export class DashboardComponent implements OnInit {
 	public newMediaAdded(newMedia: Media): void {
 		this.media.unshift(newMedia);
 	}
+
+	public mediaRemoved(removeMedia: Media): void {
+		let index: number = this.media.findIndex(med => med.id === removeMedia.id);
+
+		if (index > -1) {
+			this.media.splice(index, 1);
+		}
+	}
 }

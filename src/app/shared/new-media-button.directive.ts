@@ -1,12 +1,13 @@
 import { Directive, Output, EventEmitter, HostListener } from '@angular/core';
 import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NewMediaDialogComponent } from './new-media-dialog/new-media-dialog.component';
+import { Media } from '../core/media';
 
 @Directive({
 	selector: '[isvrNewMediaButton]'
 })
 export class NewMediaButtonDirective {
-	@Output() mediaSaved = new EventEmitter<boolean>();
+	@Output() mediaSaved = new EventEmitter<Media>();
 
 	private newMediaDialogRef: MatDialogRef<NewMediaDialogComponent>;
 	private newMediaDialogConfig: MatDialogConfig = {
