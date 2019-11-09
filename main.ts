@@ -6,6 +6,8 @@ import * as url from 'url';
 let win, serve;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
+const Path = require('path');
+const icon = Path.resolve(__dirname, 'src', 'assets', 'icon.png');
 
 function createWindow() {
 
@@ -23,7 +25,8 @@ function createWindow() {
 		webPreferences: {
 			nodeIntegration: true,
 			webSecurity: false
-		}
+		},
+		icon: icon
 	});
 
 	if (serve) {
@@ -40,7 +43,7 @@ function createWindow() {
 	}
 
 	if (serve) {
-		win.webContents.openDevTools();
+		setTimeout(() => win.webContents.openDevTools(), 100);
 	}
 
 	// Emitted when the window is closed.
