@@ -4,16 +4,25 @@ import { Router } from '@angular/router';
 import { MediaType } from 'src/app/core/mediaType';
 import { MediaService } from 'src/app/core/media.service';
 
+export enum PreviewContext {
+	LIST = 'LIST',
+	ALBUM = 'ALBUM'
+}
+
 @Component({
-	selector: 'isvr-preview-large',
-	templateUrl: './preview-large.component.html',
-	styleUrls: ['./preview-large.component.scss']
+	selector: 'isvr-media-preview',
+	templateUrl: './media-preview.component.html',
+	styleUrls: ['./media-preview.component.scss']
 })
-export class PreviewLargeComponent implements OnInit {
+export class MediaPreviewComponent implements OnInit {
 	@Input() media: Media;
-	@Output() mediaTrashed = new EventEmitter<Media>();
+	@Input() editable: boolean = true;
+	@Input() navigable: boolean = true;
+	@Input() context: PreviewContext = PreviewContext.LIST;
+	@Output() mediaRemoved = new EventEmitter<Media>();
 
 	public mediaType = MediaType;
+	public previewContext = PreviewContext;
 
 	constructor(private mediaService: MediaService,
 				private router: Router) { }
@@ -25,6 +34,8 @@ export class PreviewLargeComponent implements OnInit {
 	}
 
 	public navigateToDetails(): void {
+		if (!this.navigable) return;
+
 		this.router.navigate(['/media', this.media.id, 'detail']);
 	}
 
@@ -33,7 +44,7 @@ export class PreviewLargeComponent implements OnInit {
 	}
 
 	public trashed = (): void => {
-		this.mediaTrashed.emit(this.media);
+		this.mediaRemoved.emit(this.media);
 	}
 
 	public preventDefault(event): void {

@@ -11,6 +11,12 @@ export class Album {
         this.title = row['title'];
 		this.createdAt = new Date(row['created_at'] + 'Z');
 
+		this.cover = new Media();
+		this.cover.id = row['media_id'];
+		this.cover.title = row['media_title'];
+		this.cover.url = row['url'];
+		this.cover.type = row['type'];
+
         return this;
     }
 }

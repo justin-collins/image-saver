@@ -3,3 +3,20 @@
 mat-form-field {
 	width: 100%;
 }
+
+isvr-media-preview {
+	@include size(350px, 250px);
+}
+
+.actions {
+	margin-top: 10px;
+	text-align: right;
+
+	button {
+		margin: 0 5px;
+	}
+
+	.delete-btn {
+		float: left;
+	}
+}

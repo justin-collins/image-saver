@@ -13,7 +13,6 @@ export class MediaService {
 
 	constructor(private albumService: AlbumService) { }
 
-
 	public getAll(): Observable<Media[]> {
 		return this.getBulk(false);
 	}
@@ -82,9 +81,7 @@ export class MediaService {
 	}
 
 	public delete(media: Media): Observable<boolean> {
-		// this.albumService.removeMedia(media.id).subscribe(()=>{
-
-		// });
+		this.albumService.removeCoverByMedia(media).subscribe();
 
 		const sql = `DELETE from media WHERE id == $mediaId`;
 		const values = {$mediaId: media.id};

@@ -1,10 +1,11 @@
 <button mat-button (click)="openSource()"><mat-icon>open_in_new</mat-icon>&nbsp;&nbsp;Source</button>
-<h3>{{media.title}}</h3>
+<h2>{{media.title}}</h2>
 <p class="timestamp"><b>Added At:</b> {{media.createdAt | date:'short'}}</p>
 
 <div class="albums" *ngIf="albums">
 	<p>Albums:</p>
-	<ul>
+	<ul *ngIf="albums.length > 0">
 		<li *ngFor="let album of albums"><a [routerLink]="['/albums', album.id, 'detail']">{{album.title}}</a></li>
 	</ul>
+	<p *ngIf="albums.length === 0">Not included in any albums</p>
 </div>

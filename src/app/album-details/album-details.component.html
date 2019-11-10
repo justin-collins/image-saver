@@ -1,12 +1,15 @@
-<div *ngIf="album && media">
+<div class="container" *ngIf="album && media">
 	<div class="info">
+		<isvr-media-preview *ngIf="album.cover.id" [media]="album.cover" [editable]="false" [navigable]="false"></isvr-media-preview>
 		<h1>{{album.title}}&nbsp;&nbsp;<button mat-icon-button matTooltip="Edit Album" isvrEditAlbumButton [album]="album" (albumSaved)="albumEdited($event)"><mat-icon>edit</mat-icon></button></h1>
 		<p>{{media.length}} Item{{media.length > 1 ? 's' : ''}}</p>
 	</div>
 
+	<hr>
+
 	<mat-grid-list [cols]="numCols" gutterSize="0.5%">
 		<mat-grid-tile *ngFor="let singleMedia of media">
-			<isvr-preview-large [media]="singleMedia" (mediaTrashed)="mediaRemoved($event)"></isvr-preview-large>
+			<isvr-media-preview [media]="singleMedia" (mediaRemoved)="mediaRemoved($event)"></isvr-media-preview>
 		</mat-grid-tile>
 	</mat-grid-list>
 </div>

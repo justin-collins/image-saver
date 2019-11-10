@@ -13,7 +13,7 @@ export class AlbumService {
 	constructor() { }
 
 	public getAll(): Observable<Album[]> {
-		const sql = `SELECT * FROM albums ORDER BY created_at DESC`;
+		const sql = `select albums.id, albums.title, albums.created_at, media.id media_id, media.title media_title, media.url, media.type from albums LEFT OUTER JOIN media ON albums.cover_media_id == media.id ORDER BY albums.created_at DESC`;
 		const values = {};
 
 		return DatabaseService.selectAll(sql, values).pipe(
@@ -28,8 +28,8 @@ export class AlbumService {
 	}
 
 	public get(id: number): Observable<Album> {
-		const sql = `SELECT * FROM albums WHERE id = $id`;
-		const values = { $id: id };
+		const sql = `select albums.id, albums.title, albums.created_at, media.id media_id, media.title media_title, media.url, media.type from albums LEFT OUTER JOIN media ON albums.cover_media_id == media.id WHERE albums.id == $albumId`;
+		const values = { $albumId: id };
 
 		return DatabaseService.selectOne(sql, values).pipe(
 			map((row) => new Album().fromRow(row))
@@ -49,6 +49,12 @@ export class AlbumService {
 				return media;
 			})
 		);
+	}
+
+	public getAllMediaByAlbumId(albumId: number): Observable<Media[]> {
+		let fauxAlbum: Album = new Album();
+		fauxAlbum.id = albumId;
+		return this.getAllMedia(fauxAlbum);
 	}
 
 	public getAlbumsByMedia(media: Media): Observable<Album[]> {
@@ -79,7 +85,7 @@ export class AlbumService {
 	}
 
 	public update(album: Album): Observable<Album> {
-		let albumCoverId = (album.cover)? album.cover.id : null;
+		let albumCoverId = (album.cover.id)? album.cover.id : null;
 		const sql = `UPDATE albums SET title = $title, cover_media_id = $coverMediaId WHERE id == $albumId`;
 		const values = { $title: album.title, $coverMediaId: albumCoverId, $albumId: album.id };
 
@@ -100,4 +106,32 @@ export class AlbumService {
 			})
 		);
 	}
+
+	public removeCover(album: Album): Observable<Album> {
+		album.cover = null;
+		return this.update(album);
+	}
+
+	public removeCoverByMedia(media: Media): Observable<boolean> {
+		const sql = `UPDATE albums SET cover_media_id = NULL WHERE cover_media_id == $mediaId`;
+		const values = { $mediaId: media.id };
+
+		return DatabaseService.update(sql, values).pipe(
+			map(() => {
+				return true;
+			})
+		);
+	}
+
+	public delete(album: Album): Observable<boolean> {
+		const sql = `DELETE from albums WHERE id == $albumId`;
+		const values = {$albumId: album.id};
+
+		return DatabaseService.delete(sql, values).pipe(
+			map(() => {
+				return true;
+			})
+		);
+	}
+
 }

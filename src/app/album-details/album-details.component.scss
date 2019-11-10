@@ -1,7 +1,18 @@
 @import 'includes';
 
-.info {
+.container {
 	text-align: center;
+}
+
+.info {
+	@include size(60%, 100px);
+	margin: 0 auto;
+	text-align: left;
+
+	isvr-media-preview {
+		@include size(100px, 100px);
+		float: left;
+	}
 }
 
 h1 {

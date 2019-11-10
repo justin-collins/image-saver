@@ -37,8 +37,7 @@ CREATE TABLE IF NOT EXISTS `albums` (
 	`id` INTEGER PRIMARY KEY,
 	`title` TEXT NOT NULL,
 	`cover_media_id` INTEGER,
-	`created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
-	FOREIGN KEY(`cover_media_id`) REFERENCES media(`id`)
+	`created_at` DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS `mediaAlbumsMap` (

@@ -56,4 +56,12 @@ export class AlbumDetailsComponent implements OnInit {
 	public albumEdited(editedAlbum: Album): void {
 		this.album = editedAlbum;
 	}
+
+	public mediaRemoved(removeMedia: Media): void {
+		let index: number = this.media.findIndex(med => med.id === removeMedia.id);
+
+		if (index > -1) {
+			this.media.splice(index, 1);
+		}
+	}
 }

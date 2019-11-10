@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PreviewLargeComponent } from './preview-large/preview-large.component';
+import { MediaPreviewComponent } from './media-preview/media-preview.component';
 import { ImageViewerMaterialModule } from '../material.module';
 import { NewMediaDialogComponent } from './new-media-dialog/new-media-dialog.component';
 import { NewMediaButtonDirective } from './new-media-button.directive';
@@ -16,6 +16,7 @@ import { NewAlbumButtonDirective } from './new-album-button.directive';
 import { MediaSelectorDialogComponent } from './media-selector-dialog/media-selector-dialog.component';
 import { EditAlbumDialogComponent } from './edit-album-dialog/edit-album-dialog.component';
 import { EditAlbumButtonDirective } from './edit-album-button.directive';
+import { MediaSelectorDirective } from './media-selector.directive';
 
 @NgModule({
 	imports: [
@@ -26,7 +27,7 @@ import { EditAlbumButtonDirective } from './edit-album-button.directive';
 		CoreModule
 	],
 	exports: [
-		PreviewLargeComponent,
+		MediaPreviewComponent,
 		NewMediaDialogComponent,
 		NewMediaButtonDirective,
 		ConfirmDialogComponent,
@@ -35,10 +36,13 @@ import { EditAlbumButtonDirective } from './edit-album-button.directive';
 		AlbumPreviewComponent,
 		NewAlbumButtonDirective,
 		NewAlbumDialogComponent,
-		EditAlbumButtonDirective
+		MediaSelectorDialogComponent,
+		EditAlbumDialogComponent,
+		EditAlbumButtonDirective,
+		MediaSelectorDirective
 	],
 	declarations: [
-		PreviewLargeComponent,
+		MediaPreviewComponent,
 		NewMediaButtonDirective,
 		NewMediaDialogComponent,
 		ConfirmButtonDirective,
@@ -49,13 +53,15 @@ import { EditAlbumButtonDirective } from './edit-album-button.directive';
 		NewAlbumDialogComponent,
 		MediaSelectorDialogComponent,
 		EditAlbumDialogComponent,
-		EditAlbumButtonDirective
+		EditAlbumButtonDirective,
+		MediaSelectorDirective
 	],
 	entryComponents: [
 		NewMediaDialogComponent,
 		ConfirmDialogComponent,
 		NewAlbumDialogComponent,
-		EditAlbumDialogComponent
+		EditAlbumDialogComponent,
+		MediaSelectorDialogComponent
 	]
 })
 export class SharedModule { }

@@ -1,6 +1,6 @@
 <mat-grid-list [cols]="numCols" gutterSize="0.5%">
 	<mat-grid-tile *ngFor="let singleMedia of media">
-		<isvr-preview-large [media]="singleMedia" (mediaTrashed)="mediaRemoved($event)"></isvr-preview-large>
+		<isvr-media-preview [media]="singleMedia" (mediaRemoved)="mediaRemoved($event)"></isvr-media-preview>
 	</mat-grid-tile>
 </mat-grid-list>
 

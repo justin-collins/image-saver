@@ -1,1 +1,15 @@
-<p>media-selector-dialog works!</p>
+<div class="container" *ngIf="media">
+	<p *ngIf="media.length > 0">Click the Media you would like to select</p>
+	<mat-grid-list [cols]="numCols" gutterSize="0.5%">
+		<mat-grid-tile *ngFor="let singleMedia of media">
+			<isvr-media-preview [media]="singleMedia" [editable]="false" [navigable]="false" [ngClass]="{selected: mediaSelectedContains(singleMedia)}" (click)="toggleMediaSelection(singleMedia)"></isvr-media-preview>
+		</mat-grid-tile>
+	</mat-grid-list>
+
+	<h2 *ngIf="media.length === 0">No media found for selection</h2>
+</div>
+
+<div class="actions">
+	<button mat-raised-button color="primary" [disabled]="mediaSelected.length === 0" (click)="mediaSelectionComplete()">Select</button>
+	<button mat-raised-button (click)="dialogRef.close(null)">Cancel</button>
+</div>

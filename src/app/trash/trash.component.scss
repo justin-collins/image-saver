@@ -26,16 +26,3 @@ mat-list-item {
 .mat-list-base .mat-list-item .mat-list-avatar {
 	@include size(60px, 60px);
 }
-
-.media-frame {
-	.image {
-		@include size(100%, 100%);
-		background-size: contain;
-		background-repeat: no-repeat;
-		background-position: center center;
-	}
-
-	.video {
-		@include size(100%, 100%);
-	}
-}

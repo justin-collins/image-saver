@@ -3,6 +3,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Album } from 'src/app/core/album';
 import { AlbumService } from 'src/app/core/album.service';
 import { MessagingService } from 'src/app/core/messaging.service';
+import { Media } from 'src/app/core/media';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'isvr-edit-album-dialog',
@@ -16,6 +18,7 @@ export class EditAlbumDialogComponent implements OnInit {
 				public dialogRef: MatDialogRef<EditAlbumDialogComponent>,
 				private albumService: AlbumService,
 				private messagingService: MessagingService,
+				private router: Router,
 				private _ngZone: NgZone) { }
 
 	ngOnInit() {
@@ -25,9 +28,27 @@ export class EditAlbumDialogComponent implements OnInit {
 	public saveAlbum(): void {
 		this.albumService.update(this.album).subscribe(() => {
 			this._ngZone.run(() => {
-				this.messagingService.message('Media Saved!');
+				this.messagingService.message('Album Saved!');
 				this.dialogRef.close(this.album);
 			});
+		});
+	}
+
+	public newCoverSelected = (newCover: Media[]): void => {
+		this._ngZone.run(() => {
+			this.album.cover = newCover[0];
+		});
+	}
+
+	public deleteAlbum(): void {
+		this.albumService.delete(this.album).subscribe(this.albumDeleted);
+	}
+
+	private albumDeleted = (): void => {
+		this._ngZone.run(() => {
+			this.messagingService.message('Album Deleted!');
+			this.dialogRef.close(null);
+			this.router.navigate(['/albums']);
 		});
 	}
 }

@@ -47,4 +47,14 @@ export class MediaDetailComponent implements OnInit {
 	public toggleDrawer(): void {
 		this.drawerIsOpen = !this.drawerIsOpen;
 	}
+
+	public restoreMedia(): void {
+		this.mediaService.restore(this.media).subscribe(this.mediaRestored);
+	}
+
+	private mediaRestored = (): void => {
+		this._ngZone.run(() => {
+			this.media.trashed = false;
+		});
+	}
 }
