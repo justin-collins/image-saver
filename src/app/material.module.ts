@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,6 +19,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 	imports: [
 		MatButtonModule,
 		MatCardModule,
+		MatChipsModule,
 		MatDialogModule,
 		MatGridListModule,
 		MatIconModule,
@@ -33,6 +35,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 	exports: [
 		MatButtonModule,
 		MatCardModule,
+		MatChipsModule,
 		MatDialogModule,
 		MatGridListModule,
 		MatIconModule,

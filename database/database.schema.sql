@@ -5,11 +5,18 @@ CREATE TABLE IF NOT EXISTS `mediaType` (
 );
 INSERT OR IGNORE INTO mediaType(type) VALUES ('IMAGE'), ('GIF'), ('VIDEO'), ('AUDIO'), ('EMBED');
 
+CREATE TABLE IF NOT EXISTS `mediaLocation` (
+	`location`	TEXT PRIMARY KEY NOT NULL
+);
+INSERT OR IGNORE INTO mediaLocation(location) VALUES ('REMOTE'), ('LOCAL');
+
 CREATE TABLE IF NOT EXISTS `media` (
 	`id` INTEGER PRIMARY KEY,
 	`title` TEXT,
 	`url` TEXT NOT NULL UNIQUE,
+	`source` TEXT,
 	`type` Text NOT NULL REFERENCES mediaType(`type`),
+	`location` TEXT NOT NULL REFERENCES mediaLocation(`location`),
 	`trashed` INTEGER DEFAULT 0,
 	`trashed_at` DATETIME,
 	`created_at` DATETIME DEFAULT CURRENT_TIMESTAMP

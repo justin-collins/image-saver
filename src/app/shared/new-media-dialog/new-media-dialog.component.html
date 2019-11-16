@@ -1,7 +1,7 @@
 <form (ngSubmit)="saveNewMedia()" #editMediaForm="ngForm">
 	<mat-form-field>
-		<input matInput [(ngModel)]="newMedia.url" name="url" placeholder="Url" required />
-		<input hidden type="file" #uploader (change)="getLocalFileUrl($event)"/>
+		<input matInput [(ngModel)]="newMedia.source" name="source" placeholder="Source" required />
+		<input hidden type="file" #uploader (change)="getLocalFileSource($event)"/>
 		<button type="button" mat-icon-button matSuffix matTooltip="Choose local file" (click)="uploader.click()"><mat-icon>desktop_windows</mat-icon></button>
 	</mat-form-field>
 

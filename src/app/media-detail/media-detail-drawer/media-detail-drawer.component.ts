@@ -34,6 +34,6 @@ export class MediaDetailDrawerComponent implements OnInit {
 	}
 
 	public openSource(): void {
-		shell.openExternal(this.media.url);
+		shell.openExternal(this.media.source);
 	}
 }

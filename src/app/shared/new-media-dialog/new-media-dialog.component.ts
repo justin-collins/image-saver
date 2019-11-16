@@ -4,8 +4,6 @@ import { Media } from 'src/app/core/media';
 import { MessagingService } from 'src/app/core/messaging.service';
 import { MediaService } from 'src/app/core/media.service';
 
-var dialog = require('electron');
-
 @Component({
 	selector: 'isvr-new-media-dialog',
 	templateUrl: './new-media-dialog.component.html',
@@ -33,7 +31,7 @@ export class NewMediaDialogComponent implements OnInit {
 		});
 	}
 
-	public getLocalFileUrl(event): void {
-		this.newMedia.url = 'file://' + event.target.files[0].path;
+	public getLocalFileSource(event): void {
+		this.newMedia.source = 'file://' + event.target.files[0].path;
 	}
 }

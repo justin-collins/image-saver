@@ -5,6 +5,7 @@ import { DatabaseService } from './database.service';
 import { map } from 'rxjs/operators';
 import { MediaType } from './mediaType';
 import { AlbumService } from './album.service';
+import { MediaLocation } from './mediaLocation';
 
 @Injectable({
 	providedIn: 'root'
@@ -48,8 +49,9 @@ export class MediaService {
 	public insert(media: Media): Observable<Media> {
 		this.validate(media);
 
-		const sql = `INSERT INTO media (url, title, type) VALUES ($url, $title, $type)`;
-		const values = { $url: media.url, $title: media.title, $type: media.type };
+		media = this.prepareMediaForInsert(media);
+		const sql = `INSERT INTO media (title, url, source, type, location) VALUES ($title, $url, $source, $type, $location)`;
+		const values = { $title: media.title, $url: media.url, $source: media.source, $type: media.type, $location: media.location };
 
 		return DatabaseService.insert(sql, values).pipe(
 			map((result) => {
@@ -104,16 +106,27 @@ export class MediaService {
 		);
 	}
 
-	public validate(media: Media): void {
-		if (media.url.indexOf('http') === -1 && media.url.indexOf('file') === -1) {
-			console.error('a protocol is required for media url');
+	private validate(media: Media): void {
+		if (media.source.indexOf('http://') === -1 && media.source.indexOf('https://') === -1 && media.source.indexOf('file://') === -1) {
+			console.error('a protocol is required for a media source');
 		}
-
-		if (!media.type) media.type = this.inferTypeFromUrl(media.url);
-		if (!media.title) media.title = this.inferTitleFromUrl(media.url);
 	}
 
-	public inferTypeFromUrl(mediaURL: string): MediaType {
+	private prepareMediaForInsert(media: Media): Media {
+		if (!media.url) media.url = this.inferMediaUrlFromSource(media.source);
+		if (!media.type) media.type = this.inferTypeFromUrl(media.url);
+		if (!media.title) media.title = this.inferTitleFromUrl(media.url);
+		if (!media.location) media.location = this.inferLocationFromUrl(media.url);
+
+		return media;
+	}
+
+	private inferMediaUrlFromSource(mediaSource: string): string {
+		//placeholder for eventual more-complex url parsers
+		return mediaSource;
+	}
+
+	private inferTypeFromUrl(mediaURL: string): MediaType {
 		if (!mediaURL) {
 			console.error('A url is required to infer media type');
 			return;
@@ -124,6 +137,16 @@ export class MediaService {
 		else if (this.urlIsVideo(mediaURL)) return MediaType.VIDEO;
 		else if (this.urlIsAudio(mediaURL)) return MediaType.AUDIO;
 		else console.error('Unknown file extension');
+	}
+
+	private inferLocationFromUrl(mediaUrl: string): MediaLocation {
+		if(mediaUrl.indexOf('http://') > -1 || mediaUrl.indexOf('https://') > -1) {
+			return MediaLocation.REMOTE;
+		} else if (mediaUrl.indexOf('file://') > -1) {
+			return MediaLocation.LOCAL;
+		}
+
+		return null;
 	}
 
 	private urlIsImage(url: string): boolean {

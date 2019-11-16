@@ -1,4 +1,9 @@
-<button mat-button (click)="openSource()"><mat-icon>open_in_new</mat-icon>&nbsp;&nbsp;Source</button>
+<button class="source-btn" mat-button (click)="openSource()" *ngIf="media.source"><mat-icon>open_in_new</mat-icon>&nbsp;&nbsp;Source</button>
+
+<mat-chip-list>
+	<mat-chip color="primary" [selected]="true">{{media.location}}</mat-chip>
+</mat-chip-list>
+
 <h2>{{media.title}}</h2>
 <p class="timestamp"><b>Added At:</b> {{media.createdAt | date:'short'}}</p>
 
