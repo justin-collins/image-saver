@@ -4,6 +4,8 @@ import { EditAlbumDialogComponent } from '../edit-album-dialog/edit-album-dialog
 import { Media } from 'src/app/core/media';
 import { AlbumService } from 'src/app/core/album.service';
 import { MediaService } from 'src/app/core/media.service';
+import { MediaSelectorSettings } from '../media-selector.directive';
+import { ContextType } from 'src/app/core/contextType';
 
 @Component({
 	selector: 'isvr-media-selector-dialog',
@@ -15,38 +17,46 @@ export class MediaSelectorDialogComponent implements OnInit {
 	public mediaSelected: Media[];
 	public numCols: number = 4;
 
-	public maxSelections: number;
-	private albumId: number;
-	private tagId: number;
+	public settings: MediaSelectorSettings;
 
 	constructor(@Inject(MAT_DIALOG_DATA) private data,
 			private mediaService: MediaService,
-			private albumService: AlbumService,
 			public dialogRef: MatDialogRef<EditAlbumDialogComponent>,
 			private _ngZone: NgZone) {
 	}
 
 	ngOnInit() {
-		this.albumId = this.data['albumId'];
-		this.tagId = this.data['tagId'];
-		this.maxSelections = this.data['maxSelections'] || 50;
-
-		if (this.albumId && this.tagId) {
-			console.warn('albumId and tagId cannot be used in conjunction on the media selector. tagId will be ignored.')
-		}
-
+		this.settings = this.initializeSettings(this.data['settings']);
 		this.mediaSelected = [];
 
 		this.loadMedia();
 	}
 
+	private initializeSettings(startingSettings: MediaSelectorSettings): MediaSelectorSettings {
+		let finalSettings: MediaSelectorSettings = startingSettings;
+
+		finalSettings.exclude = finalSettings.exclude || false;
+		finalSettings.maxSelections = finalSettings.maxSelections || 50;
+
+		return finalSettings;
+	}
+
 	private loadMedia(): void {
-		if (this.albumId) {
-			this.albumService.getAllMediaByAlbumId(this.albumId).subscribe(this.mediaLoaded);
-		} else if (this.tagId) {
+		if (this.settings.dataType = ContextType.ALBUM) {
+			this.loadMediaByAlbum();
+		} else if (this.settings.dataType = ContextType.TAG) {
+			this.loadMediaByTag();
 		} else {
 			this.mediaService.getAll().subscribe(this.mediaLoaded);
 		}
+	}
+
+	private loadMediaByAlbum(): void {
+		this.mediaService.getByAlbumId(this.settings.dataId, this.settings.exclude).subscribe(this.mediaLoaded);
+	}
+
+	private loadMediaByTag(): void {
+
 	}
 
 	private mediaLoaded = (mediaResponse: Media[]): void => {
@@ -62,7 +72,7 @@ export class MediaSelectorDialogComponent implements OnInit {
 	}
 
 	private selectMedia(selectedMedia: Media): void {
-		if (this.mediaSelected.length === this.maxSelections) return;
+		if (this.mediaSelected.length === this.settings.maxSelections) return;
 
 		this.mediaSelected.push(selectedMedia);
 	}

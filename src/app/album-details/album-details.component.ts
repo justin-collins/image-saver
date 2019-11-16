@@ -3,6 +3,10 @@ import { Album } from '../core/album';
 import { AlbumService } from '../core/album.service';
 import { ActivatedRoute } from '@angular/router';
 import { Media } from '../core/media';
+import { ContextService } from '../core/context.service';
+import { MediaService } from '../core/media.service';
+import { MediaSelectorSettings } from '../shared/media-selector.directive';
+import { ContextType } from '../core/contextType';
 
 @Component({
 	selector: 'isvr-album-details',
@@ -15,7 +19,11 @@ export class AlbumDetailsComponent implements OnInit {
 
 	public numCols: number = 5;
 
+	public mediaSelectorSettings: MediaSelectorSettings;
+
 	constructor(private albumService: AlbumService,
+		private mediaService: MediaService,
+		private contextService: ContextService,
 		private activatedRoute: ActivatedRoute,
 		private _ngZone: NgZone) {
 		this.activatedRoute.params.subscribe(this.initialize);
@@ -39,12 +47,22 @@ export class AlbumDetailsComponent implements OnInit {
 	private albumLoaded = (albumResponse: Album): void => {
 		this._ngZone.run(() => {
 			this.album = albumResponse;
+			this.contextService.setContextAlbum(this.album);
+			this.setupMediaSelectorSettings();
 			this.loadAlbumMedia();
 		});
 	}
 
+	private setupMediaSelectorSettings(): void {
+		this.mediaSelectorSettings = {
+			dataId: this.album.id,
+			dataType: ContextType.ALBUM,
+			exclude: true
+		}
+	}
+
 	private loadAlbumMedia(): void {
-		this.albumService.getAllMedia(this.album).subscribe(this.mediaLoaded);
+		this.mediaService.getByAlbumId(this.album.id).subscribe(this.mediaLoaded);
 	}
 
 	private mediaLoaded = (mediaResponse: Media[]): void => {
@@ -63,5 +81,19 @@ export class AlbumDetailsComponent implements OnInit {
 		if (index > -1) {
 			this.media.splice(index, 1);
 		}
+	}
+
+	public addMediaToAlbum(newMedia: Media[]): void {
+		this.albumService.addMedia(this.album, newMedia).subscribe(this.mediaAddedToAlbum);
+	}
+
+	private mediaAddedToAlbum = (newMedia: Media | Media[]): void => {
+		this._ngZone.run(() => {
+			if (newMedia instanceof Array) {
+				this.media = [...newMedia, ...this.media];
+			} else {
+				this.media.unshift(newMedia);
+			}
+		});
 	}
 }

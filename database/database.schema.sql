@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS `mediaAlbumsMap` (
 	`id` INTEGER PRIMARY KEY,
 	`media_id` INTEGER,
 	`album_id` INTEGER,
+	`created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY(`media_id`) REFERENCES media(`id`) ON DELETE CASCADE,
 	FOREIGN KEY(`album_id`) REFERENCES albums(`id`) ON DELETE CASCADE,
 	UNIQUE(media_id, album_id)

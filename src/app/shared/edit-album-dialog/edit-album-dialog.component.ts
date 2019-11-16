@@ -5,6 +5,8 @@ import { AlbumService } from 'src/app/core/album.service';
 import { MessagingService } from 'src/app/core/messaging.service';
 import { Media } from 'src/app/core/media';
 import { Router } from '@angular/router';
+import { MediaSelectorSettings } from '../media-selector.directive';
+import { ContextType } from 'src/app/core/contextType';
 
 @Component({
 	selector: 'isvr-edit-album-dialog',
@@ -13,6 +15,8 @@ import { Router } from '@angular/router';
 })
 export class EditAlbumDialogComponent implements OnInit {
 	public album: Album;
+
+	public mediaSelectorSettings: MediaSelectorSettings;
 
 	constructor(@Inject(MAT_DIALOG_DATA) private data,
 				public dialogRef: MatDialogRef<EditAlbumDialogComponent>,
@@ -23,6 +27,15 @@ export class EditAlbumDialogComponent implements OnInit {
 
 	ngOnInit() {
 		this.album = this.data['album'];
+		this.setupMediaSelectorSettings();
+	}
+
+	private setupMediaSelectorSettings(): void {
+		this.mediaSelectorSettings = {
+			dataId: this.album.id,
+			dataType: ContextType.ALBUM,
+			maxSelections: 1
+		}
 	}
 
 	public saveAlbum(): void {

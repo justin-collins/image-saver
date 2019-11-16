@@ -4,6 +4,11 @@
 	text-align: center;
 }
 
+.add-btn {
+	display: inline-block;
+	@include position(fixed, null 20px 20px null);
+}
+
 .info {
 	@include size(60%, 100px);
 	margin: 0 auto;

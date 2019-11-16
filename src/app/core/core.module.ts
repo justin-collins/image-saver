@@ -5,6 +5,7 @@ import { ImageViewerMaterialModule } from '../material.module';
 import { MessagingService } from './messaging.service';
 import { MediaService } from './media.service';
 import { AlbumService } from './album.service';
+import { ContextService } from './context.service';
 
 @NgModule({
 	declarations: [],
@@ -16,7 +17,8 @@ import { AlbumService } from './album.service';
 		DatabaseService,
 		MessagingService,
 		MediaService,
-		AlbumService
+		AlbumService,
+		ContextService
 	]
 })
 export class CoreModule { }

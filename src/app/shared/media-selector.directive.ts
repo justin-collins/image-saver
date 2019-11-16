@@ -2,14 +2,13 @@ import { Directive, Output, EventEmitter, HostListener, Input } from '@angular/c
 import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Media } from '../core/media';
 import { MediaSelectorDialogComponent } from './media-selector-dialog/media-selector-dialog.component';
+import { ContextType } from '../core/contextType';
 
 @Directive({
 	selector: '[isvrMediaSelector]'
 })
 export class MediaSelectorDirective {
-	@Input() albumId: number;
-	@Input() tagId: number;
-	@Input() maxSelections: number;
+	@Input() settings: MediaSelectorSettings;
 	@Output() mediaSelected = new EventEmitter<Media[]>();
 
 	private mediaSelectorDialogRef: MatDialogRef<MediaSelectorDialogComponent>;
@@ -25,9 +24,7 @@ export class MediaSelectorDirective {
 		if (this.mediaSelectorDialogRef) return;
 
 		this.mediaSelectorDialogConfig.data = {
-			albumId: this.albumId,
-			tagId: this.tagId,
-			maxSelections: this.maxSelections
+			settings: this.settings
 		}
 
 		this.mediaSelectorDialogRef = this.dialog.open(MediaSelectorDialogComponent, this.mediaSelectorDialogConfig);
@@ -36,4 +33,11 @@ export class MediaSelectorDirective {
 			this.mediaSelectorDialogRef = null;
 		});
 	}
+}
+
+export interface MediaSelectorSettings {
+	dataId?: number,
+	dataType?: ContextType,
+	exclude?: boolean,
+	maxSelections?: number
 }

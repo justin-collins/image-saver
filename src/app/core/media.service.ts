@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { Media } from './media';
 import { DatabaseService } from './database.service';
 import { map } from 'rxjs/operators';
 import { MediaType } from './mediaType';
-import { AlbumService } from './album.service';
 import { MediaLocation } from './mediaLocation';
 
 @Injectable({
@@ -12,7 +11,7 @@ import { MediaLocation } from './mediaLocation';
 })
 export class MediaService {
 
-	constructor(private albumService: AlbumService) { }
+	constructor() { }
 
 	public getAll(): Observable<Media[]> {
 		return this.getBulk(false);
@@ -37,6 +36,28 @@ export class MediaService {
 		);
 	}
 
+	public getByAlbumId(albumId: number, exclude?: boolean): Observable<Media[]> {
+		let sql = `SELECT media.id, media.title, media.type, media.url`;
+		if (!exclude) {
+			sql += ` FROM mediaAlbumsMap INNER JOIN media ON media.id == mediaAlbumsMap.media_id WHERE mediaAlbumsMap.album_id == $albumId `;
+		} else {
+			sql += ` FROM media WHERE media.id NOT IN (SELECT mediaAlbumsMap.media_id from mediaAlbumsMap WHERE mediaAlbumsMap.album_id == $albumId) `;
+		}
+		sql += `AND media.trashed == 0 ORDER BY mediaAlbumsMap.created_at DESC;`;
+
+		const values = { $albumId: albumId };
+
+		return DatabaseService.selectAll(sql, values).pipe(
+			map((rows) => {
+				const media: Media[] = [];
+				for (const row of rows) {
+					media.push(new Media().fromRow(row));
+				}
+				return media;
+			})
+		);
+	}
+
 	public get(id: number): Observable<Media> {
 		const sql = `SELECT * FROM media WHERE id = $id`;
 		const values = { $id: id };
@@ -46,7 +67,25 @@ export class MediaService {
 		);
 	}
 
-	public insert(media: Media): Observable<Media> {
+	public insert(media: Media | Media[]): Observable<Media | Media[]> {
+		if (media instanceof Array) {
+			return this.insertMany(media);
+		} else {
+			return this.insertSingle(media);
+		}
+	}
+
+	private insertMany(media: Media[]): Observable<Media[]> {
+		let inserts = [];
+		for (let i = 0; i < media.length; i++) {
+			const theMedia = media[i];
+			inserts.push(this.insertSingle(theMedia));
+		}
+
+		return forkJoin<Media>(inserts);
+	}
+
+	private insertSingle(media: Media): Observable<Media> {
 		this.validate(media);
 
 		media = this.prepareMediaForInsert(media);
@@ -83,15 +122,11 @@ export class MediaService {
 	}
 
 	public delete(media: Media): Observable<boolean> {
-		this.albumService.removeCoverByMedia(media).subscribe();
-
 		const sql = `DELETE from media WHERE id == $mediaId`;
 		const values = {$mediaId: media.id};
 
 		return DatabaseService.delete(sql, values).pipe(
-			map(() => {
-				return true;
-			})
+			map(() => true)
 		);
 	}
 
@@ -100,9 +135,7 @@ export class MediaService {
 		const values = {};
 
 		return DatabaseService.delete(sql, values).pipe(
-			map(() => {
-				return true;
-			})
+			map(() => true)
 		);
 	}
 

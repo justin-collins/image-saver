@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, concat } from 'rxjs';
+import { Observable, concat, forkJoin } from 'rxjs';
 import { Album } from './album';
 import { DatabaseService } from './database.service';
 import { map } from 'rxjs/operators';
@@ -36,27 +36,6 @@ export class AlbumService {
 		);
 	}
 
-	public getAllMedia(album: Album): Observable<Media[]> {
-		const sql = `SELECT media.id, media.title, media.type, media.url FROM mediaAlbumsMap INNER JOIN media ON media.id == mediaAlbumsMap.media_id WHERE mediaAlbumsMap.album_id == $albumId AND media.trashed == 0;`;
-		const values = { $albumId: album.id };
-
-		return DatabaseService.selectAll(sql, values).pipe(
-			map((rows) => {
-				const media: Media[] = [];
-				for (const row of rows) {
-					media.push(new Media().fromRow(row));
-				}
-				return media;
-			})
-		);
-	}
-
-	public getAllMediaByAlbumId(albumId: number): Observable<Media[]> {
-		let fauxAlbum: Album = new Album();
-		fauxAlbum.id = albumId;
-		return this.getAllMedia(fauxAlbum);
-	}
-
 	public getAlbumsByMedia(media: Media): Observable<Album[]> {
 		const sql = `SELECT albums.id, albums.title FROM mediaAlbumsMap INNER JOIN albums ON albums.id == mediaAlbumsMap.album_id WHERE mediaAlbumsMap.media_id = $mediaId`;
 		const values = {$mediaId: media.id};
@@ -84,14 +63,39 @@ export class AlbumService {
 		);
 	}
 
+	public addMedia(album: Album, media: Media | Media[]): Observable<Media | Media[]> {
+		if (media instanceof Array) {
+			return this.addManyMedia(album, media);
+		} else {
+			return this.addSingleMedia(album, media);
+		}
+	}
+
+	private addManyMedia(album: Album, media: Media[]): Observable<Media[]> {
+		let inserts = [];
+		for (let i = 0; i < media.length; i++) {
+			const theMedia = media[i];
+			inserts.push(this.addSingleMedia(album, theMedia));
+		}
+
+		return forkJoin<Media>(inserts);
+	}
+
+	private addSingleMedia(album: Album, media: Media): Observable<Media> {
+		const sql = `INSERT INTO  mediaAlbumsMap (media_id, album_id) VALUES ($mediaId, $albumId);`;
+		const values = { $mediaId: media.id, $albumId: album.id };
+
+		return DatabaseService.insert(sql, values).pipe(
+			map(() => media)
+		);
+	}
+
 	public update(album: Album): Observable<Album> {
 		const sql = `UPDATE albums SET title = $title WHERE id == $albumId`;
 		const values = { $title: album.title, $albumId: album.id };
 
 		let albumUpdate = DatabaseService.update(sql, values).pipe(
-			map(() => {
-				return album;
-			})
+			map(() => album)
 		);
 
 		let albumCoverId = (album.cover.id)? album.cover.id : null;
@@ -111,9 +115,7 @@ export class AlbumService {
 		const values = { $mediaId: albumCoverId, $albumId: album.id };
 
 		return DatabaseService.update(sql, values).pipe(
-			map(() => {
-				return album;
-			})
+			map(() => album)
 		);
 	}
 
@@ -123,9 +125,7 @@ export class AlbumService {
 		const values = { $albumId: album.id, $mediaId: albumCoverId };
 
 		return DatabaseService.insert(sql, values).pipe(
-			map(() => {
-				return album;
-			})
+			map(() => album)
 		);
 	}
 
@@ -134,9 +134,7 @@ export class AlbumService {
 		const values = { $albumId: album.id, $mediaId: media.id };
 
 		return DatabaseService.update(sql, values).pipe(
-			map(() => {
-				return album;
-			})
+			map(() => album)
 		);
 	}
 
@@ -145,9 +143,7 @@ export class AlbumService {
 		const values = { $albumId: album.id };
 
 		return DatabaseService.delete(sql, values).pipe(
-			map(() => {
-				return true;
-			})
+			map(() => true)
 		);
 	}
 
@@ -156,9 +152,7 @@ export class AlbumService {
 		const values = { $mediaId: media.id };
 
 		return DatabaseService.delete(sql, values).pipe(
-			map(() => {
-				return true;
-			})
+			map(() => true)
 		);
 	}
 
@@ -167,9 +161,7 @@ export class AlbumService {
 		const values = {$albumId: album.id};
 
 		return DatabaseService.delete(sql, values).pipe(
-			map(() => {
-				return true;
-			})
+			map(() => true)
 		);
 	}
 

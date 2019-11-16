@@ -9,6 +9,10 @@
 		<div class="actions">
 			<button class="white" mat-icon-button [matMenuTriggerFor]="actions" (click)="preventDefault($event)"><mat-icon>more_horiz</mat-icon></button>
 			<mat-menu #actions="matMenu" yPosition="above">
+				<ng-container *ngIf="context?.type === contextType.ALBUM">
+					<button mat-menu-item (click)="removeFromAlbum()">Remove from Album</button>
+				</ng-container>
+
 				<button mat-menu-item (click)="trashMedia()">Trash</button>
 			</mat-menu>
 		</div>

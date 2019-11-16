@@ -1,13 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, NgZone } from '@angular/core';
 import { Media } from 'src/app/core/media';
 import { Router } from '@angular/router';
 import { MediaType } from 'src/app/core/mediaType';
 import { MediaService } from 'src/app/core/media.service';
-
-export enum PreviewContext {
-	LIST = 'LIST',
-	ALBUM = 'ALBUM'
-}
+import { ContextService } from 'src/app/core/context.service';
+import { Context } from 'src/app/core/context';
+import { ContextType } from 'src/app/core/contextType';
+import { AlbumService } from 'src/app/core/album.service';
 
 @Component({
 	selector: 'isvr-media-preview',
@@ -18,19 +17,31 @@ export class MediaPreviewComponent implements OnInit {
 	@Input() media: Media;
 	@Input() editable: boolean = true;
 	@Input() navigable: boolean = true;
-	@Input() context: PreviewContext = PreviewContext.LIST;
 	@Output() mediaRemoved = new EventEmitter<Media>();
 
 	public mediaType = MediaType;
-	public previewContext = PreviewContext;
+	public contextType = ContextType;
+
+	public context: Context;
 
 	constructor(private mediaService: MediaService,
-				private router: Router) { }
+				private albumService: AlbumService,
+				private contextService: ContextService,
+				private router: Router,
+				private _ngZone: NgZone) { }
 
 	ngOnInit() {
 		if (!this.media) {
 			console.error('A media must be provided for the preview component');
 		}
+
+		this.contextService.contextChanged.subscribe(this.contextChanged);
+	}
+
+	private contextChanged = (newContext: Context): void => {
+		this._ngZone.run(() => {
+			this.context = newContext;
+		});
 	}
 
 	public navigateToDetails(): void {
@@ -40,10 +51,14 @@ export class MediaPreviewComponent implements OnInit {
 	}
 
 	public trashMedia(): void {
-		this.mediaService.trash(this.media).subscribe(this.trashed);
+		this.mediaService.trash(this.media).subscribe(this.fireMediaRemoved);
 	}
 
-	public trashed = (): void => {
+	public removeFromAlbum(): void {
+		this.albumService.removeMedia(this.media, this.context.dataObject).subscribe(this.fireMediaRemoved);
+	}
+
+	private fireMediaRemoved = (): void => {
 		this.mediaRemoved.emit(this.media);
 	}
 

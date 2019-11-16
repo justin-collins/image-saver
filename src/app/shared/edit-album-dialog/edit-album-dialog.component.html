@@ -3,7 +3,7 @@
 		<input type="text" matInput [(ngModel)]="album.title" name="title" placeholder="Title" required />
 	</mat-form-field>
 
-	<button type="button" mat-raised-button isvrMediaSelector [albumId]="album.id" [maxSelections]="1" (mediaSelected)="newCoverSelected($event)">Change Album Cover</button>
+	<button type="button" mat-raised-button isvrMediaSelector [settings]="mediaSelectorSettings" (mediaSelected)="newCoverSelected($event)">Change Album Cover</button>
 	<isvr-media-preview *ngIf="album.cover.id" [media]="album.cover" [editable]="false" [navigable]="false"></isvr-media-preview>
 
 	<div class="actions">

@@ -12,4 +12,8 @@
 			<isvr-media-preview [media]="singleMedia" (mediaRemoved)="mediaRemoved($event)"></isvr-media-preview>
 		</mat-grid-tile>
 	</mat-grid-list>
+
+	<button mat-fab isvrMediaSelector [settings]="mediaSelectorSettings" class="add-btn" matTooltip="Add Media to Album" matTooltipPosition="left" (mediaSelected)="addMediaToAlbum($event)">
+		<mat-icon>add</mat-icon>
+	</button>
 </div>
