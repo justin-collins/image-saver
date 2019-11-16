@@ -17,6 +17,7 @@ import { MediaSelectorDialogComponent } from './media-selector-dialog/media-sele
 import { EditAlbumDialogComponent } from './edit-album-dialog/edit-album-dialog.component';
 import { EditAlbumButtonDirective } from './edit-album-button.directive';
 import { MediaSelectorDirective } from './media-selector.directive';
+import { TruncatePipe } from './truncate.pipe';
 
 @NgModule({
 	imports: [
@@ -39,7 +40,8 @@ import { MediaSelectorDirective } from './media-selector.directive';
 		MediaSelectorDialogComponent,
 		EditAlbumDialogComponent,
 		EditAlbumButtonDirective,
-		MediaSelectorDirective
+		MediaSelectorDirective,
+		TruncatePipe
 	],
 	declarations: [
 		MediaPreviewComponent,
@@ -54,7 +56,8 @@ import { MediaSelectorDirective } from './media-selector.directive';
 		MediaSelectorDialogComponent,
 		EditAlbumDialogComponent,
 		EditAlbumButtonDirective,
-		MediaSelectorDirective
+		MediaSelectorDirective,
+		TruncatePipe
 	],
 	entryComponents: [
 		NewMediaDialogComponent,

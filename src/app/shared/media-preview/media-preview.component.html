@@ -5,7 +5,7 @@
 	</div>
 
 	<div class="drawer" *ngIf="editable">
-		<div class="title">{{media.title}}</div>
+		<div class="title">{{media.title | truncate: 78}}</div>
 		<div class="actions">
 			<button class="white" mat-icon-button [matMenuTriggerFor]="actions" (click)="preventDefault($event)"><mat-icon>more_horiz</mat-icon></button>
 			<mat-menu #actions="matMenu" yPosition="above">
