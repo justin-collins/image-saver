@@ -37,14 +37,22 @@ CREATE TABLE IF NOT EXISTS `mediaTagsMap` (
 	`media_id` INTEGER,
 	`tag_id` INTEGER,
 	FOREIGN KEY(`media_id`) REFERENCES media(`id`) ON DELETE CASCADE,
-	FOREIGN KEY(`tag_id`) REFERENCES tags(`id`) ON DELETE CASCADE
+	FOREIGN KEY(`tag_id`) REFERENCES tags(`id`) ON DELETE CASCADE,
+	UNIQUE(tag_id, media_id)
 );
 
 CREATE TABLE IF NOT EXISTS `albums` (
 	`id` INTEGER PRIMARY KEY,
 	`title` TEXT NOT NULL,
-	`cover_media_id` INTEGER,
 	`created_at` DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS `albumCovers` (
+	`id` INTEGER PRIMARY KEY,
+	`media_id` INTEGER,
+	`album_id` INTEGER UNIQUE,
+	FOREIGN KEY(`media_id`) REFERENCES media(`id`) ON DELETE CASCADE,
+	FOREIGN KEY(`album_id`) REFERENCES albums(`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `mediaAlbumsMap` (
@@ -52,15 +60,17 @@ CREATE TABLE IF NOT EXISTS `mediaAlbumsMap` (
 	`media_id` INTEGER,
 	`album_id` INTEGER,
 	FOREIGN KEY(`media_id`) REFERENCES media(`id`) ON DELETE CASCADE,
-	FOREIGN KEY(`album_id`) REFERENCES albums(`id`) ON DELETE CASCADE
+	FOREIGN KEY(`album_id`) REFERENCES albums(`id`) ON DELETE CASCADE,
+	UNIQUE(media_id, album_id)
 );
 
 CREATE TABLE IF NOT EXISTS `albumsTagsMap` (
 	`id` INTEGER PRIMARY KEY,
-	`tags_id` INTEGER,
+	`tag_id` INTEGER,
 	`album_id` INTEGER,
-	FOREIGN KEY(`tags_id`) REFERENCES tags(`id`) ON DELETE CASCADE,
-	FOREIGN KEY(`album_id`) REFERENCES albums(`id`) ON DELETE CASCADE
+	FOREIGN KEY(`tag_id`) REFERENCES tags(`id`) ON DELETE CASCADE,
+	FOREIGN KEY(`album_id`) REFERENCES albums(`id`) ON DELETE CASCADE,
+	UNIQUE(tag_id, album_id)
 );
 
 COMMIT;

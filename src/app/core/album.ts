@@ -13,9 +13,8 @@ export class Album {
 
 		this.cover = new Media();
 		this.cover.id = row['media_id'];
-		this.cover.title = row['media_title'];
-		this.cover.url = row['url'];
-		this.cover.type = row['type'];
+		this.cover.url = row['media_url'];
+		this.cover.type = row['media_type'];
 
         return this;
     }

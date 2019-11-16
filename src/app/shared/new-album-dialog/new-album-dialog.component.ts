@@ -3,6 +3,7 @@ import { Album } from 'src/app/core/album';
 import { AlbumService } from 'src/app/core/album.service';
 import { MessagingService } from 'src/app/core/messaging.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Media } from 'src/app/core/media';
 
 @Component({
 	selector: 'isvr-new-album-dialog',
@@ -17,6 +18,7 @@ export class NewAlbumDialogComponent implements OnInit {
 				private messagingService: MessagingService,
 				private _ngZone: NgZone) {
 		this.newAlbum = new Album();
+		this.newAlbum.cover = new Media();
 	}
 
 	ngOnInit() {

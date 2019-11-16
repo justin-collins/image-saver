@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, concat } from 'rxjs';
 import { Album } from './album';
 import { DatabaseService } from './database.service';
 import { map } from 'rxjs/operators';
@@ -13,7 +13,7 @@ export class AlbumService {
 	constructor() { }
 
 	public getAll(): Observable<Album[]> {
-		const sql = `select albums.id, albums.title, albums.created_at, media.id media_id, media.title media_title, media.url, media.type from albums LEFT OUTER JOIN media ON albums.cover_media_id == media.id ORDER BY albums.created_at DESC`;
+		const sql = `select albums.id, albums.title, albums.created_at, media.id media_id, media.url media_url, media.type media_type from albums LEFT OUTER JOIN albumCovers on albums.id == albumCovers.album_id LEFT OUTER JOIN media ON albumCovers.media_id == media.id ORDER BY albums.created_at DESC`;
 		const values = {};
 
 		return DatabaseService.selectAll(sql, values).pipe(
@@ -28,7 +28,7 @@ export class AlbumService {
 	}
 
 	public get(id: number): Observable<Album> {
-		const sql = `select albums.id, albums.title, albums.created_at, media.id media_id, media.title media_title, media.url, media.type from albums LEFT OUTER JOIN media ON albums.cover_media_id == media.id WHERE albums.id == $albumId`;
+		const sql = `select albums.id, albums.title, albums.created_at, media.id media_id, media.url media_url, media.type media_type from albums LEFT OUTER JOIN albumCovers on albums.id == albumCovers.album_id LEFT OUTER JOIN media ON albumCovers.media_id == media.id WHERE albums.id == $albumId`;
 		const values = { $albumId: id };
 
 		return DatabaseService.selectOne(sql, values).pipe(
@@ -85,11 +85,44 @@ export class AlbumService {
 	}
 
 	public update(album: Album): Observable<Album> {
+		const sql = `UPDATE albums SET title = $title WHERE id == $albumId`;
+		const values = { $title: album.title, $albumId: album.id };
+
+		let albumUpdate = DatabaseService.update(sql, values).pipe(
+			map(() => {
+				return album;
+			})
+		);
+
 		let albumCoverId = (album.cover.id)? album.cover.id : null;
-		const sql = `UPDATE albums SET title = $title, cover_media_id = $coverMediaId WHERE id == $albumId`;
-		const values = { $title: album.title, $coverMediaId: albumCoverId, $albumId: album.id };
+		let coverUpdate;
+		if (albumCoverId) {
+			coverUpdate = this.updateCover(album);
+		} else {
+			coverUpdate = this.insertCover(album);
+		}
+
+		return concat<Album>(albumUpdate, coverUpdate);
+	}
+
+	private updateCover(album: Album): Observable<Album> {
+		let albumCoverId = (album.cover.id)? album.cover.id : null;
+		const sql = `UPDATE albumCovers SET media_id = $mediaId WHERE album_id == $albumId`;
+		const values = { $mediaId: albumCoverId, $albumId: album.id };
 
 		return DatabaseService.update(sql, values).pipe(
+			map(() => {
+				return album;
+			})
+		);
+	}
+
+	private insertCover(album: Album): Observable<Album> {
+		let albumCoverId = (album.cover.id)? album.cover.id : null;
+		const sql = `INSERT INTO albumCovers (album_id, media_id) VALUES ($albumId, $mediaId)`;
+		const values = { $albumId: album.id, $mediaId: albumCoverId };
+
+		return DatabaseService.insert(sql, values).pipe(
 			map(() => {
 				return album;
 			})
@@ -107,16 +140,22 @@ export class AlbumService {
 		);
 	}
 
-	public removeCover(album: Album): Observable<Album> {
-		album.cover = null;
-		return this.update(album);
+	public removeCover(album: Album): Observable<boolean> {
+		const sql = `DELETE FROM albumCovers WHERE album_id == $albumId`;
+		const values = { $albumId: album.id };
+
+		return DatabaseService.delete(sql, values).pipe(
+			map(() => {
+				return true;
+			})
+		);
 	}
 
 	public removeCoverByMedia(media: Media): Observable<boolean> {
-		const sql = `UPDATE albums SET cover_media_id = NULL WHERE cover_media_id == $mediaId`;
+		const sql = `DELETE FROM albumCovers WHERE mediaId == $mediaId`;
 		const values = { $mediaId: media.id };
 
-		return DatabaseService.update(sql, values).pipe(
+		return DatabaseService.delete(sql, values).pipe(
 			map(() => {
 				return true;
 			})
@@ -124,7 +163,7 @@ export class AlbumService {
 	}
 
 	public delete(album: Album): Observable<boolean> {
-		const sql = `DELETE from albums WHERE id == $albumId`;
+		const sql = `DELETE FROM albums WHERE id == $albumId`;
 		const values = {$albumId: album.id};
 
 		return DatabaseService.delete(sql, values).pipe(
