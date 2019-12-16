@@ -10,17 +10,19 @@
 }
 
 .info {
-	@include size(60%, 100px);
+	width: 60%;
 	margin: 0 auto;
 	text-align: left;
 
 	isvr-media-preview {
+		display: inline-block;
 		@include size(100px, 100px);
-		float: left;
 	}
 }
 
 h1 {
+	display: inline-block;
+	max-width: 80%;
 	padding-top: 10px;
 	margin: 0;
 

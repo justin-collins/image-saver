@@ -18,6 +18,10 @@ import { EditAlbumDialogComponent } from './edit-album-dialog/edit-album-dialog.
 import { EditAlbumButtonDirective } from './edit-album-button.directive';
 import { MediaSelectorDirective } from './media-selector.directive';
 import { TruncatePipe } from './truncate.pipe';
+import { AlbumSelectorDialogComponent } from './album-selector-dialog/album-selector-dialog.component';
+import { AlbumSelectorDirective } from './album-selector.directive';
+import { AlbumManagerComponent } from './album-manager/album-manager.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
 	imports: [
@@ -25,7 +29,8 @@ import { TruncatePipe } from './truncate.pipe';
 		FormsModule,
 		BrowserAnimationsModule,
 		ImageViewerMaterialModule,
-		CoreModule
+		CoreModule,
+		RouterModule
 	],
 	exports: [
 		MediaPreviewComponent,
@@ -41,7 +46,10 @@ import { TruncatePipe } from './truncate.pipe';
 		EditAlbumDialogComponent,
 		EditAlbumButtonDirective,
 		MediaSelectorDirective,
-		TruncatePipe
+		TruncatePipe,
+		AlbumSelectorDialogComponent,
+		AlbumSelectorDirective,
+		AlbumManagerComponent
 	],
 	declarations: [
 		MediaPreviewComponent,
@@ -57,14 +65,18 @@ import { TruncatePipe } from './truncate.pipe';
 		EditAlbumDialogComponent,
 		EditAlbumButtonDirective,
 		MediaSelectorDirective,
-		TruncatePipe
+		TruncatePipe,
+		AlbumSelectorDialogComponent,
+		AlbumSelectorDirective,
+		AlbumManagerComponent
 	],
 	entryComponents: [
 		NewMediaDialogComponent,
 		ConfirmDialogComponent,
 		NewAlbumDialogComponent,
 		EditAlbumDialogComponent,
-		MediaSelectorDialogComponent
+		MediaSelectorDialogComponent,
+		AlbumSelectorDialogComponent
 	]
 })
 export class SharedModule { }

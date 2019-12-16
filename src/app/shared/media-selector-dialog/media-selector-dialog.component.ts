@@ -1,8 +1,6 @@
 import { Component, OnInit, Inject, NgZone } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { EditAlbumDialogComponent } from '../edit-album-dialog/edit-album-dialog.component';
 import { Media } from 'src/app/core/media';
-import { AlbumService } from 'src/app/core/album.service';
 import { MediaService } from 'src/app/core/media.service';
 import { MediaSelectorSettings } from '../media-selector.directive';
 import { ContextType } from 'src/app/core/contextType';
@@ -21,7 +19,7 @@ export class MediaSelectorDialogComponent implements OnInit {
 
 	constructor(@Inject(MAT_DIALOG_DATA) private data,
 			private mediaService: MediaService,
-			public dialogRef: MatDialogRef<EditAlbumDialogComponent>,
+			public dialogRef: MatDialogRef<MediaSelectorDialogComponent>,
 			private _ngZone: NgZone) {
 	}
 

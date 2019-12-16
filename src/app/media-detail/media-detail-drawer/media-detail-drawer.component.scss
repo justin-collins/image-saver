@@ -18,6 +18,7 @@
 h2 {
 	margin: 0;
 	padding: 5px 0;
+	word-break: break-word;
 }
 
 p {
@@ -27,17 +28,10 @@ p {
 
 .timestamp {
 	@include text-format(12px);
+	padding-bottom: 16px;
 }
 
-.albums {
-	margin: 15px 0;
-
-	ul {
-		margin: 0;
-		padding: 0;
-	}
-
-	li {
-		list-style: none;
-	}
+isvr-album-manager {
+	display: block;
+	padding-bottom: 16px;
 }

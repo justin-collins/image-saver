@@ -1,0 +1,15 @@
+<div class="container" *ngIf="albums">
+	<p *ngIf="albums.length > 0">Click the Album you would like to select</p>
+	<mat-grid-list [cols]="numCols" gutterSize="0.5%">
+		<mat-grid-tile *ngFor="let album of albums">
+			<isvr-album-preview [album]="album" [ngClass]="{selected: albumSelectedContains(album)}" (click)="toggleAlbumSelection(album)"></isvr-album-preview>
+		</mat-grid-tile>
+	</mat-grid-list>
+
+	<h2 *ngIf="albums.length === 0">No Albums have been created. Click <a isvrNewAlbumButton (albumSaved)="newAlbumAdded($event)">here</a> to get started.</h2>
+</div>
+
+<div class="actions">
+	<button mat-raised-button color="primary" [disabled]="albumsSelected.length === 0" (click)="albumsSelectionComplete()">Select</button>
+	<button mat-raised-button (click)="dialogRef.close(null)">Cancel</button>
+</div>

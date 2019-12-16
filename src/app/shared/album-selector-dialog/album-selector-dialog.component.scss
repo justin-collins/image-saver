@@ -1,0 +1,45 @@
+@import 'includes';
+
+mat-grid-tile {
+	::ng-deep .mat-figure {
+		align-items: start;
+	}
+}
+
+isvr-album-preview {
+	position: relative;
+
+	&:after {
+		display: block;
+		@include position(absolute, 0 null null 0);
+		@include size(100%, 100%);
+		@include text-format(100px, null, #fff, center);
+		content: '\2714';
+		text-shadow: 0px 0px 5px #000;
+		z-index: 2;
+		cursor: pointer;
+		background-color: rgba(255, 255, 255, 0.4);
+		opacity: 0;
+		transition: opacity 150ms ease-out;
+	}
+
+	&.selected:after {
+		opacity: 1;
+	}
+}
+
+h2 a {
+	text-decoration: underline;
+	color: blue;
+	cursor: pointer;
+}
+
+
+.actions {
+	margin-top: 10px;
+	text-align: right;
+
+	button {
+		margin: 0 5px;
+	}
+}

@@ -1,0 +1,20 @@
+<mat-list *ngIf="albums && albums.length > 0">
+	<h3 mat-subheader>Albums</h3>
+
+	<mat-list-item *ngFor="let album of albums"(click)="navigateToAlbum(album)">
+		<isvr-media-preview [media]="album.cover" [editable]="false" [navigable]="false" matListAvatar *ngIf="album.cover.id"></isvr-media-preview>
+		<div class="filler" matListAvatar *ngIf="!album.cover.id"><mat-icon>account_box</mat-icon></div>
+
+		<h4 mat-line>{{album.title}}</h4>
+
+		<div class="actions" (click)="preventDefault($event)">
+			<button mat-icon-button matTooltip="Remove from Album" color="warn" isvrConfirmButton message="Remove '{{media.title}}' from album '{{album.title}}?'" (onConfirmed)="removeFromAlbum(album)"><mat-icon>delete</mat-icon></button>
+		</div>
+	</mat-list-item>
+
+	<p *ngIf="albums.length === 0">Not included in any albums</p>
+	<button mat-button isvrAlbumSelector (albumsSelected)="addToAlbum($event)">+ Add to Album(s)</button>
+</mat-list>
+
+
+<p *ngIf="albums && albums.length === 0">No Albums have been created. <button mat-button isvrNewAlbumButton (albumSaved)="newAlbumCreated($event)">Click here to get started.</button></p>

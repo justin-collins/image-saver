@@ -13,7 +13,10 @@ export class AlbumService {
 	constructor() { }
 
 	public getAll(): Observable<Album[]> {
-		const sql = `select albums.id, albums.title, albums.created_at, media.id media_id, media.url media_url, media.type media_type from albums LEFT OUTER JOIN albumCovers on albums.id == albumCovers.album_id LEFT OUTER JOIN media ON albumCovers.media_id == media.id ORDER BY albums.created_at DESC`;
+		const sql = `SELECT albums.id, albums.title, albums.created_at, media.id media_id, media.url media_url, media.type media_type from albums
+					LEFT OUTER JOIN albumCovers on albums.id == albumCovers.album_id
+					LEFT OUTER JOIN media ON albumCovers.media_id == media.id
+					ORDER BY albums.created_at DESC`;
 		const values = {};
 
 		return DatabaseService.selectAll(sql, values).pipe(
@@ -28,7 +31,10 @@ export class AlbumService {
 	}
 
 	public get(id: number): Observable<Album> {
-		const sql = `select albums.id, albums.title, albums.created_at, media.id media_id, media.url media_url, media.type media_type from albums LEFT OUTER JOIN albumCovers on albums.id == albumCovers.album_id LEFT OUTER JOIN media ON albumCovers.media_id == media.id WHERE albums.id == $albumId`;
+		const sql = `SELECT albums.id, albums.title, albums.created_at, media.id media_id, media.url media_url, media.type media_type from albums
+					LEFT OUTER JOIN albumCovers on albums.id == albumCovers.album_id
+					LEFT OUTER JOIN media ON albumCovers.media_id == media.id
+					WHERE albums.id == $albumId`;
 		const values = { $albumId: id };
 
 		return DatabaseService.selectOne(sql, values).pipe(
@@ -37,7 +43,11 @@ export class AlbumService {
 	}
 
 	public getAlbumsByMedia(media: Media): Observable<Album[]> {
-		const sql = `SELECT albums.id, albums.title FROM mediaAlbumsMap INNER JOIN albums ON albums.id == mediaAlbumsMap.album_id WHERE mediaAlbumsMap.media_id = $mediaId`;
+		const sql = `SELECT albums.id, albums.title, albums.created_at, media.id media_id, media.url media_url, media.type media_type from mediaAlbumsMap
+					LEFT OUTER JOIN albums on albums.id == mediaAlbumsMap.album_id
+					LEFT OUTER JOIN albumCovers on albums.id == albumCovers.album_id
+					LEFT OUTER JOIN media ON albumCovers.media_id == media.id
+					WHERE mediaAlbumsMap.media_id = $mediaId`;
 		const values = {$mediaId: media.id};
 
 		return DatabaseService.selectAll(sql, values).pipe(
@@ -98,30 +108,14 @@ export class AlbumService {
 			map(() => album)
 		);
 
-		let albumCoverId = (album.cover.id)? album.cover.id : null;
-		let coverUpdate;
-		if (albumCoverId) {
-			coverUpdate = this.updateCover(album);
-		} else {
-			coverUpdate = this.insertCover(album);
-		}
+		let coverInsert = this.insertCover(album);
 
-		return concat<Album>(albumUpdate, coverUpdate);
-	}
-
-	private updateCover(album: Album): Observable<Album> {
-		let albumCoverId = (album.cover.id)? album.cover.id : null;
-		const sql = `UPDATE albumCovers SET media_id = $mediaId WHERE album_id == $albumId`;
-		const values = { $mediaId: albumCoverId, $albumId: album.id };
-
-		return DatabaseService.update(sql, values).pipe(
-			map(() => album)
-		);
+		return concat<Album>(albumUpdate, coverInsert);
 	}
 
 	private insertCover(album: Album): Observable<Album> {
 		let albumCoverId = (album.cover.id)? album.cover.id : null;
-		const sql = `INSERT INTO albumCovers (album_id, media_id) VALUES ($albumId, $mediaId)`;
+		const sql = `INSERT INTO albumCovers (album_id, media_id) VALUES ($albumId, $mediaId) ON CONFLICT(album_id) DO UPDATE SET media_id = $mediaId`;
 		const values = { $albumId: album.id, $mediaId: albumCoverId };
 
 		return DatabaseService.insert(sql, values).pipe(

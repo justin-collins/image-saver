@@ -27,7 +27,7 @@
 		transition: bottom 150ms ease-out;
 	}
 
-	&:hover {
+	&.navigable:hover {
 		background-color: lightblue;
 
 		&.editable .media-frame {

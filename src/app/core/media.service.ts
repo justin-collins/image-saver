@@ -43,7 +43,7 @@ export class MediaService {
 		} else {
 			sql += ` FROM media WHERE media.id NOT IN (SELECT mediaAlbumsMap.media_id from mediaAlbumsMap WHERE mediaAlbumsMap.album_id == $albumId) `;
 		}
-		sql += `AND media.trashed == 0 ORDER BY mediaAlbumsMap.created_at DESC;`;
+		sql += `AND media.trashed == 0 ORDER BY media.created_at DESC;`;
 
 		const values = { $albumId: albumId };
 

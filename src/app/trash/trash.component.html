@@ -1,6 +1,6 @@
 <div *ngIf="trashedMedia && trashedMedia.length > 0">
 	<mat-list>
-		<mat-list-item *ngFor="let singleMedia of trashedMedia"  (click)="navigateToDetails(singleMedia)">
+		<mat-list-item *ngFor="let singleMedia of trashedMedia" (click)="navigateToDetails(singleMedia)">
 			<isvr-media-preview [media]="singleMedia" [editable]="false" matListAvatar></isvr-media-preview>
 
 			<h4 mat-line>{{singleMedia.title}}</h4>

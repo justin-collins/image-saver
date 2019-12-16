@@ -25,7 +25,7 @@ export class MediaSelectorDirective {
 
 		this.mediaSelectorDialogConfig.data = {
 			settings: this.settings
-		}
+		};
 
 		this.mediaSelectorDialogRef = this.dialog.open(MediaSelectorDialogComponent, this.mediaSelectorDialogConfig);
 		this.mediaSelectorDialogRef.afterClosed().subscribe((result) => {

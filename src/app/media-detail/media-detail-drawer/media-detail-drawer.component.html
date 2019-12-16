@@ -7,10 +7,8 @@
 <h2>{{media.title}}</h2>
 <p class="timestamp"><b>Added At:</b> {{media.createdAt | date:'short'}}</p>
 
-<div class="albums" *ngIf="albums">
-	<p>Albums:</p>
-	<ul *ngIf="albums.length > 0">
-		<li *ngFor="let album of albums"><a [routerLink]="['/albums', album.id, 'detail']">{{album.title}}</a></li>
-	</ul>
-	<p *ngIf="albums.length === 0">Not included in any albums</p>
-</div>
+<mat-divider></mat-divider>
+
+<isvr-album-manager [media]="media"></isvr-album-manager>
+
+<mat-divider></mat-divider>
