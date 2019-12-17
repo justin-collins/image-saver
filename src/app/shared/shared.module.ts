@@ -6,7 +6,7 @@ import { NewMediaDialogComponent } from './new-media-dialog/new-media-dialog.com
 import { NewMediaButtonDirective } from './new-media-button.directive';
 import { ConfirmButtonDirective } from './confirm-button.directive';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertComponent } from './alert/alert.component';
 import { CoreModule } from '../core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,8 +18,6 @@ import { EditAlbumDialogComponent } from './edit-album-dialog/edit-album-dialog.
 import { EditAlbumButtonDirective } from './edit-album-button.directive';
 import { MediaSelectorDirective } from './media-selector.directive';
 import { TruncatePipe } from './truncate.pipe';
-import { TagSelectorDialogComponent } from './tag-selector-dialog/tag-selector-dialog.component';
-import { TagSelectorDirective } from './tag-selector.directive';
 import { TagManagerComponent } from './tag-manager/tag-manager.component';
 import { AlbumSelectorDialogComponent } from './album-selector-dialog/album-selector-dialog.component';
 import { AlbumSelectorDirective } from './album-selector.directive';
@@ -33,6 +31,7 @@ import { NewTagButtonDirective } from './new-tag-button.directive';
 	imports: [
 		CommonModule,
 		FormsModule,
+		ReactiveFormsModule,
 		BrowserAnimationsModule,
 		ImageViewerMaterialModule,
 		CoreModule,
@@ -53,8 +52,6 @@ import { NewTagButtonDirective } from './new-tag-button.directive';
 		EditAlbumButtonDirective,
 		MediaSelectorDirective,
 		TruncatePipe,
-		TagSelectorDialogComponent,
-		TagSelectorDirective,
 		TagManagerComponent,
 		AlbumSelectorDialogComponent,
 		AlbumSelectorDirective,
@@ -78,8 +75,6 @@ import { NewTagButtonDirective } from './new-tag-button.directive';
 		EditAlbumButtonDirective,
 		MediaSelectorDirective,
 		TruncatePipe,
-		TagSelectorDialogComponent,
-		TagSelectorDirective,
 		TagManagerComponent,
 		AlbumSelectorDialogComponent,
 		AlbumSelectorDirective,
@@ -94,7 +89,6 @@ import { NewTagButtonDirective } from './new-tag-button.directive';
 		NewAlbumDialogComponent,
 		EditAlbumDialogComponent,
 		MediaSelectorDialogComponent,
-		TagSelectorDialogComponent,
 		AlbumSelectorDialogComponent,
 		NewTagDialogComponent
 	]

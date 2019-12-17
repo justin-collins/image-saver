@@ -68,4 +68,13 @@ export class TagService {
 			map(() => tag)
 		);
 	}
+
+	public addToMedia(media: Media, tag: Tag): Observable<Tag> {
+		const sql = `INSERT INTO mediaTagsMap (media_id, tag_id) VALUES ($mediaId, $tagId) ON CONFLICT(media_id, tag_id) DO UPDATE SET tag_id = $tagId`;
+		const values = { $tagId: tag.id, $mediaId: media.id };
+
+		return DatabaseService.update(sql, values).pipe(
+			map(() => tag)
+		);
+	}
 }
