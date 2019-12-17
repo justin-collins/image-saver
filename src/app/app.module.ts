@@ -13,6 +13,7 @@ import { AlbumsComponent } from './albums/albums.component';
 import { TrashComponent } from './trash/trash.component';
 import { MediaDetailDrawerComponent } from './media-detail/media-detail-drawer/media-detail-drawer.component';
 import { AlbumDetailsComponent } from './album-details/album-details.component';
+import { TagsComponent } from './tags/tags.component';
 
 @NgModule({
 	declarations: [
@@ -22,7 +23,8 @@ import { AlbumDetailsComponent } from './album-details/album-details.component';
 		AlbumsComponent,
 		TrashComponent,
 		MediaDetailDrawerComponent,
-		AlbumDetailsComponent
+		AlbumDetailsComponent,
+		TagsComponent
 	],
 	imports: [
 		BrowserModule,

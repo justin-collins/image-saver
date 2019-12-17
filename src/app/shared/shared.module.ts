@@ -18,10 +18,16 @@ import { EditAlbumDialogComponent } from './edit-album-dialog/edit-album-dialog.
 import { EditAlbumButtonDirective } from './edit-album-button.directive';
 import { MediaSelectorDirective } from './media-selector.directive';
 import { TruncatePipe } from './truncate.pipe';
+import { TagSelectorDialogComponent } from './tag-selector-dialog/tag-selector-dialog.component';
+import { TagSelectorDirective } from './tag-selector.directive';
+import { TagManagerComponent } from './tag-manager/tag-manager.component';
 import { AlbumSelectorDialogComponent } from './album-selector-dialog/album-selector-dialog.component';
 import { AlbumSelectorDirective } from './album-selector.directive';
 import { AlbumManagerComponent } from './album-manager/album-manager.component';
 import { RouterModule } from '@angular/router';
+import { InitialCasePipe } from './initial-case.pipe';
+import { NewTagDialogComponent } from './new-tag-dialog/new-tag-dialog.component';
+import { NewTagButtonDirective } from './new-tag-button.directive';
 
 @NgModule({
 	imports: [
@@ -47,9 +53,15 @@ import { RouterModule } from '@angular/router';
 		EditAlbumButtonDirective,
 		MediaSelectorDirective,
 		TruncatePipe,
+		TagSelectorDialogComponent,
+		TagSelectorDirective,
+		TagManagerComponent,
 		AlbumSelectorDialogComponent,
 		AlbumSelectorDirective,
-		AlbumManagerComponent
+		AlbumManagerComponent,
+		InitialCasePipe,
+		NewTagDialogComponent,
+		NewTagButtonDirective
 	],
 	declarations: [
 		MediaPreviewComponent,
@@ -66,9 +78,15 @@ import { RouterModule } from '@angular/router';
 		EditAlbumButtonDirective,
 		MediaSelectorDirective,
 		TruncatePipe,
+		TagSelectorDialogComponent,
+		TagSelectorDirective,
+		TagManagerComponent,
 		AlbumSelectorDialogComponent,
 		AlbumSelectorDirective,
-		AlbumManagerComponent
+		AlbumManagerComponent,
+		InitialCasePipe,
+		NewTagDialogComponent,
+		NewTagButtonDirective
 	],
 	entryComponents: [
 		NewMediaDialogComponent,
@@ -76,7 +94,9 @@ import { RouterModule } from '@angular/router';
 		NewAlbumDialogComponent,
 		EditAlbumDialogComponent,
 		MediaSelectorDialogComponent,
-		AlbumSelectorDialogComponent
+		TagSelectorDialogComponent,
+		AlbumSelectorDialogComponent,
+		NewTagDialogComponent
 	]
 })
 export class SharedModule { }

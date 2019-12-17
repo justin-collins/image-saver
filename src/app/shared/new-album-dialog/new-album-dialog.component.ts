@@ -27,7 +27,7 @@ export class NewAlbumDialogComponent implements OnInit {
 	public saveNewAlbum(): void {
 		this.albumService.insert(this.newAlbum).subscribe(() => {
 			this._ngZone.run(() => {
-				this.messagingService.message('Media Saved!');
+				this.messagingService.message('New Album Created!');
 				this.dialogRef.close(this.newAlbum);
 			});
 		});

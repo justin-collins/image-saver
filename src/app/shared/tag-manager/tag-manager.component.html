@@ -1,0 +1,15 @@
+<mat-list *ngIf="tags && tags.length > 0">
+	<h3 mat-subheader>Tags</h3>
+
+	<mat-list-item>
+		<mat-chip-list>
+			<mat-chip *ngFor="let tag of tags" [removable]="true" (removed)="removeTag(tag)">
+				{{tag.title}}
+				<mat-icon matChipRemove>cancel</mat-icon>
+			</mat-chip>
+		</mat-chip-list>
+	</mat-list-item>
+
+	<p *ngIf="tags.length === 0">No Assigned Tags</p>
+	<button mat-button isvrTagSelector>+ Add Tags</button>
+</mat-list>

@@ -1,7 +1,7 @@
 <mat-list *ngIf="albums && albums.length > 0">
 	<h3 mat-subheader>Albums</h3>
 
-	<mat-list-item *ngFor="let album of albums"(click)="navigateToAlbum(album)">
+	<mat-list-item *ngFor="let album of albums" (click)="navigateToAlbum(album)">
 		<isvr-media-preview [media]="album.cover" [editable]="false" [navigable]="false" matListAvatar *ngIf="album.cover.id"></isvr-media-preview>
 		<div class="filler" matListAvatar *ngIf="!album.cover.id"><mat-icon>account_box</mat-icon></div>
 

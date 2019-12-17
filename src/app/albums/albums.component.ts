@@ -30,6 +30,8 @@ export class AlbumsComponent implements OnInit {
 	}
 
 	public newAlbumAdded(newAlbum: Album): void {
-		this.albums.unshift(newAlbum);
+		this._ngZone.run(() => {
+			this.albums.unshift(newAlbum);
+		});
 	}
 }

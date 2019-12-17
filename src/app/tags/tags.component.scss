@@ -1,0 +1,30 @@
+@import 'includes';
+
+mat-list {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	padding: 16px;
+}
+
+mat-list-item {
+	cursor: pointer;
+
+	&:hover {
+		background-color: lightblue;
+	}
+}
+
+.mat-list-base .mat-list-item {
+	width: 20%;
+}
+
+.add-btn {
+	display: inline-block;
+	@include position(fixed, null 20px 20px null);
+}
+
+h2 {
+	padding: 10px;
+	margin: 0;
+}

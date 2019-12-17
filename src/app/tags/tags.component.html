@@ -1,0 +1,13 @@
+<mat-list *ngIf="tags && tags.length > 0">
+	<mat-list-item *ngFor="let tag of tags" (click)="searchByTag(tag)">
+		<mat-icon mat-list-icon>bookmark_border</mat-icon>
+		<h4 mat-line>{{tag.title | initialCase}}</h4>
+		<p mat-line>{{tag.total || 0}} use{{(tag.total === 1)?'':'s'}}</p>
+	</mat-list-item>
+</mat-list>
+
+<h2 *ngIf="tags && tags.length === 0">Use the button below to add a Tag</h2>
+
+<button mat-fab isvrNewTagButton class="add-btn" matTooltip="Add New Tag" matTooltipPosition="left" (tagSaved)="newTagAdded($event)">
+	<mat-icon>add</mat-icon>
+</button>
