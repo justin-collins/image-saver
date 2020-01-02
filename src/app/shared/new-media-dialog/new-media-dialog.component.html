@@ -9,6 +9,8 @@
 		<input type="text" matInput [(ngModel)]="newMedia.title" name="title" placeholder="Title" />
 	</mat-form-field>
 
+	<isvr-tag-manager [media]="newMedia" (tagsChanged)="tagsChanged($event)"></isvr-tag-manager>
+
 	<button type="submit" mat-raised-button color="primary" [disabled]="!editMediaForm.form.valid">Save</button>
 	<button type="button" mat-raised-button (click)="dialogRef.close(null)">Cancel</button>
 </form>

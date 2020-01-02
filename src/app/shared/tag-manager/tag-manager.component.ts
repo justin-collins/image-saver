@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, NgZone } from '@angular/core';
+import { Component, OnInit, Input, NgZone, Output, EventEmitter } from '@angular/core';
 import { Tag } from 'src/app/core/tag';
 import { Media } from 'src/app/core/media';
 import { TagService } from 'src/app/core/tag.service';
@@ -10,6 +10,7 @@ import { TagService } from 'src/app/core/tag.service';
 })
 export class TagManagerComponent implements OnInit {
 	@Input() media: Media;
+	@Output() tagsChanged = new EventEmitter<Tag[]>();
 
 	public tags: Tag[];
 	public newTag: boolean = false;
@@ -18,7 +19,11 @@ export class TagManagerComponent implements OnInit {
 		private _ngZone: NgZone) { }
 
 	ngOnInit() {
-		this.loadMediaTags();
+		if (this.media.id) {
+			this.loadMediaTags();
+		} else {
+			this.tags = [];
+		}
 	}
 
 	private loadMediaTags(): void {
@@ -56,17 +61,26 @@ export class TagManagerComponent implements OnInit {
 			return;
 		}
 
-		this.tagService.addToMedia(this.media, selectedTag).subscribe(this.tagAdded);
+		if (this.media.id) {
+			this.tagService.addToMedia(this.media, selectedTag).subscribe(this.tagAdded);
+		} else {
+			this.tagAdded(selectedTag);
+		}
 	}
 
 	private tagAdded = (tagResponse: Tag): void => {
 		this._ngZone.run(() => {
 			this.tags.push(tagResponse);
+			this.updateTagsOutput();
 		});
 	}
 
 	public tagsContains(tag: Tag): boolean {
 		let containingTag: Tag = this.tags.filter(option => option.id === tag.id)[0];
 		return (containingTag)? true : false;
+	}
+
+	private updateTagsOutput(): void {
+		this.tagsChanged.emit(this.tags);
 	}
 }

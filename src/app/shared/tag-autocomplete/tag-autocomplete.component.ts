@@ -55,6 +55,7 @@ export class TagAutocompleteComponent implements OnInit {
 	}
 
 	public autocompleteOptionChosen(event: MatAutocompleteSelectedEvent): void {
+		this.resetAutocomplete();
 		let selectedTag: Tag = event.option.value;
 		this.emitTagChosen(selectedTag);
 	}

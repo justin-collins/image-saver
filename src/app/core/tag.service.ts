@@ -78,6 +78,23 @@ export class TagService {
 		);
 	}
 
+	public addBulkToMedia(media: Media, tags: Tag[]): Observable<Tag[]> {
+		let sql = `INSERT INTO mediaTagsMap (media_id, tag_id) VALUES`;
+
+		for (let i = 0; i < tags.length; i++) {
+			sql += `(${media.id}, ${tags[i].id})`
+
+			if (i < tags.length - 1) sql += `,`;
+		}
+
+		sql += ` ON CONFLICT(media_id, tag_id) DO UPDATE SET media_id = ${media.id}`;
+		const values = {};
+
+		return DatabaseService.update(sql, values).pipe(
+			map(() => tags)
+		);
+	}
+
 	public delete(tag: Tag): Observable<Tag> {
 		const sql = `DELETE FROM tags WHERE tags.id == $tagId`;
 		const values = { $tagId: tag.id };
