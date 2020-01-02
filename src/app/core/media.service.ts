@@ -193,7 +193,7 @@ export class MediaService {
 	}
 
 	private urlIsVideo(url: string): boolean {
-		let match = url.match(/^((https?|ftp):)?\/\/.*(mp4)$/);
+		let match = url.match(/^((https?|ftp):)?\/\/.*(mp4|webm)$/);
 		return (match && match.length > 0) ? true : false;
 	}
 

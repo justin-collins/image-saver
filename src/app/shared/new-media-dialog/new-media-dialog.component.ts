@@ -32,7 +32,12 @@ export class NewMediaDialogComponent implements OnInit {
 
 	private mediaSaved = (mediaResponse: Media): void => {
 		this.newMedia = mediaResponse;
-		this.saveTags();
+
+		if (this.tags && this.tags.length > 0) {
+			this.saveTags();
+		} else {
+			this.savingFinished();
+		}
 	}
 
 	public getLocalFileSource(event): void {
