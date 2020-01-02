@@ -26,6 +26,7 @@ import { RouterModule } from '@angular/router';
 import { InitialCasePipe } from './initial-case.pipe';
 import { NewTagDialogComponent } from './new-tag-dialog/new-tag-dialog.component';
 import { NewTagButtonDirective } from './new-tag-button.directive';
+import { TagAutocompleteComponent } from './tag-autocomplete/tag-autocomplete.component';
 
 @NgModule({
 	imports: [
@@ -58,7 +59,8 @@ import { NewTagButtonDirective } from './new-tag-button.directive';
 		AlbumManagerComponent,
 		InitialCasePipe,
 		NewTagDialogComponent,
-		NewTagButtonDirective
+		NewTagButtonDirective,
+		TagAutocompleteComponent
 	],
 	declarations: [
 		MediaPreviewComponent,
@@ -81,7 +83,8 @@ import { NewTagButtonDirective } from './new-tag-button.directive';
 		AlbumManagerComponent,
 		InitialCasePipe,
 		NewTagDialogComponent,
-		NewTagButtonDirective
+		NewTagButtonDirective,
+		TagAutocompleteComponent
 	],
 	entryComponents: [
 		NewMediaDialogComponent,

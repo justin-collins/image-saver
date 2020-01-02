@@ -1,0 +1,7 @@
+<mat-form-field>
+	<input type="text" matInput placeholder="Type Tag Name Here" [formControl]="newTagControl" [matAutocomplete]="tagsAutocomplete">
+</mat-form-field>
+
+<mat-autocomplete #tagsAutocomplete="matAutocomplete" [displayWith]="autocompleteDisplay" (optionSelected)="autocompleteOptionChosen($event)">
+	<mat-option *ngFor="let tag of filteredAllTags | async" [value]="tag">{{tag.title}}</mat-option>
+</mat-autocomplete>

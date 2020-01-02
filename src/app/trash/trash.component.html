@@ -6,13 +6,13 @@
 			<h4 mat-line>{{singleMedia.title}}</h4>
 			<p mat-line> Trashed: {{singleMedia.trashedAt | date:'short'}} </p>
 			<div class="actions">
-				<button mat-icon-button matTooltip="Permanently Delete" (click)="preventDefault($event)" color="warn" isvrConfirmButton message="Permanently Delete '{{singleMedia.title}}?'" (onConfirmed)="permanentlyDelete(singleMedia)"><mat-icon>delete_outline</mat-icon></button>
+				<button mat-icon-button matTooltip="Permanently Delete" (click)="preventDefault($event)" color="warn" isvrConfirmButton message="Permanently Delete '{{singleMedia.title}}?'" (confirmed)="permanentlyDelete(singleMedia)"><mat-icon>delete_outline</mat-icon></button>
 				<button mat-icon-button matTooltip="Restore" (click)="restore(singleMedia); preventDefault($event)"><mat-icon>restore</mat-icon></button>
 			</div>
 		</mat-list-item>
 	</mat-list>
 
-	<button mat-fab class="clear-btn" color="warn" matTooltip="Delete all permanently" matTooltipPosition="left" isvrConfirmButton message="Permanently delete all media in trash?'" (onConfirmed)="permanentlyDeleteAll()">
+	<button mat-fab class="clear-btn" color="warn" matTooltip="Delete all permanently" matTooltipPosition="left" isvrConfirmButton message="Permanently delete all media in trash?'" (confirmed)="permanentlyDeleteAll()">
 		<mat-icon>delete</mat-icon>
 	</button>
 </div>

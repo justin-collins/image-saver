@@ -8,7 +8,7 @@
 		<h4 mat-line>{{album.title}}</h4>
 
 		<div class="actions" (click)="preventDefault($event)">
-			<button mat-icon-button matTooltip="Remove from Album" color="warn" isvrConfirmButton message="Remove '{{media.title}}' from album '{{album.title}}?'" (onConfirmed)="removeFromAlbum(album)"><mat-icon>delete</mat-icon></button>
+			<button mat-icon-button matTooltip="Remove from Album" color="warn" isvrConfirmButton message="Remove '{{media.title}}' from album '{{album.title}}?'" (confirmed)="removeFromAlbum(album)"><mat-icon>delete</mat-icon></button>
 		</div>
 	</mat-list-item>
 

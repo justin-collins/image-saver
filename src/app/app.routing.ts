@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { MediaComponent } from './media/media.component';
 import { MediaDetailComponent } from './media-detail/media-detail.component';
 import { AlbumsComponent } from './albums/albums.component';
 import { TrashComponent } from './trash/trash.component';
@@ -8,10 +8,10 @@ import { AlbumDetailsComponent } from './album-details/album-details.component';
 import { TagsComponent } from './tags/tags.component';
 
 const routes: Routes = [
-	{ path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+	{ path: '', redirectTo: '/media', pathMatch: 'full' },
 	{
-		path: 'dashboard',
-		component: DashboardComponent
+		path: 'media',
+		component: MediaComponent
 	},
 	{
 		path: 'media/:mediaId/detail',

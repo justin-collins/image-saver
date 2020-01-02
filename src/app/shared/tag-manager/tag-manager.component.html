@@ -13,11 +13,5 @@
 	<p *ngIf="tags.length === 0">No Assigned Tags</p>
 
 	<button mat-button *ngIf="!newTag" (click)="showNewTag()">+ Add Tags</button>
-	<mat-form-field *ngIf="newTag">
-		<input type="text" matInput placeholder="Type Tag Name Here" [formControl]="newTagControl" [matAutocomplete]="tagsAutocomplete">
-	</mat-form-field>
-
-	<mat-autocomplete #tagsAutocomplete="matAutocomplete" [displayWith]="autocompleteDisplay" (optionSelected)="addNewTag($event)">
-		<mat-option *ngFor="let tag of filteredAllTags | async" [value]="tag">{{tag.title}}</mat-option>
-	</mat-autocomplete>
+	<isvr-tag-autocomplete *ngIf="newTag" (tagChosen)="addNewTag($event)"></isvr-tag-autocomplete>
 </mat-list>

@@ -3,11 +3,11 @@ import { Media } from '../core/media';
 import { MediaService } from '../core/media.service';
 
 @Component({
-	selector: 'isvr-dashboard',
-	templateUrl: './dashboard.component.html',
-	styleUrls: ['./dashboard.component.scss']
+	selector: 'isvr-media',
+	templateUrl: './media.component.html',
+	styleUrls: ['./media.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class MediaComponent implements OnInit {
 	public media: Media[];
 
 	public numCols: number = 5;

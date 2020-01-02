@@ -7,7 +7,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 })
 export class ConfirmButtonDirective {
 	@Input() message: string = 'Are you sure?';
-	@Output() onConfirmed = new EventEmitter<boolean>();
+	@Output() confirmed = new EventEmitter<boolean>();
 
 	private confirmationDialogRef: MatDialogRef<ConfirmDialogComponent>;
 
@@ -17,7 +17,7 @@ export class ConfirmButtonDirective {
 	private onClick() {
 		this.confirmationDialogRef = this.dialog.open(ConfirmDialogComponent, { data: this.message });
 		this.confirmationDialogRef.afterClosed().subscribe((result) => {
-			if (result) this.onConfirmed.emit(true);
+			if (result) this.confirmed.emit(true);
 		});
 	}
 }

@@ -7,7 +7,7 @@
 	<isvr-media-preview *ngIf="album.cover.id" [media]="album.cover" [editable]="false" [navigable]="false"></isvr-media-preview>
 
 	<div class="actions">
-		<button type="button" mat-raised-button color="warn" class="delete-btn" isvrConfirmButton message="Permanently delete the '{{album.title}}' album? This will not delete the Media within it." (onConfirmed)="deleteAlbum()">Delete</button>
+		<button type="button" mat-raised-button color="warn" class="delete-btn" isvrConfirmButton message="Permanently delete the '{{album.title}}' album? This will not delete the Media within it." (confirmed)="deleteAlbum()">Delete</button>
 		<button type="submit" mat-raised-button color="primary" [disabled]="!editAlbumForm.form.valid">Save</button>
 		<button type="button" mat-raised-button (click)="dialogRef.close(null)">Cancel</button>
 	</div>

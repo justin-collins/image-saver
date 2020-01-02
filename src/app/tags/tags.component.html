@@ -4,7 +4,7 @@
 		<h4 mat-line>{{tag.title | initialCase}}</h4>
 		<p mat-line>{{tag.total || 0}} use{{(tag.total === 1)?'':'s'}}</p>
 		<div class="actions">
-			<button mat-icon-button matTooltip="Permanently Delete" (click)="preventDefault($event)" color="warn" isvrConfirmButton message="Permanently Delete Tag '{{tag.title}}?'" (onConfirmed)="permanentlyDelete(tag)"><mat-icon>delete_outline</mat-icon></button>
+			<button mat-icon-button matTooltip="Permanently Delete" (click)="preventDefault($event)" color="warn" isvrConfirmButton message="Permanently Delete Tag '{{tag.title}}?'" (confirmed)="permanentlyDelete(tag)"><mat-icon>delete_outline</mat-icon></button>
 		</div>
 	</mat-list-item>
 </mat-list>
