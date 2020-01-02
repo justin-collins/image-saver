@@ -77,4 +77,13 @@ export class TagService {
 			map(() => tag)
 		);
 	}
+
+	public delete(tag: Tag): Observable<Tag> {
+		const sql = `DELETE FROM tags WHERE tags.id == $tagId`;
+		const values = { $tagId: tag.id };
+
+		return DatabaseService.delete(sql, values).pipe(
+			map(() => tag)
+		);
+	}
 }

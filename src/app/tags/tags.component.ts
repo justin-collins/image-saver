@@ -36,4 +36,23 @@ export class TagsComponent implements OnInit {
 			this.tags.unshift(newTag);
 		});
 	}
+
+	public permanentlyDelete(tag: Tag): void {
+		this.tagService.delete(tag).subscribe(() => this.removeTagFromList(tag));
+	}
+
+	private removeTagFromList = (tag: Tag): void => {
+		let index: number = this.tags.findIndex(t => t.id === tag.id);
+
+		if (index > -1) {
+			this._ngZone.run(() => {
+				this.tags.splice(index, 1);
+			});
+		}
+	}
+
+	public preventDefault(event): void {
+		event.preventDefault();
+		event.stopPropagation();
+	}
 }
