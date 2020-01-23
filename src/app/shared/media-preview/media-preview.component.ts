@@ -21,8 +21,8 @@ export class MediaPreviewComponent implements OnInit {
 
 	public mediaType = MediaType;
 	public contextType = ContextType;
-
 	public context: Context;
+	public autoplayVideos: boolean = true;
 
 	constructor(private mediaService: MediaService,
 				private albumService: AlbumService,

@@ -4,7 +4,7 @@
 			<isvr-alert *ngIf="media.trashed">This item is currently in the trash. <a (click)="restoreMedia()">Click here to restore</a></isvr-alert>
 
 			<div *ngIf="media.type === mediaType.IMAGE || media.type === mediaType.GIF" class="image" [ngStyle]="{'background-image': 'url(' + media.url + ')'}"></div>
-			<video *ngIf="media.type === mediaType.VIDEO" class="video" [src]="media.url" autoplay loop controls></video>
+			<video *ngIf="media.type === mediaType.VIDEO" class="video" [src]="media.url" [muted]="'muted'" autoplay loop controls></video>
 		</div>
 
 		<mat-progress-bar mode="indeterminate"  *ngIf="!media"></mat-progress-bar>

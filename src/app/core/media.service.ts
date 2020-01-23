@@ -188,17 +188,17 @@ export class MediaService {
 	}
 
 	private urlIsGif(url: string): boolean {
-		let match = url.match(/^((https?|ftp):)?\/\/.*(gif|gifv)$/);
+		let match = url.match(/(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:gif|gifv))(?:\?([^#]*))?(?:#(.*))?/);
 		return (match && match.length > 0) ? true : false;
 	}
 
 	private urlIsVideo(url: string): boolean {
-		let match = url.match(/^((https?|ftp):)?\/\/.*(mp4|webm)$/);
+		let match = url.match(/(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:mp4|webm))(?:\?([^#]*))?(?:#(.*))?/);
 		return (match && match.length > 0) ? true : false;
 	}
 
 	private urlIsAudio(url: string): boolean {
-		let match = url.match(/^((https?|ftp):)?\/\/.*(mp3)$/);
+		let match = url.match(/(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:mp3))(?:\?([^#]*))?(?:#(.*))?/);
 		return (match && match.length > 0) ? true : false;
 	}
 

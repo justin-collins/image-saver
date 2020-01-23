@@ -1,7 +1,7 @@
 <div class="container" (click)="navigateToDetails()" [ngClass]="{editable: editable, navigable: navigable}">
 	<div class="media-frame">
 		<div *ngIf="media.type === mediaType.IMAGE || media.type === mediaType.GIF" class="image" [ngStyle]="{'background-image': 'url(' + media.url + ')'}"></div>
-		<video *ngIf="media.type === mediaType.VIDEO" class="video" [src]="media.url" autoplay loop></video>
+		<video *ngIf="media.type === mediaType.VIDEO" class="video" [src]="media.url" [muted]="'muted'" [autoplay]="autoplayVideos" loop></video>
 	</div>
 
 	<div class="drawer" *ngIf="editable">
