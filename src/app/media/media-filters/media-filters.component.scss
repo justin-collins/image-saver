@@ -1,0 +1,24 @@
+@import 'includes';
+
+:host {
+	display: block;
+	padding: 10px 10px 0;
+}
+
+.filters {
+	display: flex;
+
+	.term {
+		width: 50%;
+	}
+
+	.select{
+		width: 18%;
+		margin-left: 2%;
+	}
+
+	button {
+		width: 8%;
+		margin-left: 2%;
+	}
+}

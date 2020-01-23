@@ -1,10 +1,12 @@
+<isvr-media-filters (onFiltersChanged)="filtersChanged($event)"></isvr-media-filters>
+
 <mat-grid-list [cols]="numCols" gutterSize="0.5%">
 	<mat-grid-tile *ngFor="let singleMedia of media">
 		<isvr-media-preview [media]="singleMedia" (mediaRemoved)="mediaRemoved($event)"></isvr-media-preview>
 	</mat-grid-tile>
 </mat-grid-list>
 
-<h2 *ngIf="media && media.length === 0">Use the button below to add Media</h2>
+<h2 *ngIf="warning">{{warning}}</h2>
 
 <button mat-fab isvrNewMediaButton class="add-btn" matTooltip="Add New Media" matTooltipPosition="left" (mediaSaved)="newMediaAdded($event)">
 	<mat-icon>add</mat-icon>

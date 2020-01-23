@@ -6,6 +6,12 @@ import { map } from 'rxjs/operators';
 import { MediaType } from './mediaType';
 import { MediaLocation } from './mediaLocation';
 
+export interface MediaFilter {
+	term?: string;
+	type?: MediaType;
+	location?: MediaLocation;
+}
+
 @Injectable({
 	providedIn: 'root'
 })
@@ -24,6 +30,40 @@ export class MediaService {
 	private getBulk(trashed: boolean = false): Observable<Media[]> {
 		const sql = `SELECT * FROM media WHERE trashed == $trashed ORDER BY created_at DESC`;
 		const values = {$trashed: trashed};
+
+		return DatabaseService.selectAll(sql, values).pipe(
+			map((rows) => {
+				const media: Media[] = [];
+				for (const row of rows) {
+					media.push(new Media().fromRow(row));
+				}
+				return media;
+			})
+		);
+	}
+
+	public getFiltered(filter: MediaFilter): Observable<Media[]> {
+		let sql = `SELECT media.* FROM media`
+
+		sql += ` WHERE media.trashed == false`;
+
+		let minorFilters: string = '';
+		if (filter.type) minorFilters += ` AND media.type == "${filter.type}"`;
+		if (filter.location) minorFilters += ` AND media.location == "${filter.location}"`;
+
+		if (filter.term) {
+			sql += ` AND (media.title LIKE "%${filter.term}%" OR media.url LIKE "%${filter.term}%") ${minorFilters}`;
+			sql += ` UNION`;
+			sql += ` SELECT media.* FROM media LEFT JOIN mediaTagsMap LEFT JOIN tags WHERE media.trashed == 0 AND (tags.title LIKE "%${filter.term}%" AND mediaTagsMap.tag_id == tags.id AND media.id == mediaTagsMap.media_id)  ${minorFilters}`;
+		} else {
+			sql += minorFilters;
+		}
+
+		sql += ` ORDER BY created_at DESC`;
+
+		console.log(sql);
+
+		const values = {};
 
 		return DatabaseService.selectAll(sql, values).pipe(
 			map((rows) => {
@@ -183,7 +223,7 @@ export class MediaService {
 	}
 
 	private urlIsImage(url: string): boolean {
-		let match = url.match(/(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:jpe?g|gif|png|bmp))(?:\?([^#]*))?(?:#(.*))?/);
+		let match = url.match(/(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:jpe?g|png|bmp))(?:\?([^#]*))?(?:#(.*))?/);
 		return (match && match.length > 0) ? true : false;
 	}
 
@@ -193,7 +233,7 @@ export class MediaService {
 	}
 
 	private urlIsVideo(url: string): boolean {
-		let match = url.match(/(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:mp4|webm))(?:\?([^#]*))?(?:#(.*))?/);
+		let match = url.match(/(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:mp4|webm|ogg))(?:\?([^#]*))?(?:#(.*))?/);
 		return (match && match.length > 0) ? true : false;
 	}
 

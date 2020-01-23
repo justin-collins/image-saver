@@ -1,0 +1,37 @@
+<div class="filters">
+	<mat-form-field class="term">
+		<input matInput placeholder="Search Media" [formControl]="searchControl" [(ngModel)]="filters.term">
+
+		<button mat-button *ngIf="filters.term" matSuffix mat-icon-button matTooltip="Clear Term" (click)="clearTerm()">
+			<mat-icon>close</mat-icon>
+		</button>
+	</mat-form-field>
+
+	<mat-form-field class="select">
+		<mat-label>Type</mat-label>
+		<mat-select [(ngModel)]="filters.type" (selectionChange)="filtersChanged()">
+			<mat-option *ngFor="let mediaType of mediaTypes" [value]="mediaType">
+				{{mediaType}}
+			</mat-option>
+		</mat-select>
+
+		<button mat-button *ngIf="filters.type" matSuffix mat-icon-button matTooltip="Clear Type" (click)="clearType()">
+			<mat-icon>close</mat-icon>
+		</button>
+	</mat-form-field>
+
+	<mat-form-field class="select">
+		<mat-label>Location</mat-label>
+		<mat-select [(ngModel)]="filters.location" (selectionChange)="filtersChanged()">
+			<mat-option *ngFor="let mediaLocation of mediaLocations" [value]="mediaLocation">
+				{{mediaLocation}}
+			</mat-option>
+		</mat-select>
+
+		<button mat-button *ngIf="filters.location" matSuffix mat-icon-button matTooltip="Clear Location" (click)="clearLocation()">
+			<mat-icon>close</mat-icon>
+		</button>
+	</mat-form-field>
+
+	<button mat-button (click)="resetFilters()">Clear All</button>
+</div>
