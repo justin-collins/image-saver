@@ -4,4 +4,5 @@
 
 <mat-autocomplete #tagsAutocomplete="matAutocomplete" [displayWith]="autocompleteDisplay" (optionSelected)="autocompleteOptionChosen($event)">
 	<mat-option *ngFor="let tag of filteredAllTags | async" [value]="tag">{{tag.title}}</mat-option>
+	<mat-option *ngIf="(filteredAllTags | async)?.length === 0" [value]="newTagControl.value">Add New Tag</mat-option>
 </mat-autocomplete>

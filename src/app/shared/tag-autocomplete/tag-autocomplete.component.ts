@@ -1,10 +1,11 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, NgZone } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Tag } from 'src/app/core/tag';
 import { Observable } from 'rxjs';
 import { TagService } from 'src/app/core/tag.service';
 import { startWith, map } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MessagingService } from 'src/app/core/messaging.service';
 
 @Component({
 	selector: 'isvr-tag-autocomplete',
@@ -18,7 +19,11 @@ export class TagAutocompleteComponent implements OnInit {
 	public allTags: Tag[];
 	public filteredAllTags: Observable<Tag[]>;
 
-	constructor(private tagService: TagService) { }
+	public newTagValue: string = '-1--c1-'; //random text unlikely to be typed
+
+	constructor(private tagService: TagService,
+		private messagingService: MessagingService,
+		private _ngZone: NgZone) {}
 
 	ngOnInit() {
 		this.loadAllTags();
@@ -55,12 +60,34 @@ export class TagAutocompleteComponent implements OnInit {
 	}
 
 	public autocompleteOptionChosen(event: MatAutocompleteSelectedEvent): void {
+		if (typeof event.option.value === 'string') {
+			this.createNewTag(event.option.value);
+			return;
+		}
+
 		this.resetAutocomplete();
 		let selectedTag: Tag = event.option.value;
 		this.emitTagChosen(selectedTag);
 	}
 
+	private createNewTag(newTagTitle: string): void {
+		let newTag: Tag = new Tag();
+		newTag.title = newTagTitle;
+
+		this.tagService.insert(newTag).subscribe(this.newTagCreated);
+	}
+
+	private newTagCreated = (response: Tag): void => {
+		this._ngZone.run(() => {
+			this.messagingService.message('New Tag Created!');
+			this.resetAutocomplete();
+			this.emitTagChosen(response);
+		});
+	}
+
 	private emitTagChosen(newTag: Tag): void {
+		if (!newTag) return;
+
 		this.tagChosen.emit(newTag);
 	}
 }

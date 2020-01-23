@@ -61,8 +61,6 @@ export class MediaService {
 
 		sql += ` ORDER BY created_at DESC`;
 
-		console.log(sql);
-
 		const values = {};
 
 		return DatabaseService.selectAll(sql, values).pipe(

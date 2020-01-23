@@ -15,7 +15,7 @@ export class MediaDetailComponent implements OnInit {
 	public media: Media;
 
 	public mediaType = MediaType;
-	public drawerIsOpen: boolean = false;
+	public drawerIsOpen: boolean = true;
 
 	constructor(private mediaService: MediaService,
 		private activatedRoute: ActivatedRoute,
