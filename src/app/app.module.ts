@@ -15,6 +15,7 @@ import { MediaDetailDrawerComponent } from './media-detail/media-detail-drawer/m
 import { AlbumDetailsComponent } from './album-details/album-details.component';
 import { TagsComponent } from './tags/tags.component';
 import { MediaFiltersComponent } from './media/media-filters/media-filters.component';
+import { AlbumFiltersComponent } from './albums/album-filters/album-filters.component';
 
 @NgModule({
 	declarations: [
@@ -26,7 +27,8 @@ import { MediaFiltersComponent } from './media/media-filters/media-filters.compo
 		MediaDetailDrawerComponent,
 		AlbumDetailsComponent,
 		TagsComponent,
-		MediaFiltersComponent
+		MediaFiltersComponent,
+		AlbumFiltersComponent
 	],
 	imports: [
 		BrowserModule,

@@ -1,7 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Media } from '../core/media';
 import { MediaService } from '../core/media.service';
-import { FormControl } from '@angular/forms';
 import { MediaFilter } from '../core/media.service';
 
 @Component({
@@ -26,7 +25,6 @@ export class MediaComponent implements OnInit {
 	}
 
 	private loadMedia(newFilter: MediaFilter): void {
-		newFilter = newFilter || {};
 		this.mediaService.getFiltered(newFilter).subscribe(this.mediaLoaded);
 	}
 
@@ -73,7 +71,7 @@ export class MediaComponent implements OnInit {
 	}
 
 	private filtersAreEmpty(): boolean {
-		if (this.filters.term || this.filters.term || this.filters.type) return false;
+		if (this.filters.term || this.filters.type || this.filters.location) return false;
 		return true;
 	}
 }

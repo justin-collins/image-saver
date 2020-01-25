@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -21,6 +22,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 	imports: [
 		MatAutocompleteModule,
 		MatButtonModule,
+		MatButtonToggleModule,
 		MatCardModule,
 		MatChipsModule,
 		MatDialogModule,
@@ -39,6 +41,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 	exports: [
 		MatAutocompleteModule,
 		MatButtonModule,
+		MatButtonToggleModule,
 		MatCardModule,
 		MatChipsModule,
 		MatDialogModule,

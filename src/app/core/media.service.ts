@@ -45,12 +45,15 @@ export class MediaService {
 	public getFiltered(filter: MediaFilter): Observable<Media[]> {
 		let sql = `SELECT distinct media.* FROM media`
 
-		if (filter.term) sql += ` LEFT JOIN mediaTagsMap LEFT JOIN tags`;
+		if (filter.term) {
+			sql += ` LEFT JOIN mediaTagsMap ON media.id == mediaTagsMap.media_id
+					LEFT JOIN tags ON mediaTagsMap.tag_id == tags.id`;
+		}
 
 		sql += ` WHERE media.trashed == false`;
 
 		if (filter.term) {
-			sql += ` AND (tags.title LIKE "%${filter.term}%" AND mediaTagsMap.tag_id == tags.id AND media.id == mediaTagsMap.media_id) OR (media.title LIKE "%${filter.term}%" OR media.url LIKE "%${filter.term}%")`;
+			sql += ` AND (tags.title LIKE "%${filter.term}%" OR media.title LIKE "%${filter.term}%" OR media.url LIKE "%${filter.term}%")`;
 		}
 
 		if (filter.type) sql += ` AND media.type == "${filter.type}"`;

@@ -1,0 +1,15 @@
+<div class="filters">
+	<mat-form-field class="term">
+		<input matInput placeholder="Search Albums" [formControl]="searchControl" [(ngModel)]="filters.term">
+
+		<button mat-button *ngIf="filters.term" matSuffix mat-icon-button matTooltip="Clear Term" (click)="clearTerm()">
+			<mat-icon>close</mat-icon>
+		</button>
+	</mat-form-field>
+
+	<mat-button-toggle-group [(ngModel)]="filters.orderBy" (change)="filtersChanged()">
+		<mat-button-toggle [value]="orderByTypes.CREATEDAT">Most Recent</mat-button-toggle>
+		<mat-button-toggle [value]="orderByTypes.TITLE">Name</mat-button-toggle>
+	</mat-button-toggle-group>
+
+</div>

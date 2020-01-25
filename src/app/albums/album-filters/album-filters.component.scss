@@ -1,0 +1,17 @@
+:host {
+	display: block;
+	padding: 10px 10px 0;
+}
+
+.filters {
+	display: flex;
+
+	.term {
+		width: 50%;
+	}
+
+	mat-button-toggle-group {
+		height: 50px;
+		margin-left: 25px;
+	}
+}

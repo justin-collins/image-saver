@@ -5,17 +5,24 @@ import { DatabaseService } from './database.service';
 import { map } from 'rxjs/operators';
 import { Media } from './media';
 
+export interface AlbumFilter {
+	term?: string;
+	orderBy?: string;
+}
+
+
 @Injectable({
 	providedIn: 'root'
 })
 export class AlbumService {
+	private albumWithCoverQuery: string = `SELECT albums.id, albums.title, albums.created_at, media.id media_id, media.url media_url, media.type media_type from albums
+											LEFT JOIN albumCovers ON albums.id == albumCovers.album_id
+											LEFT JOIN media ON albumCovers.media_id == media.id`
 
 	constructor() { }
 
 	public getAll(): Observable<Album[]> {
-		const sql = `SELECT albums.id, albums.title, albums.created_at, media.id media_id, media.url media_url, media.type media_type from albums
-					LEFT OUTER JOIN albumCovers on albums.id == albumCovers.album_id
-					LEFT OUTER JOIN media ON albumCovers.media_id == media.id
+		const sql = `${this.albumWithCoverQuery}
 					ORDER BY albums.created_at DESC`;
 		const values = {};
 
@@ -30,10 +37,31 @@ export class AlbumService {
 		);
 	}
 
+	public getFiltered(filter: AlbumFilter): Observable<Album[]> {
+		let sql = this.albumWithCoverQuery;
+
+		if (filter.term) sql += ` WHERE albums.title LIKE "%${filter.term}%"`;
+
+		if(filter.orderBy) {
+			sql += ` ORDER BY albums.${filter.orderBy}`;
+			sql += (filter.orderBy === 'created_at') ? ' DESC' : ' ASC';
+		}
+
+		const values = {};
+
+		return DatabaseService.selectAll(sql, values).pipe(
+			map((rows) => {
+				const album: Album[] = [];
+				for (const row of rows) {
+					album.push(new Album().fromRow(row));
+				}
+				return album;
+			})
+		);
+	}
+
 	public get(id: number): Observable<Album> {
-		const sql = `SELECT albums.id, albums.title, albums.created_at, media.id media_id, media.url media_url, media.type media_type from albums
-					LEFT OUTER JOIN albumCovers on albums.id == albumCovers.album_id
-					LEFT OUTER JOIN media ON albumCovers.media_id == media.id
+		const sql = `${this.albumWithCoverQuery}
 					WHERE albums.id == $albumId`;
 		const values = { $albumId: id };
 
@@ -44,9 +72,9 @@ export class AlbumService {
 
 	public getAlbumsByMedia(media: Media): Observable<Album[]> {
 		const sql = `SELECT albums.id, albums.title, albums.created_at, media.id media_id, media.url media_url, media.type media_type from mediaAlbumsMap
-					LEFT OUTER JOIN albums on albums.id == mediaAlbumsMap.album_id
-					LEFT OUTER JOIN albumCovers on albums.id == albumCovers.album_id
-					LEFT OUTER JOIN media ON albumCovers.media_id == media.id
+					LEFT JOIN albums on albums.id == mediaAlbumsMap.album_id
+					LEFT JOIN albumCovers on albums.id == albumCovers.album_id
+					LEFT JOIN media ON albumCovers.media_id == media.id
 					WHERE mediaAlbumsMap.media_id = $mediaId`;
 		const values = {$mediaId: media.id};
 

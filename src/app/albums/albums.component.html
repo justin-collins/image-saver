@@ -1,3 +1,5 @@
+<isvr-album-filters (onFiltersChanged)="filtersChanged($event)"></isvr-album-filters>
+
 <mat-grid-list [cols]="numCols" gutterSize="0.5%">
 	<mat-grid-tile *ngFor="let album of albums">
 		<isvr-album-preview [album]="album"></isvr-album-preview>
