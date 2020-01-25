@@ -1,8 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MediaFilter } from 'src/app/core/media.service';
 import { MediaType } from 'src/app/core/mediaType';
 import { MediaLocation } from 'src/app/core/mediaLocation';
-import { debounceTime, startWith } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { ContextService } from 'src/app/core/context.service';
 import { Context } from 'src/app/core/context';
@@ -14,8 +14,6 @@ import { ContextType } from 'src/app/core/contextType';
 	styleUrls: ['./media-filters.component.scss']
 })
 export class MediaFiltersComponent implements OnInit {
-	@Output() onFiltersChanged = new EventEmitter<MediaFilter>();
-
 	public filters: MediaFilter;
 	public mediaTypes: MediaType[] = Object.keys(MediaType).map(type => MediaType[type]);
 	public mediaLocations: MediaLocation[] = Object.keys(MediaLocation).map(location => MediaLocation[location]);
@@ -24,7 +22,7 @@ export class MediaFiltersComponent implements OnInit {
 	public context: Context;
 
 	constructor(private contextService: ContextService) {
-		this.resetFilters();
+		this.filters = this.emptyFilter();
 	}
 
 	ngOnInit() {
@@ -34,8 +32,7 @@ export class MediaFiltersComponent implements OnInit {
 
 	private setupSearchInput(): void {
 		this.searchControl.valueChanges.pipe(
-			debounceTime(300),
-			startWith('')
+			debounceTime(300)
 		).subscribe(this.filterBySearch);
 
 	}
@@ -47,9 +44,13 @@ export class MediaFiltersComponent implements OnInit {
 
 	private handleContext(context: Context): void {
 		if (context.type === ContextType.TAG) {
-			this.searchControl.setValue(context.dataObject['title']);
+			if (this.searchControl.value !== context.dataObject['title'] && context.dataObject['title'] !== '') {
+				this.searchControl.setValue(context.dataObject['title']);
+			}
 		} else if (context.type === ContextType.SEARCH) {
-			this.searchControl.setValue(context.dataObject['term']);
+			if (this.searchControl.value !== context.dataObject['term']&& context.dataObject['term'] !== '') {
+				this.searchControl.setValue(context.dataObject['term']);
+			}
 		}
 	}
 
@@ -59,7 +60,11 @@ export class MediaFiltersComponent implements OnInit {
 	}
 
 	public filtersChanged(): void {
-		this.onFiltersChanged.emit(this.filters);
+		if (!this.filtersAreEmpty()) {
+			this.contextService.setContextSearch(this.filters);
+		} else {
+			this.contextService.resetContext();
+		}
 	}
 
 	public clearTerm(): void {
@@ -79,14 +84,21 @@ export class MediaFiltersComponent implements OnInit {
 		this.filtersChanged();
 	}
 
-	public resetFilters(): void {
-		this.filters = {
+	private emptyFilter(): MediaFilter {
+		return {
 			term: '',
 			type: null,
 			location: null
 		};
+	}
 
+	public resetFilters(): void {
+		this.filters = this.emptyFilter();
 		this.searchControl.setValue(this.filters.term);
-		this.filtersChanged();
+	}
+
+	private filtersAreEmpty(): boolean {
+		if (this.filters.term || this.filters.type || this.filters.location) return false;
+		return true;
 	}
 }

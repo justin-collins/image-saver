@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AlbumFilter } from 'src/app/core/album.service';
 import { FormControl } from '@angular/forms';
-import { debounceTime, startWith } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 
 enum AlbumOrderBy {
 	CREATEDAT ='created_at',
@@ -30,8 +30,7 @@ export class AlbumFiltersComponent implements OnInit {
 
 	private setupSearchInput(): void {
 		this.searchControl.valueChanges.pipe(
-			debounceTime(300),
-			startWith('')
+			debounceTime(300)
 		).subscribe(this.filterBySearch);
 	}
 

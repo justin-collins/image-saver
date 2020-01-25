@@ -44,7 +44,7 @@ export class ContextService {
 		this.context = newContext;
 	}
 
-	private resetContext(): void {
+	public resetContext(): void {
 		this.context = null;
 	}
 }

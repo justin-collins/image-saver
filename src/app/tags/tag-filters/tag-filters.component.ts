@@ -1,12 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { debounceTime, startWith } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 import { TagFilter } from 'src/app/core/tag.service';
-
-enum TagOrderBy {
-	CREATEDAT ='created_at',
-	TITLE = 'title'
-}
 
 @Component({
   selector: 'isvr-tag-filters',
@@ -29,8 +24,7 @@ export class TagFiltersComponent implements OnInit {
 
 	private setupSearchInput(): void {
 		this.searchControl.valueChanges.pipe(
-			debounceTime(300),
-			startWith('')
+			debounceTime(300)
 		).subscribe(this.filterBySearch);
 	}
 

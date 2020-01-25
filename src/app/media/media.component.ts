@@ -2,6 +2,9 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { Media } from '../core/media';
 import { MediaService } from '../core/media.service';
 import { MediaFilter } from '../core/media.service';
+import { ContextService } from '../core/context.service';
+import { Context } from '../core/context';
+import { ContextType } from '../core/contextType';
 
 @Component({
 	selector: 'isvr-media',
@@ -15,12 +18,14 @@ export class MediaComponent implements OnInit {
 	public filters: MediaFilter;
 
 	constructor(private mediaService: MediaService,
+				private contextService: ContextService,
 				private _ngZone: NgZone) {
 		this.resetFilters();
 	}
 
 	ngOnInit() {
 		this.loadMedia(this.filters);
+		this.contextService.contextChanged.subscribe(this.contextChanged);
 	}
 
 	private loadMedia(newFilter: MediaFilter): void {
@@ -34,9 +39,11 @@ export class MediaComponent implements OnInit {
 		});
 	}
 
-	public filtersChanged(newFilters: MediaFilter): void {
-		this.filters = newFilters;
-		this.loadMedia(this.filters);
+	private contextChanged = (context: Context): void => {
+		if (context && context.type === ContextType.SEARCH) {
+			this.filters = <MediaFilter>context.dataObject;
+			this.loadMedia(this.filters);
+		}
 	}
 
 	public newMediaAdded(newMedia: Media): void {
