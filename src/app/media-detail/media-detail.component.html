@@ -1,5 +1,6 @@
 <mat-sidenav-container>
 	<mat-sidenav-content>
+		<isvr-media-detail-navigation *ngIf="media" [startingMedia]="media" (onMediaChange)="newMediaSelected($event)"></isvr-media-detail-navigation>
 		<div class="media-frame" *ngIf="media">
 			<isvr-alert *ngIf="media.trashed">This item is currently in the trash. <a (click)="restoreMedia()">Click here to restore</a></isvr-alert>
 

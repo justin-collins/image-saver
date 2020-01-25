@@ -1,0 +1,5 @@
+<div *ngIf="context">
+	<button mat-icon-button matTooltip="Previous" (click)="previousMedia()"><mat-icon>arrow_back</mat-icon></button>
+	<span>{{context.type | initialCase}}: {{context.dataObject['term'] || context.dataObject['title']}}</span>
+	<button mat-icon-button matTooltip="Next" (click)="nextMedia()"><mat-icon>arrow_forward</mat-icon></button>
+</div>

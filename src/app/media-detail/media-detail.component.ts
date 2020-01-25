@@ -15,7 +15,7 @@ export class MediaDetailComponent implements OnInit {
 	public media: Media;
 
 	public mediaType = MediaType;
-	public drawerIsOpen: boolean = true;
+	public drawerIsOpen: boolean = false;
 
 	constructor(private mediaService: MediaService,
 		private activatedRoute: ActivatedRoute,
@@ -42,6 +42,10 @@ export class MediaDetailComponent implements OnInit {
 		this._ngZone.run(() => {
 			this.media = mediaResponse;
 		});
+	}
+
+	public newMediaSelected(newMedia: Media): void {
+		this.media = newMedia;
 	}
 
 	public toggleDrawer(): void {

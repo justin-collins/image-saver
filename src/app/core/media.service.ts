@@ -75,7 +75,7 @@ export class MediaService {
 	}
 
 	public getByAlbumId(albumId: number, exclude?: boolean): Observable<Media[]> {
-		let sql = `SELECT media.id, media.title, media.type, media.url`;
+		let sql = `SELECT media.*`;
 		if (!exclude) {
 			sql += ` FROM mediaAlbumsMap INNER JOIN media ON media.id == mediaAlbumsMap.media_id WHERE mediaAlbumsMap.album_id == $albumId `;
 		} else {

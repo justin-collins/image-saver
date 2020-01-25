@@ -43,6 +43,8 @@ export class MediaComponent implements OnInit {
 		if (context && context.type === ContextType.SEARCH) {
 			this.filters = <MediaFilter>context.dataObject;
 			this.loadMedia(this.filters);
+		} else if (!context) {
+			this.resetFilters();
 		}
 	}
 
@@ -74,6 +76,7 @@ export class MediaComponent implements OnInit {
 			type: null,
 			location: null
 		};
+		this.loadMedia(this.filters);
 	}
 
 	private filtersAreEmpty(): boolean {
