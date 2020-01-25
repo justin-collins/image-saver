@@ -43,21 +43,18 @@ export class MediaService {
 	}
 
 	public getFiltered(filter: MediaFilter): Observable<Media[]> {
-		let sql = `SELECT media.* FROM media`
+		let sql = `SELECT distinct media.* FROM media`
+
+		if (filter.term) sql += ` LEFT JOIN mediaTagsMap LEFT JOIN tags`;
 
 		sql += ` WHERE media.trashed == false`;
 
-		let minorFilters: string = '';
-		if (filter.type) minorFilters += ` AND media.type == "${filter.type}"`;
-		if (filter.location) minorFilters += ` AND media.location == "${filter.location}"`;
-
 		if (filter.term) {
-			sql += ` AND (media.title LIKE "%${filter.term}%" OR media.url LIKE "%${filter.term}%") ${minorFilters}`;
-			sql += ` UNION`;
-			sql += ` SELECT media.* FROM media LEFT JOIN mediaTagsMap LEFT JOIN tags WHERE media.trashed == 0 AND (tags.title LIKE "%${filter.term}%" AND mediaTagsMap.tag_id == tags.id AND media.id == mediaTagsMap.media_id)  ${minorFilters}`;
-		} else {
-			sql += minorFilters;
+			sql += ` AND (tags.title LIKE "%${filter.term}%" AND mediaTagsMap.tag_id == tags.id AND media.id == mediaTagsMap.media_id) OR (media.title LIKE "%${filter.term}%" OR media.url LIKE "%${filter.term}%")`;
 		}
+
+		if (filter.type) sql += ` AND media.type == "${filter.type}"`;
+		if (filter.location) sql += ` AND media.location == "${filter.location}"`;
 
 		sql += ` ORDER BY created_at DESC`;
 

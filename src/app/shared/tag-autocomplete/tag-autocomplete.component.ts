@@ -19,8 +19,6 @@ export class TagAutocompleteComponent implements OnInit {
 	public allTags: Tag[];
 	public filteredAllTags: Observable<Tag[]>;
 
-	public newTagValue: string = '-1--c1-'; //random text unlikely to be typed
-
 	constructor(private tagService: TagService,
 		private messagingService: MessagingService,
 		private _ngZone: NgZone) {}
