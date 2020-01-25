@@ -20,7 +20,7 @@ export class TagService {
 		const sql = `SELECT tags.id, tags.title, tags.created_at, COUNT(*) as total FROM tags
 					LEFT JOIN mediaTagsMap on mediaTagsMap.tag_id == tags.id
 					GROUP BY tags.id
-					ORDER BY tags.title ASC`;
+					ORDER BY total DESC`;
 		const values = {};
 
 		return DatabaseService.selectAll(sql, values).pipe(

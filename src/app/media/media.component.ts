@@ -12,7 +12,6 @@ export class MediaComponent implements OnInit {
 	public media: Media[];
 	public numCols: number = 5;
 	public warning: string = '';
-
 	public filters: MediaFilter;
 
 	constructor(private mediaService: MediaService,

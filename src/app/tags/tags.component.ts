@@ -1,6 +1,8 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { TagService, TagFilter } from '../core/tag.service';
 import { Tag } from '../core/tag';
+import { Router } from '@angular/router';
+import { ContextService } from '../core/context.service';
 
 @Component({
 	selector: 'isvr-tags',
@@ -12,7 +14,9 @@ export class TagsComponent implements OnInit {
 	public filters: TagFilter;
 
 	constructor(private tagService: TagService,
-				private _ngZone: NgZone) {
+				private contextService: ContextService,
+				private _ngZone: NgZone,
+				private router: Router) {
 		this.resetFilters()
 	}
 
@@ -37,7 +41,8 @@ export class TagsComponent implements OnInit {
 
 
 	public searchByTag(tag: Tag): void {
-
+		this.contextService.setContextTag(tag);
+		this.router.navigate(['/media']);
 	}
 
 	public newTagAdded(newTag: Tag): void {

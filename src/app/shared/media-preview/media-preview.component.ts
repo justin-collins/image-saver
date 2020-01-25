@@ -7,6 +7,7 @@ import { ContextService } from 'src/app/core/context.service';
 import { Context } from 'src/app/core/context';
 import { ContextType } from 'src/app/core/contextType';
 import { AlbumService } from 'src/app/core/album.service';
+import { Album } from 'src/app/core/album';
 
 @Component({
 	selector: 'isvr-media-preview',
@@ -55,7 +56,7 @@ export class MediaPreviewComponent implements OnInit {
 	}
 
 	public removeFromAlbum(): void {
-		this.albumService.removeMedia(this.media, this.context.dataObject).subscribe(this.fireMediaRemoved);
+		this.albumService.removeMedia(this.media, <Album>this.context.dataObject).subscribe(this.fireMediaRemoved);
 	}
 
 	private fireMediaRemoved = (): void => {

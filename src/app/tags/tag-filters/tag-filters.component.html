@@ -1,6 +1,6 @@
 <div class="filters">
 	<mat-form-field class="term">
-		<input matInput placeholder="Search Tags" [formControl]="searchControl" [(ngModel)]="filters.term">
+		<input matInput placeholder="Search Tags" [formControl]="searchControl">
 
 		<button mat-button *ngIf="filters.term" matSuffix mat-icon-button matTooltip="Clear Term" (click)="clearTerm()">
 			<mat-icon>close</mat-icon>

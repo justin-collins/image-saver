@@ -45,6 +45,8 @@ export class TagFiltersComponent implements OnInit {
 
 	public clearTerm(): void {
 		this.filters.term = '';
+
+		this.searchControl.setValue(this.filters.term);
 		this.filtersChanged();
 	}
 
