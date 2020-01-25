@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { TagService } from '../core/tag.service';
+import { TagService, TagFilter } from '../core/tag.service';
 import { Tag } from '../core/tag';
 
 @Component({
@@ -9,16 +9,19 @@ import { Tag } from '../core/tag';
 })
 export class TagsComponent implements OnInit {
 	public tags: Tag[];
+	public filters: TagFilter;
 
 	constructor(private tagService: TagService,
-				private _ngZone: NgZone) { }
-
-	ngOnInit() {
-		this.loadAllTags();
+				private _ngZone: NgZone) {
+		this.resetFilters()
 	}
 
-	private loadAllTags(): void {
-		this.tagService.getAll().subscribe(this.tagsLoaded);
+	ngOnInit() {
+		this.loadTags(this.filters);
+	}
+
+	private loadTags(newFilter: TagFilter): void {
+		this.tagService.getFiltered(newFilter).subscribe(this.tagsLoaded);
 	}
 
 	private tagsLoaded = (tagsResponse: Tag[]): void => {
@@ -26,6 +29,12 @@ export class TagsComponent implements OnInit {
 			this.tags = tagsResponse;
 		});
 	}
+
+	public filtersChanged(newFilters: TagFilter): void {
+		this.filters = newFilters;
+		this.loadTags(this.filters);
+	}
+
 
 	public searchByTag(tag: Tag): void {
 
@@ -54,5 +63,11 @@ export class TagsComponent implements OnInit {
 	public preventDefault(event): void {
 		event.preventDefault();
 		event.stopPropagation();
+	}
+
+	private resetFilters(): void {
+		this.filters = {
+			term: ''
+		};
 	}
 }

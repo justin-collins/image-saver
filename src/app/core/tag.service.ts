@@ -5,6 +5,10 @@ import { DatabaseService } from './database.service';
 import { map } from 'rxjs/operators';
 import { Media } from './media';
 
+export interface TagFilter {
+	term?: string;
+}
+
 @Injectable({
 	providedIn: 'root'
 })
@@ -16,8 +20,29 @@ export class TagService {
 		const sql = `SELECT tags.id, tags.title, tags.created_at, COUNT(*) as total FROM tags
 					LEFT JOIN mediaTagsMap on mediaTagsMap.tag_id == tags.id
 					GROUP BY tags.id
-					ORDER BY tags.title ASC;
-		`;
+					ORDER BY tags.title ASC`;
+		const values = {};
+
+		return DatabaseService.selectAll(sql, values).pipe(
+			map((rows) => {
+				const tags: Tag[] = [];
+				for (const row of rows) {
+					tags.push(new Tag().fromRow(row));
+				}
+				return tags;
+			})
+		);
+	}
+
+	public getFiltered(filter: TagFilter): Observable<Tag[]> {
+		let sql = `SELECT tags.id, tags.title, tags.created_at, COUNT(*) as total FROM tags
+					LEFT JOIN mediaTagsMap on mediaTagsMap.tag_id == tags.id`;
+
+		if (filter.term) sql += ` WHERE tags.title LIKE "%${filter.term}%"`;
+
+		sql += ` GROUP BY tags.id
+				ORDER BY total DESC`;
+
 		const values = {};
 
 		return DatabaseService.selectAll(sql, values).pipe(

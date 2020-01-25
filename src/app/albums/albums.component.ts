@@ -47,9 +47,4 @@ export class AlbumsComponent implements OnInit {
 			term: ''
 		};
 	}
-
-	private filtersAreEmpty(): boolean {
-		if (this.filters.term) return false;
-		return true;
-	}
 }

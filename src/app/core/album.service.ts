@@ -10,7 +10,6 @@ export interface AlbumFilter {
 	orderBy?: string;
 }
 
-
 @Injectable({
 	providedIn: 'root'
 })
