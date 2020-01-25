@@ -26,7 +26,15 @@ export class MediaDetailNavigationComponent implements OnInit {
 
 	ngOnInit() {
 		this.context = this.contextService.context;
-		if (this.context) this.getMediaFromContext();
+		if (this.context) {
+			this.getMediaFromContext();
+		} else {
+			this.getDefaultMedia();
+		}
+	}
+
+	private getDefaultMedia(): void {
+		this.mediaService.getAll().subscribe(this.mediaLoaded);
 	}
 
 	private getMediaFromContext(): void {
