@@ -17,6 +17,9 @@ export class MediaDetailNavigationComponent implements OnInit {
 	public context: Context;
 	public media: Media[];
 	public currentPosition: number = 0;
+	public slideshowTimer;
+
+	private slideshowMsPerMedia: number = 5000;
 
 	constructor(private mediaService: MediaService,
 				private contextService: ContextService) { }
@@ -55,6 +58,24 @@ export class MediaDetailNavigationComponent implements OnInit {
 	public previousMedia(): void {
 		let newPosition: number = this.checkBounds(this.currentPosition - 1);
 		this.newMediaSelected(newPosition);
+	}
+
+	public slideshow(): void {
+		if (this.slideshowTimer) {
+			this.stopSlideShow();
+		} else {
+			this.startSlideshow();
+		}
+	}
+
+	private startSlideshow(): void {
+		this.slideshowTimer = window.setInterval(() => {
+			this.nextMedia();
+		}, this.slideshowMsPerMedia);
+	}
+
+	private stopSlideShow(): void {
+		this.slideshowTimer = null;
 	}
 
 	private findStartingPosition(): void {
