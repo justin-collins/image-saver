@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
 import { Media } from './media';
 import { DatabaseService } from './database.service';
-import { map } from 'rxjs/operators';
+import { map, flatMap } from 'rxjs/operators';
 import { MediaType } from './mediaType';
 import { MediaLocation } from './mediaLocation';
+import { Tag } from './tag';
+import { TagService } from './tag.service';
 
 export interface MediaFilter {
 	term?: string;
@@ -17,7 +19,7 @@ export interface MediaFilter {
 })
 export class MediaService {
 
-	constructor() { }
+	constructor(private tagService: TagService) { }
 
 	public getAll(): Observable<Media[]> {
 		return this.getBulk(false);
@@ -105,15 +107,25 @@ export class MediaService {
 		);
 	}
 
-	public insert(media: Media | Media[]): Observable<Media | Media[]> {
-		if (media instanceof Array) {
-			return this.insertMany(media);
+	public insertWithTags(media: Media[], tags?: Tag[]): Observable<Media[]> {
+		if (tags) {
+			let inserts = [];
+			for (let i = 0; i < media.length; i++) {
+				const theMedia = media[i];
+				inserts.push(this.insertSingle(theMedia).pipe(
+					flatMap((response) => this.tagService.addBulkToMedia(response, tags).pipe(
+						map(() => response)
+					))
+				));
+			}
+
+			return forkJoin<Media>(inserts);
 		} else {
-			return this.insertSingle(media);
+			return this.insert(media);
 		}
 	}
 
-	private insertMany(media: Media[]): Observable<Media[]> {
+	public insert(media: Media[]): Observable<Media[]> {
 		let inserts = [];
 		for (let i = 0; i < media.length; i++) {
 			const theMedia = media[i];
@@ -127,7 +139,7 @@ export class MediaService {
 		this.validate(media);
 
 		media = this.prepareMediaForInsert(media);
-		const sql = `INSERT INTO media (title, url, source, type, location) VALUES ($title, $url, $source, $type, $location)`;
+		const sql = `INSERT INTO media (title, url, source, type, location) VALUES ($title, $url, $source, $type, $location) ON CONFLICT(url) DO UPDATE SET id = id`;
 		const values = { $title: media.title, $url: media.url, $source: media.source, $type: media.type, $location: media.location };
 
 		return DatabaseService.insert(sql, values).pipe(

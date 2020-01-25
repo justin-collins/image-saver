@@ -61,13 +61,4 @@ CREATE TABLE IF NOT EXISTS `mediaAlbumsMap` (
 	UNIQUE(media_id, album_id)
 );
 
-CREATE TABLE IF NOT EXISTS `albumsTagsMap` (
-	`id` INTEGER PRIMARY KEY,
-	`tag_id` INTEGER,
-	`album_id` INTEGER,
-	FOREIGN KEY(`tag_id`) REFERENCES tags(`id`) ON DELETE CASCADE,
-	FOREIGN KEY(`album_id`) REFERENCES albums(`id`) ON DELETE CASCADE,
-	UNIQUE(tag_id, album_id)
-);
-
 COMMIT;

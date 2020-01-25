@@ -12,44 +12,64 @@ import { TagService } from 'src/app/core/tag.service';
 	styleUrls: ['./new-media-dialog.component.scss']
 })
 export class NewMediaDialogComponent implements OnInit {
-	public newMedia: Media;
+	public newMedia: Media[] = [];
 	public tags: Tag[];
+
+	public newMediaUrl: string;
+	public newMediaTitle: string;
 
 	constructor(public dialogRef: MatDialogRef<NewMediaDialogComponent>,
 				private mediaService: MediaService,
 				private tagService: TagService,
 				private messagingService: MessagingService,
 				private _ngZone: NgZone) {
-		this.newMedia = new Media();
 	}
 
 	ngOnInit() {
 	}
 
 	public saveNewMedia(): void {
-		this.mediaService.insert(this.newMedia).subscribe(this.mediaSaved);
+		this.checkURl();
+		this.checkTitles();
+		this.mediaService.insertWithTags(this.newMedia, this.tags).subscribe(this.mediaSaved);
 	}
 
-	private mediaSaved = (mediaResponse: Media): void => {
+	private mediaSaved = (mediaResponse: Media[]): void => {
 		this.newMedia = mediaResponse;
-
-		if (this.tags && this.tags.length > 0) {
-			this.saveTags();
-		} else {
-			this.savingFinished();
-		}
+		this.savingFinished();
 	}
 
 	public getLocalFileSource(event): void {
-		this.newMedia.source = 'file://' + event.target.files[0].path;
+		for (let i = 0; i < event.target.files.length; i++) {
+			const file = event.target.files[i];
+
+			let media: Media = new Media();
+			media.source = 'file://' + file.path;
+			media.title = this.newMediaTitle;
+
+			this.newMedia.push(media);
+		}
+
+		this.newMediaUrl = 'Local';
+	}
+
+	public checkURl(): void {
+		if (this.newMedia.length === 0 && this.newMediaUrl) {
+			let media: Media = new Media();
+			media.source = this.newMediaUrl;
+			this.newMedia.push(media);
+		}
+	}
+
+	public checkTitles(): void {
+		for (let i = 0; i < this.newMedia.length; i++) {
+			const media = this.newMedia[i];
+			media.title = this.newMediaTitle;
+		}
 	}
 
 	public tagsChanged(newTags: Tag[]): void {
 		this.tags = newTags;
-	}
-
-	private saveTags(): void {
-		this.tagService.addBulkToMedia(this.newMedia, this.tags).subscribe(this.savingFinished);
 	}
 
 	private savingFinished = (): void => {

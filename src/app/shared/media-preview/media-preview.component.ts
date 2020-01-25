@@ -35,7 +35,6 @@ export class MediaPreviewComponent implements OnInit {
 		if (!this.media) {
 			console.error('A media must be provided for the preview component');
 		}
-
 		this.contextService.contextChanged.subscribe(this.contextChanged);
 	}
 

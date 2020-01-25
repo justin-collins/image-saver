@@ -19,7 +19,7 @@ export class TagManagerComponent implements OnInit {
 		private _ngZone: NgZone) { }
 
 	ngOnInit() {
-		if (this.media.id) {
+		if (this.media && this.media.id) {
 			this.loadMediaTags();
 		} else {
 			this.tags = [];
@@ -61,7 +61,7 @@ export class TagManagerComponent implements OnInit {
 			return;
 		}
 
-		if (this.media.id) {
+		if (this.media && this.media.id) {
 			this.tagService.addToMedia(this.media, selectedTag).subscribe(this.tagAdded);
 		} else {
 			this.tagAdded(selectedTag);
