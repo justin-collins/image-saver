@@ -18,6 +18,7 @@ import { MediaFiltersComponent } from './media/media-filters/media-filters.compo
 import { AlbumFiltersComponent } from './albums/album-filters/album-filters.component';
 import { TagFiltersComponent } from './tags/tag-filters/tag-filters.component';
 import { MediaDetailNavigationComponent } from './media-detail/media-detail-navigation/media-detail-navigation.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
 	declarations: [
@@ -32,7 +33,8 @@ import { MediaDetailNavigationComponent } from './media-detail/media-detail-navi
 		MediaFiltersComponent,
 		AlbumFiltersComponent,
 		TagFiltersComponent,
-		MediaDetailNavigationComponent
+		MediaDetailNavigationComponent,
+		SettingsComponent
 	],
 	imports: [
 		BrowserModule,

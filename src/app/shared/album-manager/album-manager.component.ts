@@ -10,7 +10,13 @@ import { Router } from '@angular/router';
 	styleUrls: ['./album-manager.component.scss']
 })
 export class AlbumManagerComponent implements OnInit {
-	@Input() media: Media;
+
+	private _media: Media;
+    @Input() set media(value: Media) {
+       this._media = value;
+       this.loadAlbums();
+    }
+    get media(): Media { return this._media; }
 
 	public albums: Album[];
 
@@ -19,7 +25,6 @@ export class AlbumManagerComponent implements OnInit {
 				private router: Router) { }
 
 	ngOnInit() {
-		this.loadAlbums();
 	}
 
 	private loadAlbums(): void {

@@ -7,6 +7,7 @@ import { MediaService } from './media.service';
 import { AlbumService } from './album.service';
 import { ContextService } from './context.service';
 import { TagService } from './tag.service';
+import { SettingsService } from './settings.service';
 
 @NgModule({
 	declarations: [],
@@ -20,7 +21,8 @@ import { TagService } from './tag.service';
 		MediaService,
 		AlbumService,
 		ContextService,
-		TagService
+		TagService,
+		SettingsService
 	]
 })
 export class CoreModule { }

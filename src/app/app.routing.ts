@@ -6,6 +6,7 @@ import { AlbumsComponent } from './albums/albums.component';
 import { TrashComponent } from './trash/trash.component';
 import { AlbumDetailsComponent } from './album-details/album-details.component';
 import { TagsComponent } from './tags/tags.component';
+import { SettingsComponent } from './settings/settings.component';
 
 const routes: Routes = [
 	{ path: '', redirectTo: '/media', pathMatch: 'full' },
@@ -32,6 +33,10 @@ const routes: Routes = [
 	{
 		path: 'trash',
 		component: TrashComponent
+	},
+	{
+		path: 'settings',
+		component: SettingsComponent
 	}
 ];
 

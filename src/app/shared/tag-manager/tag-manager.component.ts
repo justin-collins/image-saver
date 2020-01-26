@@ -9,7 +9,13 @@ import { TagService } from 'src/app/core/tag.service';
 	styleUrls: ['./tag-manager.component.scss']
 })
 export class TagManagerComponent implements OnInit {
-	@Input() media: Media;
+	private _media: Media;
+    @Input() set media(value: Media) {
+       this._media = value;
+       this.loadMediaTags();
+    }
+    get media(): Media { return this._media; }
+
 	@Output() tagsChanged = new EventEmitter<Tag[]>();
 
 	public tags: Tag[];
@@ -19,9 +25,7 @@ export class TagManagerComponent implements OnInit {
 		private _ngZone: NgZone) { }
 
 	ngOnInit() {
-		if (this.media && this.media.id) {
-			this.loadMediaTags();
-		} else {
+		if (!this.media) {
 			this.tags = [];
 		}
 	}

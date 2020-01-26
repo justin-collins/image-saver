@@ -4,7 +4,6 @@ import { Media } from 'src/app/core/media';
 import { MessagingService } from 'src/app/core/messaging.service';
 import { MediaService } from 'src/app/core/media.service';
 import { Tag } from 'src/app/core/tag';
-import { TagService } from 'src/app/core/tag.service';
 
 @Component({
 	selector: 'isvr-new-media-dialog',
@@ -20,7 +19,6 @@ export class NewMediaDialogComponent implements OnInit {
 
 	constructor(public dialogRef: MatDialogRef<NewMediaDialogComponent>,
 				private mediaService: MediaService,
-				private tagService: TagService,
 				private messagingService: MessagingService,
 				private _ngZone: NgZone) {
 	}
