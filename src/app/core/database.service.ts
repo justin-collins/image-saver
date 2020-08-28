@@ -90,6 +90,12 @@ export class DatabaseService {
 		});
 	}
 
+	public static runFile(fileName: string): Observable<void> {
+		let filePath: string = path.join(DatabaseService.dbFolder, fileName);
+		let sql: string = fs.readFileSync(filePath, { encoding: 'utf8' });
+		return DatabaseService.exec(sql);
+	}
+
 	public static selectAll(sql: string, values: {}): Observable<Array<{}>> {
 		return Observable.create((observer) => {
 			DatabaseService.db.all(sql, values, (err, rows) => {

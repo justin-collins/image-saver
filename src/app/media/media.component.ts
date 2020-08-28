@@ -5,6 +5,8 @@ import { MediaFilter } from '../core/media.service';
 import { ContextService } from '../core/context.service';
 import { Context } from '../core/context';
 import { ContextType } from '../core/contextType';
+import { MatDialogRef, MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { QuickStartDialogComponent } from './quick-start-dialog/quick-start-dialog.component';
 
 @Component({
 	selector: 'isvr-media',
@@ -17,8 +19,15 @@ export class MediaComponent implements OnInit {
 	public warning: string = '';
 	public filters: MediaFilter;
 
+	private quickStartDialogRef: MatDialogRef<QuickStartDialogComponent>;
+	private quickStartDialogConfig: MatDialogConfig = {
+		width: '80%',
+		maxHeight: '400px'
+	};
+
 	constructor(private mediaService: MediaService,
 				private contextService: ContextService,
+				private dialog: MatDialog,
 				private _ngZone: NgZone) {
 		this.resetFilters();
 	}
@@ -36,7 +45,21 @@ export class MediaComponent implements OnInit {
 		this._ngZone.run(() => {
 			this.media = mediaResponse;
 			this.warning = this.checkWarning();
+			this.checkShowQuickStart();
 		});
+	}
+
+	private checkShowQuickStart(): void {
+		if (this.quickStartDialogRef) return;
+
+		if (this.media && this.media.length === 0) {
+			this.quickStartDialogRef = this.dialog.open(QuickStartDialogComponent, this.quickStartDialogConfig);
+			this.quickStartDialogRef.afterClosed().subscribe((result) => {
+				this.quickStartDialogRef = null;
+				this.resetFilters();
+				this.loadMedia(this.filters);
+			});
+		}
 	}
 
 	private contextChanged = (context: Context): void => {
