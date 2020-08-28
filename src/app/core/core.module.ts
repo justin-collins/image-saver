@@ -8,6 +8,7 @@ import { AlbumService } from './album.service';
 import { ContextService } from './context.service';
 import { TagService } from './tag.service';
 import { SettingsService } from './settings.service';
+import { StartupService } from './startup.service';
 
 @NgModule({
 	declarations: [],
@@ -22,7 +23,8 @@ import { SettingsService } from './settings.service';
 		AlbumService,
 		ContextService,
 		TagService,
-		SettingsService
+		SettingsService,
+		StartupService
 	]
 })
 export class CoreModule { }

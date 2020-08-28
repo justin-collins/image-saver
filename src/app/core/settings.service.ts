@@ -1,27 +1,53 @@
 import { Injectable } from '@angular/core';
-
-const storage = require('electron-json-storage');
-
-export interface KeyboardShortcuts {
-	NAVIGATE_LEFT_1: string;
-	NAVIGATE_LEFT_2: string;
-	NAVIGATE_RIGHT_1: string;
-	NAVIGATE_RIGHT_2: string;
-	START_STOP_SLIDESHOW_1: string;
-	START_STOP_SLIDESHOW_2: string;
-	OPEN_MEDIA_DRAWER_1: string;
-	OPEN_MEDIA_DRAWER_2: string;
-}
+import { Settings } from './settings';
+import { DatabaseService } from './database.service';
+import { Observable, empty, merge } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class SettingsService {
+	private _settings: Settings;
+	public get settings(): Settings { return this._settings; }
 
-	constructor() {
-		// storage.set('keyboardShortcuts', newShortcuts);
-		// storage.get('test', (error, data: KeyboardShortcuts) => {
-		// 	return data;
-		// });
+	constructor() {}
+
+	public initialize(): Observable<any> {
+		return this.loadSettings();
+	}
+
+	private loadSettings(): Observable<any> {
+		const sql = `SELECT * from settings`;
+		const values = {};
+
+		return DatabaseService.selectAll(sql, values).pipe(
+			map((rows) => {
+				this._settings = new Settings().fromTable(rows);
+			})
+		);
+	}
+
+	public update(settingName: string, newValue: string): Observable<Settings> {
+		this._settings[settingName] = newValue;
+
+		const sql = `UPDATE settings SET value = $newValue WHERE name == $settingName`;
+		const values = {$settingName: settingName, $newValue: newValue};
+
+		return DatabaseService.update(sql, values).pipe(
+			map(_ => this.settings)
+		);
+	}
+
+	public updateAll(newSettings: Settings): Observable<Settings> {
+		this._settings = newSettings;
+
+		let settingsRequests: Observable<Settings>[] = [];
+
+		for (let key in newSettings) {
+			settingsRequests.push(this.update(key, newSettings[key]));
+		}
+
+		return merge(...settingsRequests);
 	}
 }

@@ -61,4 +61,21 @@ CREATE TABLE IF NOT EXISTS `mediaAlbumsMap` (
 	UNIQUE(media_id, album_id)
 );
 
+CREATE TABLE IF NOT EXISTS `settings` (
+	`name` TEXT PRIMARY KEY,
+	`value` TEXT
+);
+
+INSERT OR IGNORE INTO settings(name, value) VALUES
+('show_quickstart', 'true'),
+('slideshow_speed_ms', '4000'),
+('navigate_left_1', 'a'),
+('navigate_left_2', 'ArrowLeft'),
+('navigate_right_1', 'd'),
+('navigate_right_2', 'ArrowRight'),
+('start_stop_slideshow_1', ' '),
+('start_stop_slideshow_2', ''),
+('open_media_drawer_1', 's'),
+('open_media_drawer_2', 'ArrowDown');
+
 COMMIT;

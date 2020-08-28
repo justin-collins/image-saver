@@ -4,6 +4,7 @@ import { Context } from 'src/app/core/context';
 import { ContextService } from 'src/app/core/context.service';
 import { MediaService, MediaFilter } from 'src/app/core/media.service';
 import { ContextType } from 'src/app/core/contextType';
+import { SettingsService } from 'src/app/core/settings.service';
 
 @Component({
 	selector: 'isvr-media-detail-navigation',
@@ -19,12 +20,15 @@ export class MediaDetailNavigationComponent implements OnInit {
 	public currentPosition: number = 0;
 	public slideshowTimer;
 
-	private slideshowMsPerMedia: number = 5000;
+	private slideshowMsPerMedia: number = 100;
 
 	constructor(private mediaService: MediaService,
+				private settingsService: SettingsService,
 				private contextService: ContextService) { }
 
 	ngOnInit() {
+		this.slideshowMsPerMedia = this.settingsService.settings.slideshow_speed_ms;
+
 		this.context = this.contextService.context;
 		if (this.context) {
 			this.getMediaFromContext();

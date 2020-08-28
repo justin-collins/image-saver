@@ -1,5 +1,5 @@
-import { DatabaseService } from './core/database.service';
 import { Component, NgZone } from '@angular/core';
+import { StartupService } from './core/startup.service';
 
 @Component({
 	selector: 'isvr-root',
@@ -9,8 +9,9 @@ import { Component, NgZone } from '@angular/core';
 export class AppComponent {
 	public loading: boolean = true;
 
-	constructor(private _ngZone: NgZone) {
-		DatabaseService.initialize().subscribe(() => {
+	constructor(private startupService: StartupService,
+				private _ngZone: NgZone) {
+		this.startupService.initialize().subscribe(() => {
 			this._ngZone.run(() => {
 				this.loading = false;
 			});
