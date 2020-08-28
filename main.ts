@@ -10,7 +10,6 @@ const Path = require('path');
 const icon = Path.resolve(__dirname, 'src', 'assets', 'icon.png');
 
 function createWindow() {
-
 	const electronScreen = screen;
 	const size = electronScreen.getPrimaryDisplay().workAreaSize;
 
@@ -24,12 +23,16 @@ function createWindow() {
 		height: 1000,
 		webPreferences: {
 			nodeIntegration: true,
-			webSecurity: false
+			allowRunningInsecureContent: (serve) ? true : false,
+			webSecurity: false,
+			enableRemoteModule: true
 		},
 		icon: icon
 	});
 
 	if (serve) {
+		setTimeout(() => win.webContents.openDevTools(), 100);
+
 		require('electron-reload')(__dirname, {
 			electron: require(`${__dirname}/node_modules/electron`)
 		});
@@ -40,10 +43,6 @@ function createWindow() {
 			protocol: 'file:',
 			slashes: true
 		}));
-	}
-
-	if (serve) {
-		setTimeout(() => win.webContents.openDevTools(), 100);
 	}
 
 	// Emitted when the window is closed.
@@ -61,6 +60,7 @@ function createWindow() {
 }
 
 try {
+	app.allowRendererProcessReuse = false;
 
 	// This method will be called when Electron has finished
 	// initialization and is ready to create browser windows.
