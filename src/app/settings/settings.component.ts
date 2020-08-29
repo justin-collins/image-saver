@@ -19,6 +19,12 @@ export class SettingsComponent implements OnInit {
 		this.resetSettings();
 	}
 
+	public translateKeyBinding(settingProp: string, e: KeyboardEvent): void {
+		let keyValue: string = e.key;
+		if (keyValue === ' ') keyValue = 'Space';
+		this.settings[settingProp] = keyValue;
+	}
+
 	public resetSettings(): void {
 		this._ngZone.run(() => {
 			this.settings = new Settings(this.settingsService.settings);

@@ -73,7 +73,7 @@ INSERT OR IGNORE INTO settings(name, value) VALUES
 ('navigate_left_2', 'ArrowLeft'),
 ('navigate_right_1', 'd'),
 ('navigate_right_2', 'ArrowRight'),
-('start_stop_slideshow_1', ' '),
+('start_stop_slideshow_1', 'Space'),
 ('start_stop_slideshow_2', ''),
 ('open_media_drawer_1', 's'),
 ('open_media_drawer_2', 'ArrowDown');

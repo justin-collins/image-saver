@@ -1,9 +1,10 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, HostListener } from '@angular/core';
 import { Media } from '../core/media';
 import { ActivatedRoute } from '@angular/router';
 import { MediaType } from '../core/mediaType';
 import { MediaService } from '../core/media.service';
 import { ISVRAnimations } from '../shared/animations';
+import { SettingsService } from '../core/settings.service';
 
 @Component({
 	selector: 'isvr-media-detail',
@@ -18,8 +19,9 @@ export class MediaDetailComponent implements OnInit {
 	public drawerIsOpen: boolean = false;
 
 	constructor(private mediaService: MediaService,
-		private activatedRoute: ActivatedRoute,
-		private _ngZone: NgZone) {
+				private settingsService: SettingsService,
+				private activatedRoute: ActivatedRoute,
+				private _ngZone: NgZone) {
 		this.activatedRoute.params.subscribe(this.initialize);
 	}
 
@@ -60,5 +62,18 @@ export class MediaDetailComponent implements OnInit {
 		this._ngZone.run(() => {
 			this.media.trashed = false;
 		});
+	}
+
+	@HostListener('window:keydown', ['$event'])
+	onKeyDown(event: KeyboardEvent) {
+		let keyValue: string = event.key;
+		if (keyValue === ' ') keyValue = 'Space';
+
+		switch (keyValue) {
+			case this.settingsService.settings.open_media_drawer_1:
+			case this.settingsService.settings.open_media_drawer_2:
+				this.toggleDrawer();
+				break;
+		}
 	}
 }

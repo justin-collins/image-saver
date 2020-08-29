@@ -10,7 +10,34 @@ h1 {
 	margin: 0;
 }
 
+.slideshow-speed {
+	width: 300px;
+}
+
+.keyBindings {
+	display: flex;
+	flex-direction: column;
+}
+
+.keyBinding {
+	width: 700px;
+	display: flex;
+	flex-direction: row;
+
+	label,
+	mat-form-field {
+		flex: 1;
+		margin: 0 10px;
+		align-self: center;
+	}
+
+	mat-form-field {
+		flex: 0.5;
+	}
+}
+
 .actions {
+	margin-top: 30px;
 	button {
 		margin-right: 10px;
 	}

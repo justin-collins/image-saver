@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, HostListener } from '@angular/core';
 import { Media } from 'src/app/core/media';
 import { Context } from 'src/app/core/context';
 import { ContextService } from 'src/app/core/context.service';
@@ -72,7 +72,7 @@ export class MediaDetailNavigationComponent implements OnInit {
 		this.newMediaSelected(newPosition);
 	}
 
-	public slideshow(): void {
+	public toggleSlideshow(): void {
 		if (this.slideshowTimer) {
 			this.stopSlideShow();
 		} else {
@@ -87,7 +87,13 @@ export class MediaDetailNavigationComponent implements OnInit {
 	}
 
 	private stopSlideShow(): void {
+		window.clearInterval(this.slideshowTimer);
 		this.slideshowTimer = null;
+	}
+
+	private resetSlideshowTimer(): void {
+		this.stopSlideShow();
+		this.startSlideshow();
 	}
 
 	private findStartingPosition(): void {
@@ -101,6 +107,7 @@ export class MediaDetailNavigationComponent implements OnInit {
 	}
 
 	private newMediaSelected(mediaIndex: number): void {
+		this.resetSlideshowTimer();
 		this.currentPosition = mediaIndex;
 		let newMedia: Media = this.media[mediaIndex];
 		this.onMediaChange.emit(newMedia);
@@ -114,5 +121,26 @@ export class MediaDetailNavigationComponent implements OnInit {
 		}
 
 		return newPosition;
+	}
+
+	@HostListener('window:keydown', ['$event'])
+	onKeyDown(event: KeyboardEvent) {
+		let keyValue: string = event.key;
+		if (keyValue === ' ') keyValue = 'Space';
+
+		switch (keyValue) {
+			case this.settingsService.settings.navigate_right_1:
+			case this.settingsService.settings.navigate_right_2:
+				this.nextMedia();
+				break;
+			case this.settingsService.settings.navigate_left_1:
+			case this.settingsService.settings.navigate_left_2:
+				this.previousMedia();
+				break;
+			case this.settingsService.settings.start_stop_slideshow_1:
+			case this.settingsService.settings.start_stop_slideshow_2:
+				this.toggleSlideshow();
+				break;
+		}
 	}
 }

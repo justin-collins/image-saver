@@ -1,9 +1,61 @@
 <h1>Settings</h1>
 
 <form (ngSubmit)="saveSettings()" #editSettingsForm="ngForm">
-	<mat-form-field>
+	<h3>General</h3>
+	<mat-form-field class="slideshow-speed">
 		<input type="text" matInput [(ngModel)]="settings.slideshow_speed_ms" name="slideshowSpeed" placeholder="Slideshow Speed (ms)" />
 	</mat-form-field>
+
+	<h3>KeyBindings</h3>
+	<div class="keyBindings">
+		<div class="keyBinding">
+			<label>Navigate Next Media</label>
+
+			<mat-form-field>
+				<input type="text" matInput [(ngModel)]="settings.navigate_right_1" name="navRight1" placeholder="Navigate Next Media 1" (keyup)="translateKeyBinding('navigate_right_1', $event)" />
+			</mat-form-field>
+
+			<mat-form-field>
+				<input type="text" matInput [(ngModel)]="settings.navigate_right_2" name="navRight2" placeholder="Navigate Next Media 2" (keyup)="translateKeyBinding('navigate_right_2', $event)" />
+			</mat-form-field>
+		</div>
+
+		<div class="keyBinding">
+			<label>Navigate Previous Media</label>
+
+			<mat-form-field>
+				<input type="text" matInput [(ngModel)]="settings.navigate_left_1" name="navLeft1" placeholder="Navigate Previous Media 1" (keyup)="translateKeyBinding('navigate_left_1', $event)" />
+			</mat-form-field>
+
+			<mat-form-field>
+				<input type="text" matInput [(ngModel)]="settings.navigate_left_2" name="navLeft2" placeholder="Navigate Previous Media 2" (keyup)="translateKeyBinding('navigate_left_2', $event)" />
+			</mat-form-field>
+		</div>
+
+		<div class="keyBinding">
+			<label>Slideshow Toggle</label>
+
+			<mat-form-field>
+				<input type="text" matInput [(ngModel)]="settings.start_stop_slideshow_1" name="slideshowToggle1" placeholder="Slideshow Toggle 1" (keyup)="translateKeyBinding('start_stop_slideshow_1', $event)" />
+			</mat-form-field>
+
+			<mat-form-field>
+				<input type="text" matInput [(ngModel)]="settings.start_stop_slideshow_2" name="slideshowToggle2" placeholder="Slideshow Toggle 2" (keyup)="translateKeyBinding('start_stop_slideshow_2', $event)" />
+			</mat-form-field>
+		</div>
+
+		<div class="keyBinding">
+			<label>Media Drawer Toggle</label>
+
+			<mat-form-field>
+				<input type="text" matInput [(ngModel)]="settings.open_media_drawer_1" name="mediaDrawerToggle1" placeholder="Media Drawer Toggle 1" (keyup)="translateKeyBinding('open_media_drawer_1', $event)" />
+			</mat-form-field>
+
+			<mat-form-field>
+				<input type="text" matInput [(ngModel)]="settings.open_media_drawer_2" name="mediaDrawerToggle2" placeholder="Media Drawer Toggle 2" (keyup)="translateKeyBinding('open_media_drawer_2', $event)" />
+			</mat-form-field>
+		</div>
+	</div>
 
 	<div class="actions">
 		<button type="button" mat-raised-button (click)="resetSettings()">Reset</button>
