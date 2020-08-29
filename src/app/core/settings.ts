@@ -24,7 +24,10 @@ export class Settings {
 		for (let i = 0; i < rows.length; i++) {
 			const row = rows[i];
 
-			this[row['name']] = row['value'];
+			this[row['setting']] = row['saved_value'];
+
+			//convert to true boolean
+			if (row['setting'] === 'show_quickstart') this.show_quickstart = (row['saved_value'] =="true");
 		}
 
 		return this;

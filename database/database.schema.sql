@@ -63,11 +63,11 @@ CREATE TABLE IF NOT EXISTS `mediaAlbumsMap` (
 );
 
 CREATE TABLE IF NOT EXISTS `settings` (
-	`name` TEXT PRIMARY KEY,
-	`value` TEXT
+	`setting` TEXT PRIMARY KEY,
+	`saved_value` TEXT
 );
 
-INSERT OR IGNORE INTO settings(name, value) VALUES
+INSERT OR IGNORE INTO settings(setting, saved_value) VALUES
 ('show_quickstart', 'true'),
 ('slideshow_speed_ms', '4000'),
 ('navigate_left_1', 'a'),

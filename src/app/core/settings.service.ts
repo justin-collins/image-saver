@@ -31,7 +31,7 @@ export class SettingsService {
 	public update(settingName: string, newValue: string): Observable<Settings> {
 		this._settings[settingName] = newValue;
 
-		const sql = `UPDATE settings SET value = $newValue WHERE name == $settingName`;
+		const sql = `UPDATE settings SET saved_value = $newValue WHERE setting == $settingName`;
 		const values = {$settingName: settingName, $newValue: newValue};
 
 		return DatabaseService.update(sql, values).pipe(
