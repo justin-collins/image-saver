@@ -14,7 +14,7 @@ export interface AlbumFilter {
 	providedIn: 'root'
 })
 export class AlbumService {
-	private albumWithCoverQuery: string = `SELECT albums.id, albums.title, albums.created_at, media.id media_id, media.url media_url, media.type media_type from albums
+	private albumWithCoverQuery: string = `SELECT albums.id, albums.title, albums.created_at, media.id media_id, media.url media_url, media.type media_type, media.rotation media_rotation from albums
 											LEFT JOIN albumCovers ON albums.id == albumCovers.album_id
 											LEFT JOIN media ON albumCovers.media_id == media.id`
 
@@ -70,7 +70,7 @@ export class AlbumService {
 	}
 
 	public getAlbumsByMedia(media: Media): Observable<Album[]> {
-		const sql = `SELECT albums.id, albums.title, albums.created_at, media.id media_id, media.url media_url, media.type media_type from mediaAlbumsMap
+		const sql = `SELECT albums.id, albums.title, albums.created_at, media.id media_id, media.url media_url, media.type media_type, media.rotation media_rotation from mediaAlbumsMap
 					LEFT JOIN albums on albums.id == mediaAlbumsMap.album_id
 					LEFT JOIN albumCovers on albums.id == albumCovers.album_id
 					LEFT JOIN media ON albumCovers.media_id == media.id

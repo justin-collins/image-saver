@@ -4,6 +4,12 @@ mat-sidenav-content {
 	padding-right: 20px; //space for drawer
 }
 
+isvr-media-detail-navigation {
+	display: block;
+	position: relative;
+	z-index: 2;
+}
+
 isvr-alert {
 	width: 100%;
 	@include position(absolute, 0 null null 0);
@@ -14,19 +20,23 @@ isvr-alert {
 	}
 }
 
+
 .media-frame {
 	@include size(100%, calc(100% - 40px));
 	background-color: black;
+	text-align: center;
+
+	.image,
+	.video {
+		@include size(100%, 100%);
+		margin: 0 auto;
+		transform-origin: 50% 0%;
+	}
 
 	.image {
-		@include size(100%, 100%);
 		background-size: contain;
 		background-repeat: no-repeat;
 		background-position: center center;
-	}
-
-	.video {
-		@include size(100%, 100%);
 	}
 }
 

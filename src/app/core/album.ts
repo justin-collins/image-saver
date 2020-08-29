@@ -15,6 +15,7 @@ export class Album {
 		this.cover.id = row['media_id'];
 		this.cover.url = row['media_url'];
 		this.cover.type = row['media_type'];
+		this.cover.rotation = row['media_rotation'];
 
         return this;
     }

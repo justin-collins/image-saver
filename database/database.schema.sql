@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS `media` (
 	`source` TEXT,
 	`type` Text NOT NULL REFERENCES mediaType(`type`),
 	`location` TEXT NOT NULL REFERENCES mediaLocation(`location`),
+	`rotation` INTEGER DEFAULT 0,
 	`trashed` INTEGER DEFAULT 0,
 	`trashed_at` DATETIME,
 	`created_at` DATETIME DEFAULT CURRENT_TIMESTAMP

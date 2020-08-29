@@ -14,6 +14,7 @@ import { SettingsService } from 'src/app/core/settings.service';
 export class MediaDetailNavigationComponent implements OnInit {
 	@Input() startingMedia: Media;
 	@Output() onMediaChange = new EventEmitter<Media>();
+	@Output() onMediaRotate = new EventEmitter<number>();
 
 	public context: Context;
 	public media: Media[];
@@ -21,6 +22,7 @@ export class MediaDetailNavigationComponent implements OnInit {
 	public slideshowTimer;
 
 	private slideshowMsPerMedia: number = 100;
+	private defaultRotationDeg: number = 90;
 
 	constructor(private mediaService: MediaService,
 				private settingsService: SettingsService,
@@ -96,6 +98,14 @@ export class MediaDetailNavigationComponent implements OnInit {
 		this.startSlideshow();
 	}
 
+	public rotateMedia(): void {
+		let newRotation = this.media[this.currentPosition].rotation + this.defaultRotationDeg;
+		if (newRotation >= 360) newRotation = 0;
+		this.media[this.currentPosition].rotation = newRotation;
+
+		this.onMediaRotate.emit(newRotation);
+	}
+
 	private findStartingPosition(): void {
 		for (let i = 0; i < this.media.length; i++) {
 			const media: Media = this.media[i];
@@ -107,7 +117,8 @@ export class MediaDetailNavigationComponent implements OnInit {
 	}
 
 	private newMediaSelected(mediaIndex: number): void {
-		this.resetSlideshowTimer();
+		if (this.slideshowTimer) this.resetSlideshowTimer();
+
 		this.currentPosition = mediaIndex;
 		let newMedia: Media = this.media[mediaIndex];
 		this.onMediaChange.emit(newMedia);

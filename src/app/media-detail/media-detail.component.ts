@@ -17,6 +17,9 @@ export class MediaDetailComponent implements OnInit {
 
 	public mediaType = MediaType;
 	public drawerIsOpen: boolean = false;
+	public screenHeight: number;
+	public screenWidth: number;
+	public screenNavPadding: number = 105;
 
 	constructor(private mediaService: MediaService,
 				private settingsService: SettingsService,
@@ -26,6 +29,7 @@ export class MediaDetailComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.onResize(window);
 	}
 
 	private initialize = (params): void => {
@@ -54,6 +58,60 @@ export class MediaDetailComponent implements OnInit {
 		this.drawerIsOpen = !this.drawerIsOpen;
 	}
 
+	public rotateMedia(rotationDeg: number): void {
+		this.mediaService.rotate(this.media, rotationDeg).subscribe(this.mediaLoaded);
+	}
+
+	public calcStyles(): Object {
+		let styles: Object = {};
+
+		if (this.media.type === MediaType.IMAGE) styles['background-image'] = 'url(' + this.media.url + ')';
+		if (this.media.rotation > 0) {
+			styles['transform'] = 'rotate(' + this.media.rotation + 'deg)';
+
+			switch(this.media.rotation) {
+				case 90:
+					styles['transform'] += ' translate(50%, -50%)';
+					break;
+				case 180:
+					styles['transform'] += ' translate(0%, -100%)';
+					break;
+				case 270:
+					styles['transform'] += ' translate(-50%, -50%)';
+					break;
+			}
+
+			styles['max-width'] = this.calcMediaWidth() + 'px';
+			styles['max-height'] = this.calcMediaHeight() + 'px';
+		}
+
+		return styles;
+	}
+
+	public calcMediaWidth(): number {
+		let outputWidth: number;
+
+		if (this.media.rotation === 0 || this.media.rotation === 180) {
+			outputWidth = this.screenWidth;
+		} else {
+			outputWidth = this.screenHeight - this.screenNavPadding;
+		}
+
+		return outputWidth;
+	}
+
+	public calcMediaHeight(): number {
+		let outputHeight: number;
+
+		if (this.media.rotation === 0 || this.media.rotation === 180) {
+			outputHeight = this.screenHeight - this.screenNavPadding;
+		} else {
+			outputHeight = this.screenWidth;
+		}
+
+		return outputHeight;
+	}
+
 	public restoreMedia(): void {
 		this.mediaService.restore(this.media).subscribe(this.mediaRestored);
 	}
@@ -75,5 +133,11 @@ export class MediaDetailComponent implements OnInit {
 				this.toggleDrawer();
 				break;
 		}
+	}
+
+	@HostListener('window:resize', ['$event'])
+	onResize(event?) {
+		this.screenWidth = window.innerWidth;
+		this.screenHeight = window.innerHeight;
 	}
 }

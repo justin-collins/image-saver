@@ -171,6 +171,18 @@ export class MediaService {
 		);
 	}
 
+	public rotate(media: Media, rotationDeg: number): Observable<Media> {
+		const sql = `UPDATE media SET rotation = $rotation WHERE id == $mediaId`;
+		const values = {$rotation: rotationDeg, $mediaId: media.id};
+
+		return DatabaseService.update(sql, values).pipe(
+			map(() => {
+				media.rotation = rotationDeg;
+				return media;
+			})
+		);
+	}
+
 	public delete(media: Media): Observable<boolean> {
 		const sql = `DELETE from media WHERE id == $mediaId`;
 		const values = {$mediaId: media.id};

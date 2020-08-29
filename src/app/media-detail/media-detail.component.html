@@ -1,11 +1,11 @@
 <mat-sidenav-container>
 	<mat-sidenav-content>
-		<isvr-media-detail-navigation *ngIf="media" [startingMedia]="media" (onMediaChange)="newMediaSelected($event)"></isvr-media-detail-navigation>
+		<isvr-media-detail-navigation *ngIf="media" [startingMedia]="media" (onMediaChange)="newMediaSelected($event)" (onMediaRotate)="rotateMedia($event)"></isvr-media-detail-navigation>
 		<div class="media-frame" *ngIf="media">
 			<isvr-alert *ngIf="media.trashed">This item is currently in the trash. <a (click)="restoreMedia()">Click here to restore</a></isvr-alert>
 
-			<div *ngIf="media.type === mediaType.IMAGE || media.type === mediaType.GIF" class="image" [ngStyle]="{'background-image': 'url(' + media.url + ')'}"></div>
-			<video *ngIf="media.type === mediaType.VIDEO" class="video" [src]="media.url" [muted]="'muted'" autoplay loop controls></video>
+			<div *ngIf="media.type === mediaType.IMAGE || media.type === mediaType.GIF" class="image" [ngStyle]="calcStyles()"></div>
+			<video *ngIf="media.type === mediaType.VIDEO" class="video" [src]="media.url" [muted]="'muted'" [ngStyle]="calcStyles()" autoplay loop controls></video>
 		</div>
 
 		<mat-progress-bar mode="indeterminate"  *ngIf="!media"></mat-progress-bar>

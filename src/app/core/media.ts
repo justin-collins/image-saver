@@ -8,6 +8,7 @@ export class Media {
 	public source: string;
 	public type: MediaType;
 	public location: MediaLocation;
+	public rotation: number;
 	public trashed: Boolean;
 	public createdAt: Date;
 	public trashedAt: Date;
@@ -19,6 +20,7 @@ export class Media {
 		this.source = row['source'];
 		this.type = row['type'];
 		this.location = row['location'];
+		this.rotation = row['rotation'];
 		this.trashed = row['trashed'];
 		this.createdAt = new Date(row['created_at'] + 'Z');
 		this.trashedAt = new Date(row['trashed_at'] + 'Z');
