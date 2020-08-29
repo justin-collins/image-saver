@@ -3,7 +3,6 @@ import { Context } from './context';
 import { ContextType } from './contextType';
 import { BehaviorSubject } from 'rxjs';
 import { Album } from './album';
-import { Router } from '@angular/router';
 import { Tag } from './tag';
 import { MediaFilter } from './media.service';
 
@@ -20,7 +19,7 @@ export class ContextService {
 		this.contextChanged.next(this._context);
 	}
 
-	constructor(private router: Router) {
+	constructor() {
 	}
 
 	public setContextAlbum(album: Album): void {

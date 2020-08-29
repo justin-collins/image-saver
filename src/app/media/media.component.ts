@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, HostListener } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Media } from '../core/media';
 import { MediaService } from '../core/media.service';
 import { MediaFilter } from '../core/media.service';
@@ -7,7 +7,6 @@ import { Context } from '../core/context';
 import { ContextType } from '../core/contextType';
 import { MatDialogRef, MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { QuickStartDialogComponent } from './quick-start-dialog/quick-start-dialog.component';
-import { Settings } from '../core/settings';
 import { SettingsService } from '../core/settings.service';
 
 @Component({
@@ -60,7 +59,7 @@ export class MediaComponent implements OnInit {
 			this.quickStartDialogRef = this.dialog.open(QuickStartDialogComponent, this.quickStartDialogConfig);
 			this.quickStartDialogRef.afterClosed().subscribe((result) => {
 				this.quickStartDialogRef = null;
-				this.quickStartRun();
+				if (result) this.quickStartRun();
 			});
 		}
 	}
@@ -114,10 +113,5 @@ export class MediaComponent implements OnInit {
 	private filtersAreEmpty(): boolean {
 		if (this.filters.term || this.filters.type || this.filters.location) return false;
 		return true;
-	}
-
-	@HostListener('window:keydown', ['$event'])
-	handleKeyboardEvent(event: KeyboardEvent) {
-		console.log(event);
 	}
 }

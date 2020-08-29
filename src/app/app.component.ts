@@ -7,14 +7,17 @@ import { StartupService } from './core/startup.service';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-	public loading: boolean = true;
+	public unlocked: boolean = false;
 
 	constructor(private startupService: StartupService,
 				private _ngZone: NgZone) {
-		this.startupService.initialize().subscribe(() => {
-			this._ngZone.run(() => {
-				this.loading = false;
-			});
+
+		this.startupService.unlockedChanged.subscribe(this.unlockChanged);
+	}
+
+	private unlockChanged = (unlockVal: boolean): void => {
+		this._ngZone.run(() => {
+			this.unlocked = unlockVal;
 		});
 	}
 }

@@ -1,0 +1,16 @@
+@import 'includes';
+
+.container {
+	height: 100%;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+mat-form-field {
+	width: 600px;
+}
+
+.mat-form-field-appearance-legacy .mat-hint {
+	color: red;
+}

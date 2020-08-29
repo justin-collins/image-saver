@@ -20,6 +20,7 @@ import { TagFiltersComponent } from './tags/tag-filters/tag-filters.component';
 import { MediaDetailNavigationComponent } from './media-detail/media-detail-navigation/media-detail-navigation.component';
 import { SettingsComponent } from './settings/settings.component';
 import { QuickStartDialogComponent } from './media/quick-start-dialog/quick-start-dialog.component';
+import { UnlockComponent } from './unlock/unlock.component';
 
 @NgModule({
 	declarations: [
@@ -36,7 +37,8 @@ import { QuickStartDialogComponent } from './media/quick-start-dialog/quick-star
 		TagFiltersComponent,
 		MediaDetailNavigationComponent,
 		SettingsComponent,
-		QuickStartDialogComponent
+		QuickStartDialogComponent,
+		UnlockComponent
 	],
 	imports: [
 		BrowserModule,

@@ -1,13 +1,5 @@
-<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<isvr-main-nav *ngIf="unlocked"></isvr-main-nav>
 
-<mat-toolbar color="primary">
-	<a mat-button routerLink="media" routerLinkActive="active">Media</a>
-	<a mat-button routerLink="albums" routerLinkActive="active">Albums</a>
-	<a mat-button routerLink="tags" routerLinkActive="active">Tags</a>
-	<a mat-button routerLink="trash" routerLinkActive="active">Trash</a>
-	<a mat-button routerLink="settings" routerLinkActive="active">Settings</a>
-</mat-toolbar>
-
-<div class="container" *ngIf="!loading">
+<div class="container">
 	<router-outlet></router-outlet>
 </div>

@@ -27,6 +27,7 @@ import { InitialCasePipe } from './initial-case.pipe';
 import { NewTagDialogComponent } from './new-tag-dialog/new-tag-dialog.component';
 import { NewTagButtonDirective } from './new-tag-button.directive';
 import { TagAutocompleteComponent } from './tag-autocomplete/tag-autocomplete.component';
+import { MainNavComponent } from './main-nav/main-nav.component';
 
 @NgModule({
 	imports: [
@@ -60,7 +61,8 @@ import { TagAutocompleteComponent } from './tag-autocomplete/tag-autocomplete.co
 		InitialCasePipe,
 		NewTagDialogComponent,
 		NewTagButtonDirective,
-		TagAutocompleteComponent
+		TagAutocompleteComponent,
+		MainNavComponent
 	],
 	declarations: [
 		MediaPreviewComponent,
@@ -84,7 +86,8 @@ import { TagAutocompleteComponent } from './tag-autocomplete/tag-autocomplete.co
 		InitialCasePipe,
 		NewTagDialogComponent,
 		NewTagButtonDirective,
-		TagAutocompleteComponent
+		TagAutocompleteComponent,
+		MainNavComponent
 	],
 	entryComponents: [
 		NewMediaDialogComponent,

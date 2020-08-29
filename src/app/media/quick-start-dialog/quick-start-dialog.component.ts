@@ -22,7 +22,7 @@ export class QuickStartDialogComponent implements OnInit {
 
 	private quickStartRun = (): void => {
 		this._ngZone.run(() => {
-			this.dialogRef.close();
+			this.dialogRef.close(true);
 		});
 	}
 }
