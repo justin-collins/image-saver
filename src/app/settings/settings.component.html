@@ -2,9 +2,25 @@
 
 <form (ngSubmit)="saveSettings()" #editSettingsForm="ngForm">
 	<h3>General</h3>
-	<mat-form-field class="slideshow-speed">
-		<input type="text" matInput [(ngModel)]="settings.slideshow_speed_ms" name="slideshowSpeed" placeholder="Slideshow Speed (ms)" />
-	</mat-form-field>
+	<div class="general-settings">
+		<mat-form-field>
+			<input type="text" matInput [(ngModel)]="settings.slideshow_speed_ms" name="slideshowSpeed" placeholder="Slideshow Speed (ms)" />
+		</mat-form-field>
+
+		<mat-form-field>
+			<mat-select [(ngModel)]="settings.starting_media_drawer_position" name="mediaDrawerPos" placeholder="Starting Media Drawer Position">
+				<mat-option value="open">Open</mat-option>
+				<mat-option value="closed">Closed</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<mat-form-field>
+			<mat-select [(ngModel)]="settings.landing_page" name="landingPage" placeholder="Landing Page">
+				<mat-option value="media">Media</mat-option>
+				<mat-option value="albums">Albums</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
 
 	<h3>KeyBindings</h3>
 	<div class="keyBindings">

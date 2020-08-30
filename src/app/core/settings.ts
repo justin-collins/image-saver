@@ -1,6 +1,8 @@
 export class Settings {
 	show_quickstart: boolean;
 	slideshow_speed_ms: number;
+	starting_media_drawer_position: string;
+	landing_page: string;
 	navigate_left_1: string;
 	navigate_left_2: string;
 	navigate_right_1: string;

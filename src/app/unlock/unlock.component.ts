@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, NgZone, ElementRef } from '@angular/core'
 import { StartupService } from '../core/startup.service';
 import { Router } from '@angular/router';
 import { MessagingService } from '../core/messaging.service';
+import { SettingsService } from '../core/settings.service';
 @Component({
 	selector: 'isvr-unlock',
 	templateUrl: './unlock.component.html',
@@ -14,9 +15,10 @@ export class UnlockComponent implements OnInit {
 	@ViewChild('passKeyInput') passKeyInput: ElementRef;
 
 	constructor(private startupService: StartupService,
-		private messagingService: MessagingService,
-		private _ngZone: NgZone,
-		private router: Router) { }
+				private settingsService: SettingsService,
+				private messagingService: MessagingService,
+				private _ngZone: NgZone,
+				private router: Router) { }
 
 	ngOnInit(): void {
 		this._ngZone.run(() => {
@@ -32,9 +34,12 @@ export class UnlockComponent implements OnInit {
 	private unlocked = (): void => {
 		this.startupService.unlocked = true;
 		this.messagingService.message('Unlocked!');
+
+
 		this.startupService.initialize().subscribe(() => {
 			this._ngZone.run(() => {
-				this.router.navigate(['/media']);
+				let landingPage: string = this.settingsService.settings.landing_page;
+				this.router.navigate(['/', landingPage]);
 			});
 		});
 	}

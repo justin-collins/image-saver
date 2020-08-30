@@ -70,6 +70,8 @@ CREATE TABLE IF NOT EXISTS `settings` (
 INSERT OR IGNORE INTO settings(setting, saved_value) VALUES
 ('show_quickstart', 'true'),
 ('slideshow_speed_ms', '4000'),
+('starting_media_drawer_position', 'closed'),
+('landing_page', 'media'),
 ('navigate_left_1', 'a'),
 ('navigate_left_2', 'ArrowLeft'),
 ('navigate_right_1', 'd'),

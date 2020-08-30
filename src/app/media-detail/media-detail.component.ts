@@ -30,6 +30,8 @@ export class MediaDetailComponent implements OnInit {
 
 	ngOnInit() {
 		this.onResize(window);
+
+		this.drawerIsOpen = (this.settingsService.settings.starting_media_drawer_position === 'open');
 	}
 
 	private initialize = (params): void => {

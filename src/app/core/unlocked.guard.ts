@@ -16,6 +16,7 @@ export class UnlockedGuard implements CanActivate {
 			return true;
 		} else {
 			this.router.navigate(['/unlock']);
+			return false;
 		}
 	}
 

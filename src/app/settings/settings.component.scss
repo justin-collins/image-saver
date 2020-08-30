@@ -10,8 +10,11 @@ h1 {
 	margin: 0;
 }
 
-.slideshow-speed {
-	width: 300px;
+.general-settings {
+	mat-form-field {
+		width: 300px;
+		display: block;
+	}
 }
 
 .keyBindings {
