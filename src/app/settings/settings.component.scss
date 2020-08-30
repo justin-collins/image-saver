@@ -5,12 +5,14 @@
 	padding: 20px;
 }
 
-h1 {
-	padding-bottom: 20px;
-	margin: 0;
+.general-settings,
+.keyBindings,
+.password-container {
+	padding-top: 20px;
 }
 
-.general-settings {
+.general-settings,
+.password-container {
 	mat-form-field {
 		width: 300px;
 		display: block;

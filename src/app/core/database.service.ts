@@ -4,7 +4,7 @@ import * as path from 'path';
 import { remote } from 'electron';
 import { Injectable } from '@angular/core';
 import { Database } from '@journeyapps/sqlcipher';
-import { Observable } from 'rxjs';
+import { Observable, merge } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
 
 @Injectable({
@@ -26,7 +26,7 @@ export class DatabaseService {
 			flatMap((newDB) => {
 				DatabaseService.db = newDB;
 				DatabaseService.db.run(`PRAGMA cipher_compatibility = 3`);
-				DatabaseService.db.run(`PRAGMA key = $passKey`, {$passKey: passKey}, function(){});
+				DatabaseService.db.run(`PRAGMA key = ${passKey}`);
 				DatabaseService.db.run(`PRAGMA foreign_keys = true`);
 				return DatabaseService.exec(schema);
 			})
@@ -121,6 +121,32 @@ export class DatabaseService {
 
 	public static delete(sql: string, values: {}): Observable<dbResult> {
 		return DatabaseService.change(sql, values);
+	}
+
+	public static changePassword(oldPass: string, newPass: string): Observable<boolean> {
+		let curKey = Observable.create((observer) => {
+			DatabaseService.db.run(`PRAGMA key = ${oldPass}`, (err) => {
+				if (err) {
+					observer.error(err);
+				} else {
+					observer.next();
+					observer.complete();
+				}
+			});
+		});
+
+		let newKey = Observable.create((observer) => {
+			DatabaseService.db.run(`PRAGMA rekey = ${newPass}`, (err) => {
+				if (err) {
+					observer.error(err);
+				} else {
+					observer.next();
+					observer.complete();
+				}
+			});
+		});
+
+		return merge(curKey, newKey);
 	}
 }
 

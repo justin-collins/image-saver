@@ -1,80 +1,113 @@
-<h1>Settings</h1>
+<mat-tab-group>
+	<mat-tab label="General">
+		<form (ngSubmit)="saveSettings()" #generalSettingsForm="ngForm">
+			<div class="general-settings">
+				<mat-form-field>
+					<input type="text" matInput [(ngModel)]="settings.slideshow_speed_ms" name="slideshowSpeed" placeholder="Slideshow Speed (ms)" />
+				</mat-form-field>
 
-<form (ngSubmit)="saveSettings()" #editSettingsForm="ngForm">
-	<h3>General</h3>
-	<div class="general-settings">
-		<mat-form-field>
-			<input type="text" matInput [(ngModel)]="settings.slideshow_speed_ms" name="slideshowSpeed" placeholder="Slideshow Speed (ms)" />
-		</mat-form-field>
+				<mat-form-field>
+					<mat-select [(ngModel)]="settings.starting_media_drawer_position" name="mediaDrawerPos" placeholder="Starting Media Drawer Position">
+						<mat-option value="open">Open</mat-option>
+						<mat-option value="closed">Closed</mat-option>
+					</mat-select>
+				</mat-form-field>
 
-		<mat-form-field>
-			<mat-select [(ngModel)]="settings.starting_media_drawer_position" name="mediaDrawerPos" placeholder="Starting Media Drawer Position">
-				<mat-option value="open">Open</mat-option>
-				<mat-option value="closed">Closed</mat-option>
-			</mat-select>
-		</mat-form-field>
+				<mat-form-field>
+					<mat-select [(ngModel)]="settings.landing_page" name="landingPage" placeholder="Landing Page">
+						<mat-option value="media">Media</mat-option>
+						<mat-option value="albums">Albums</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
 
-		<mat-form-field>
-			<mat-select [(ngModel)]="settings.landing_page" name="landingPage" placeholder="Landing Page">
-				<mat-option value="media">Media</mat-option>
-				<mat-option value="albums">Albums</mat-option>
-			</mat-select>
-		</mat-form-field>
-	</div>
+			<div class="actions">
+				<button type="button" mat-raised-button (click)="resetSettings()">Reset</button>
+				<button type="submit" mat-raised-button color="primary">Save</button>
+			</div>
+		</form>
+	</mat-tab>
 
-	<h3>KeyBindings</h3>
-	<div class="keyBindings">
-		<div class="keyBinding">
-			<label>Navigate Next Media</label>
+	<mat-tab label="Key Bindings">
+		<form (ngSubmit)="saveSettings()" #keysSettingsForm="ngForm">
+			<div class="keyBindings">
+				<div class="keyBinding">
+					<label>Navigate Next Media</label>
 
-			<mat-form-field>
-				<input type="text" matInput [(ngModel)]="settings.navigate_right_1" name="navRight1" placeholder="Navigate Next Media 1" (keyup)="translateKeyBinding('navigate_right_1', $event)" />
-			</mat-form-field>
+					<mat-form-field>
+						<input type="text" matInput [(ngModel)]="settings.navigate_right_1" name="navRight1" placeholder="Navigate Next Media 1" (keyup)="translateKeyBinding('navigate_right_1', $event)" />
+					</mat-form-field>
 
-			<mat-form-field>
-				<input type="text" matInput [(ngModel)]="settings.navigate_right_2" name="navRight2" placeholder="Navigate Next Media 2" (keyup)="translateKeyBinding('navigate_right_2', $event)" />
-			</mat-form-field>
-		</div>
+					<mat-form-field>
+						<input type="text" matInput [(ngModel)]="settings.navigate_right_2" name="navRight2" placeholder="Navigate Next Media 2" (keyup)="translateKeyBinding('navigate_right_2', $event)" />
+					</mat-form-field>
+				</div>
 
-		<div class="keyBinding">
-			<label>Navigate Previous Media</label>
+				<div class="keyBinding">
+					<label>Navigate Previous Media</label>
 
-			<mat-form-field>
-				<input type="text" matInput [(ngModel)]="settings.navigate_left_1" name="navLeft1" placeholder="Navigate Previous Media 1" (keyup)="translateKeyBinding('navigate_left_1', $event)" />
-			</mat-form-field>
+					<mat-form-field>
+						<input type="text" matInput [(ngModel)]="settings.navigate_left_1" name="navLeft1" placeholder="Navigate Previous Media 1" (keyup)="translateKeyBinding('navigate_left_1', $event)" />
+					</mat-form-field>
 
-			<mat-form-field>
-				<input type="text" matInput [(ngModel)]="settings.navigate_left_2" name="navLeft2" placeholder="Navigate Previous Media 2" (keyup)="translateKeyBinding('navigate_left_2', $event)" />
-			</mat-form-field>
-		</div>
+					<mat-form-field>
+						<input type="text" matInput [(ngModel)]="settings.navigate_left_2" name="navLeft2" placeholder="Navigate Previous Media 2" (keyup)="translateKeyBinding('navigate_left_2', $event)" />
+					</mat-form-field>
+				</div>
 
-		<div class="keyBinding">
-			<label>Slideshow Toggle</label>
+				<div class="keyBinding">
+					<label>Slideshow Toggle</label>
 
-			<mat-form-field>
-				<input type="text" matInput [(ngModel)]="settings.start_stop_slideshow_1" name="slideshowToggle1" placeholder="Slideshow Toggle 1" (keyup)="translateKeyBinding('start_stop_slideshow_1', $event)" />
-			</mat-form-field>
+					<mat-form-field>
+						<input type="text" matInput [(ngModel)]="settings.start_stop_slideshow_1" name="slideshowToggle1" placeholder="Slideshow Toggle 1" (keyup)="translateKeyBinding('start_stop_slideshow_1', $event)" />
+					</mat-form-field>
 
-			<mat-form-field>
-				<input type="text" matInput [(ngModel)]="settings.start_stop_slideshow_2" name="slideshowToggle2" placeholder="Slideshow Toggle 2" (keyup)="translateKeyBinding('start_stop_slideshow_2', $event)" />
-			</mat-form-field>
-		</div>
+					<mat-form-field>
+						<input type="text" matInput [(ngModel)]="settings.start_stop_slideshow_2" name="slideshowToggle2" placeholder="Slideshow Toggle 2" (keyup)="translateKeyBinding('start_stop_slideshow_2', $event)" />
+					</mat-form-field>
+				</div>
 
-		<div class="keyBinding">
-			<label>Media Drawer Toggle</label>
+				<div class="keyBinding">
+					<label>Media Drawer Toggle</label>
 
-			<mat-form-field>
-				<input type="text" matInput [(ngModel)]="settings.open_media_drawer_1" name="mediaDrawerToggle1" placeholder="Media Drawer Toggle 1" (keyup)="translateKeyBinding('open_media_drawer_1', $event)" />
-			</mat-form-field>
+					<mat-form-field>
+						<input type="text" matInput [(ngModel)]="settings.open_media_drawer_1" name="mediaDrawerToggle1" placeholder="Media Drawer Toggle 1" (keyup)="translateKeyBinding('open_media_drawer_1', $event)" />
+					</mat-form-field>
 
-			<mat-form-field>
-				<input type="text" matInput [(ngModel)]="settings.open_media_drawer_2" name="mediaDrawerToggle2" placeholder="Media Drawer Toggle 2" (keyup)="translateKeyBinding('open_media_drawer_2', $event)" />
-			</mat-form-field>
-		</div>
-	</div>
+					<mat-form-field>
+						<input type="text" matInput [(ngModel)]="settings.open_media_drawer_2" name="mediaDrawerToggle2" placeholder="Media Drawer Toggle 2" (keyup)="translateKeyBinding('open_media_drawer_2', $event)" />
+					</mat-form-field>
+				</div>
+			</div>
 
-	<div class="actions">
-		<button type="button" mat-raised-button (click)="resetSettings()">Reset</button>
-		<button type="submit" mat-raised-button color="primary">Save</button>
-	</div>
-</form>
+			<div class="actions">
+				<button type="button" mat-raised-button (click)="resetSettings()">Reset</button>
+				<button type="submit" mat-raised-button color="primary">Save</button>
+			</div>
+		</form>
+	</mat-tab>
+
+	<mat-tab label="Change Password">
+		<form [formGroup]="newPassForm" (ngSubmit)="changePassword()">
+			<div class="password-container">
+				<mat-form-field>
+					<input type="password" matInput formControlName="oldPass" name="oldPass" placeholder="Current Password" />
+				</mat-form-field>
+
+				<mat-form-field>
+					<input type="password" matInput formControlName="password" name="password" placeholder="New Password" />
+				</mat-form-field>
+
+				<mat-form-field>
+					<input type="password" matInput formControlName="confirmPass" name="confirmPass" placeholder="Confirm New Password" [errorStateMatcher]="formErrorMatcher" />
+					<mat-error *ngIf="newPassForm.hasError('notSame')">New Password does not match Confirm</mat-error>
+				</mat-form-field>
+			</div>
+
+			<div class="actions">
+				<button type="button" mat-raised-button (click)="resetPasswords()">Reset</button>
+				<button type="submit" mat-raised-button color="primary" [disabled]="!newPassForm.valid">Save</button>
+			</div>
+		</form>
+	</mat-tab>
+</mat-tab-group>
