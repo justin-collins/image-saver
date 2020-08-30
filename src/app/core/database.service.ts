@@ -123,6 +123,12 @@ export class DatabaseService {
 		return DatabaseService.change(sql, values);
 	}
 
+	public static dbExists(): boolean {
+		DatabaseService.initPaths();
+
+		return fs.existsSync(DatabaseService.dbPath);
+	}
+
 	public static changePassword(oldPass: string, newPass: string): Observable<boolean> {
 		let curKey = Observable.create((observer) => {
 			DatabaseService.db.run(`PRAGMA key = ${oldPass}`, (err) => {

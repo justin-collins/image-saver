@@ -2,18 +2,9 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { SettingsService } from '../core/settings.service';
 import { Settings } from '../core/settings';
 import { MessagingService } from '../core/messaging.service';
-import { FormBuilder, Validators, FormGroup, FormControl, NgForm } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { DatabaseService } from '../core/database.service';
-
-class ConfirmErrorStateMatcher implements ErrorStateMatcher {
-	isErrorState(control: FormControl | null, form: NgForm | null): boolean {
-		const invalidCtrl = !!(control && control.invalid && control.parent.dirty);
-		const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
-
-		return (invalidCtrl || invalidParent);
-	}
-}
+import { ConfirmErrorStateMatcher } from '../shared/confirmErrorStateMatcher';
 
 @Component({
 	selector: 'isvr-settings',
@@ -28,13 +19,16 @@ export class SettingsComponent implements OnInit {
 
 	constructor(private settingsService: SettingsService,
 				private messagingService: MessagingService,
-				private fb: FormBuilder,
+				private formBuilder: FormBuilder,
 				private _ngZone: NgZone) { }
 
 	ngOnInit() {
 		this.resetSettings();
+		this.setupPasswordForm();
+	}
 
-		this.newPassForm = this.fb.group({
+	private setupPasswordForm(): void {
+		this.newPassForm = this.formBuilder.group({
 			oldPass: ['', [Validators.required]],
 			password: ['', [Validators.required]],
 			confirmPass: ['', [Validators.required]]

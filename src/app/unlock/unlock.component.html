@@ -1,4 +1,19 @@
-<div class="container">
+<div class="new-db-container" *ngIf="!dbExists">
+	<form (ngSubmit)="unlock()" [formGroup]="newPassForm">
+		<mat-form-field>
+			<input type="password" matInput formControlName="password" name="password" placeholder="Password" />
+		</mat-form-field>
+
+		<mat-form-field>
+			<input type="password" matInput formControlName="confirmPass" name="confirmPass" placeholder="Confirm Password" [errorStateMatcher]="formErrorMatcher" />
+			<mat-error *ngIf="newPassForm.hasError('notSame')">New Password does not match Confirm</mat-error>
+		</mat-form-field>
+
+		<button type="submit" mat-button color="primary" [disabled]="!newPassForm.valid">Unlock</button>
+	</form>
+</div>
+
+<div class="unlock-container" *ngIf="dbExists">
 	<form (ngSubmit)="unlock()" #editSettingsForm="ngForm">
 		<mat-form-field>
 			<input type="password" #passKeyInput matInput [(ngModel)]="passKey" name="passKey" placeholder="Enter Password To Unlock" />

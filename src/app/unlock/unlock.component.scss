@@ -1,6 +1,7 @@
 @import 'includes';
 
-.container {
+.unlock-container,
+.new-db-container {
 	height: 100%;
 	display: flex;
     justify-content: center;
@@ -9,6 +10,16 @@
 
 mat-form-field {
 	width: 600px;
+}
+
+.new-db-container {
+	mat-form-field {
+		display: block;
+	}
+
+	button {
+		float: right;
+	}
 }
 
 .mat-form-field-appearance-legacy .mat-hint {
