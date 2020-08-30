@@ -21,6 +21,7 @@ import { MediaDetailNavigationComponent } from './media-detail/media-detail-navi
 import { SettingsComponent } from './settings/settings.component';
 import { QuickStartDialogComponent } from './media/quick-start-dialog/quick-start-dialog.component';
 import { UnlockComponent } from './unlock/unlock.component';
+import { ImportExportComponent } from './import-export/import-export.component';
 
 @NgModule({
 	declarations: [
@@ -38,7 +39,8 @@ import { UnlockComponent } from './unlock/unlock.component';
 		MediaDetailNavigationComponent,
 		SettingsComponent,
 		QuickStartDialogComponent,
-		UnlockComponent
+		UnlockComponent,
+		ImportExportComponent
 	],
 	imports: [
 		BrowserModule,

@@ -9,6 +9,8 @@ import { ContextService } from './context.service';
 import { TagService } from './tag.service';
 import { SettingsService } from './settings.service';
 import { StartupService } from './startup.service';
+import { ExportService } from './export.service';
+import { ImportService } from './import.service';
 
 @NgModule({
 	declarations: [],
@@ -24,7 +26,9 @@ import { StartupService } from './startup.service';
 		ContextService,
 		TagService,
 		SettingsService,
-		StartupService
+		StartupService,
+		ExportService,
+		ImportService
 	]
 })
 export class CoreModule { }

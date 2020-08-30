@@ -4,6 +4,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -25,6 +26,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 		MatButtonModule,
 		MatButtonToggleModule,
 		MatCardModule,
+		MatCheckboxModule,
 		MatChipsModule,
 		MatDialogModule,
 		MatGridListModule,
@@ -45,6 +47,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 		MatButtonModule,
 		MatButtonToggleModule,
 		MatCardModule,
+		MatCheckboxModule,
 		MatChipsModule,
 		MatDialogModule,
 		MatGridListModule,

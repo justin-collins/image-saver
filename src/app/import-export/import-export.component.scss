@@ -1,0 +1,15 @@
+@import 'includes';
+
+.container {
+	padding: 20px;
+}
+
+mat-checkbox,
+label {
+	display: inline-block;
+	margin-top: 15px;
+}
+
+.action-btn {
+	margin-top: 30px;
+}

@@ -9,6 +9,7 @@ import { TagsComponent } from './tags/tags.component';
 import { SettingsComponent } from './settings/settings.component';
 import { UnlockComponent } from './unlock/unlock.component';
 import { UnlockedGuard } from './core/unlocked.guard';
+import { ImportExportComponent } from './import-export/import-export.component';
 
 const routes: Routes = [
 	{ path: '', redirectTo: '/unlock', pathMatch: 'full' },
@@ -50,6 +51,11 @@ const routes: Routes = [
 		path: 'settings',
 		canActivate: [UnlockedGuard],
 		component: SettingsComponent
+	},
+	{
+		path: 'importexport',
+		canActivate: [UnlockedGuard],
+		component: ImportExportComponent
 	}
 ];
 

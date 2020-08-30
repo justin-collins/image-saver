@@ -1,0 +1,27 @@
+<div class="container">
+	<h2>Export</h2>
+	<form (ngSubmit)="export()" #generalSettingsForm="ngForm">
+		<div>
+			<button type="button" mat-raised-button (click)="openDirectoryDialog()">Choose Output Directory</button>
+			<br/>
+			<label>{{exportFolder || 'No Directory Selected'}}</label>
+			<br/>
+			<mat-checkbox name="includeLocalFiles" [(ngModel)]="exportOptions.includeLocalFiles">Include Local Files</mat-checkbox>
+		</div>
+
+
+		<button type="submit" mat-raised-button color="primary" class="action-btn" [disabled]="!exportFolder">Export</button>
+	</form>
+
+	<h2>Import</h2>
+	<form (ngSubmit)="import()" #generalSettingsForm="ngForm">
+		<div>
+			<button type="button" mat-raised-button (click)="openFileDialog()">Choose Import File</button>
+			<br/>
+			<label>{{importFile || 'No File Selected'}}</label>
+		</div>
+
+
+		<button type="submit" mat-raised-button color="primary" class="action-btn" [disabled]="!importFile">Import</button>
+	</form>
+</div>
