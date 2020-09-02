@@ -62,6 +62,13 @@ export class MediaPreviewComponent implements OnInit {
 		this.mediaRemoved.emit(this.media);
 	}
 
+	public fixedEscape(url: string): string {
+		let escapedUrl: string = escape(url);
+		escapedUrl = escapedUrl.replace('media%3A', 'media:');
+
+		return escapedUrl;
+	}
+
 	public preventDefault(event): void {
 		event.preventDefault();
 		event.stopPropagation();

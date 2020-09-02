@@ -25,4 +25,10 @@ export class AlbumPreviewComponent implements OnInit {
 		this.router.navigate(['/albums', this.album.id, 'detail']);
 	}
 
+	public fixedEscape(url: string): string {
+		let escapedUrl: string = escape(url);
+		escapedUrl = escapedUrl.replace('media%3A', 'media:');
+
+		return escapedUrl;
+	}
 }

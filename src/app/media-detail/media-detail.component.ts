@@ -67,7 +67,7 @@ export class MediaDetailComponent implements OnInit {
 	public calcStyles(): Object {
 		let styles: Object = {};
 
-		if (this.media.type === MediaType.IMAGE) styles['background-image'] = 'url(' + this.media.url + ')';
+		if (this.media.type === MediaType.IMAGE) styles['background-image'] = 'url(' + this.fixedEscape(this.media.url) + ')';
 		if (this.media.rotation > 0) {
 			styles['transform'] = 'rotate(' + this.media.rotation + 'deg)';
 
@@ -122,6 +122,13 @@ export class MediaDetailComponent implements OnInit {
 		this._ngZone.run(() => {
 			this.media.trashed = false;
 		});
+	}
+
+	public fixedEscape(url: string): string {
+		let escapedUrl: string = escape(url);
+		escapedUrl = escapedUrl.replace('media%3A', 'media:');
+
+		return escapedUrl;
 	}
 
 	@HostListener('window:keydown', ['$event'])
