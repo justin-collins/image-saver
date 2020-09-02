@@ -202,7 +202,7 @@ export class MediaService {
 	}
 
 	private validate(media: Media): void {
-		if (media.source.indexOf('http://') === -1 && media.source.indexOf('https://') === -1 && media.source.indexOf('file://') === -1) {
+		if (media.source.indexOf('http://') === -1 && media.source.indexOf('https://') === -1 && media.source.indexOf('media://') === -1) {
 			console.error('a protocol is required for a media source');
 		}
 	}
@@ -237,7 +237,7 @@ export class MediaService {
 	private inferLocationFromUrl(mediaUrl: string): MediaLocation {
 		if(mediaUrl.indexOf('http://') > -1 || mediaUrl.indexOf('https://') > -1) {
 			return MediaLocation.REMOTE;
-		} else if (mediaUrl.indexOf('file://') > -1) {
+		} else if (mediaUrl.indexOf('media://') > -1) {
 			return MediaLocation.LOCAL;
 		}
 

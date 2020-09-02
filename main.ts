@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, protocol } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
@@ -24,7 +24,6 @@ function createWindow() {
 		webPreferences: {
 			nodeIntegration: true,
 			allowRunningInsecureContent: (serve) ? true : false,
-			webSecurity: false,
 			enableRemoteModule: true
 		},
 		icon: icon
@@ -44,6 +43,17 @@ function createWindow() {
 			slashes: true
 		}));
 	}
+
+	const protocolName = 'media';
+
+	protocol.registerFileProtocol(protocolName, (request, callback) => {
+		const url = request.url.replace(`${protocolName}://`, '');
+		try {
+			return callback(decodeURIComponent(url));
+		} catch (error) {
+			console.error(error);
+		}
+	})
 
 	// Emitted when the window is closed.
 	win.on('closed', () => {

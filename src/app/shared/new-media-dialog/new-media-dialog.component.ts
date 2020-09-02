@@ -42,7 +42,7 @@ export class NewMediaDialogComponent implements OnInit {
 			const file = event.target.files[i];
 
 			let media: Media = new Media();
-			media.source = 'file://' + file.path;
+			media.source = 'media://' + file.path;
 			media.title = this.newMediaTitle;
 
 			this.newMedia.push(media);

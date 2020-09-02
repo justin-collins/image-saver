@@ -2,7 +2,7 @@
   "name": "image-saver",
   "version": "0.0.0",
   "scripts": {
-    "kill": "taskkill /F /im node.exe",
+    "kill": "kill node.exe",
     "ng": "ng",
     "ng:serve": "ng serve",
     "start": "npm-run-all -p ng:serve electron:serve",
