@@ -5,6 +5,7 @@ import { MediaType } from '../core/mediaType';
 import { MediaService } from '../core/media.service';
 import { ISVRAnimations } from '../shared/animations';
 import { SettingsService } from '../core/settings.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
 	selector: 'isvr-media-detail',
@@ -24,6 +25,7 @@ export class MediaDetailComponent implements OnInit {
 	constructor(private mediaService: MediaService,
 				private settingsService: SettingsService,
 				private activatedRoute: ActivatedRoute,
+				private sanitizer: DomSanitizer,
 				private _ngZone: NgZone) {
 		this.activatedRoute.params.subscribe(this.initialize);
 	}
@@ -67,7 +69,7 @@ export class MediaDetailComponent implements OnInit {
 	public calcStyles(): Object {
 		let styles: Object = {};
 
-		if (this.media.type === MediaType.IMAGE) styles['background-image'] = 'url(' + this.fixedEscape(this.media.url) + ')';
+		if (this.media.type === MediaType.IMAGE || this.media.type === MediaType.GIF) styles['background-image'] = 'url(' + this.fixedEscape(this.media.url) + ')';
 		if (this.media.rotation > 0) {
 			styles['transform'] = 'rotate(' + this.media.rotation + 'deg)';
 
@@ -129,6 +131,12 @@ export class MediaDetailComponent implements OnInit {
 		escapedUrl = escapedUrl.replace('media%3A', 'media:');
 
 		return escapedUrl;
+	}
+
+	public sanitizeVideoUrl(url: string): SafeResourceUrl {
+		let escapedUrl: string = this.fixedEscape(url);
+
+		return this.sanitizer.bypassSecurityTrustResourceUrl(escapedUrl);
 	}
 
 	@HostListener('window:keydown', ['$event'])

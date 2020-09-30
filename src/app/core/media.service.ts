@@ -231,7 +231,7 @@ export class MediaService {
 		else if (this.urlIsGif(mediaURL)) return MediaType.GIF;
 		else if (this.urlIsVideo(mediaURL)) return MediaType.VIDEO;
 		else if (this.urlIsAudio(mediaURL)) return MediaType.AUDIO;
-		else console.error('Unknown file extension');
+		else console.error(`Unknown file extension: ${mediaURL}`);
 	}
 
 	private inferLocationFromUrl(mediaUrl: string): MediaLocation {

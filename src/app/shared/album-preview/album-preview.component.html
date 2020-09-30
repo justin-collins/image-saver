@@ -1,7 +1,7 @@
 <div class="container" (click)="navigateToDetails()">
 	<div class="media-frame">
 		<div *ngIf="album.cover.type === mediaType.IMAGE || album.cover?.type === mediaType.GIF" class="image" [ngStyle]="{'background-image': 'url(' + fixedEscape(album.cover?.url) + ')', 'transform':'rotate(' + album.cover?.rotation + 'deg)'}"></div>
-		<video *ngIf="album.cover.type === mediaType.VIDEO" class="video" [src]="fixedEscape(album.cover?.url)" [ngStyle]="{'transform':'rotate(' + album.cover?.rotation + 'deg)'}" autoplay loop></video>
+		<video *ngIf="album.cover.type === mediaType.VIDEO" class="video" [src]="sanitizeVideoUrl(album.cover?.url)" [ngStyle]="{'transform':'rotate(' + album.cover?.rotation + 'deg)'}" autoplay loop></video>
 
 		<div class="filler" *ngIf="!album.cover.id"><mat-icon>account_box</mat-icon></div>
 	</div>

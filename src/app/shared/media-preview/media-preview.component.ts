@@ -8,6 +8,7 @@ import { Context } from 'src/app/core/context';
 import { ContextType } from 'src/app/core/contextType';
 import { AlbumService } from 'src/app/core/album.service';
 import { Album } from 'src/app/core/album';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
 	selector: 'isvr-media-preview',
@@ -28,6 +29,7 @@ export class MediaPreviewComponent implements OnInit {
 	constructor(private mediaService: MediaService,
 				private albumService: AlbumService,
 				private contextService: ContextService,
+				private sanitizer: DomSanitizer,
 				private router: Router,
 				private _ngZone: NgZone) { }
 
@@ -67,6 +69,12 @@ export class MediaPreviewComponent implements OnInit {
 		escapedUrl = escapedUrl.replace('media%3A', 'media:');
 
 		return escapedUrl;
+	}
+
+	public sanitizeVideoUrl(url: string): SafeResourceUrl {
+		let escapedUrl: string = this.fixedEscape(url);
+
+		return this.sanitizer.bypassSecurityTrustResourceUrl(escapedUrl);
 	}
 
 	public preventDefault(event): void {
