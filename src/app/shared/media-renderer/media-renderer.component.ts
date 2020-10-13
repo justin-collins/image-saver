@@ -9,7 +9,13 @@ import { MediaType } from 'src/app/core/mediaType';
 	styleUrls: ['./media-renderer.component.scss']
 })
 export class MediaRendererComponent implements OnInit {
-	@Input() media: Media;
+	private _media: Media;
+	public get media(): Media { return this._media;	}
+	@Input() public set media(newMedia: Media) {
+		this._media = newMedia;
+		this.updateVideoUrl();
+	}
+
 	@Input() controls: boolean = false;
 	@Input() autoplayVideos: boolean = true;
 
@@ -18,7 +24,9 @@ export class MediaRendererComponent implements OnInit {
 
 	constructor(private sanitizer: DomSanitizer) { }
 
-	ngOnInit(): void {
+	ngOnInit(): void {}
+
+	private updateVideoUrl(): void {
 		if (this.media.type === MediaType.VIDEO) {
 			this.safeVideoUrl = this.sanitizeVideoUrl(this.media.url);
 		}

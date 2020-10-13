@@ -88,6 +88,7 @@ export class MediaDetailComponent implements OnInit {
 	public calcMediaHeight(): number {
 		let outputHeight: number;
 		let trashedBannerHeight: number = 44;
+		let videoControlsHeight: number = 5;
 
 		if (this.media.rotation === 0 || this.media.rotation === 180) {
 			outputHeight = this.screenHeight - this.screenNavPadding;
@@ -96,6 +97,7 @@ export class MediaDetailComponent implements OnInit {
 		}
 
 		if (this.media.trashed) outputHeight -= trashedBannerHeight;
+		if (this.media.type == MediaType.VIDEO) outputHeight -= videoControlsHeight;
 
 		return outputHeight;
 	}

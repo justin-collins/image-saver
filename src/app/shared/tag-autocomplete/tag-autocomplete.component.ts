@@ -78,6 +78,7 @@ export class TagAutocompleteComponent implements OnInit {
 	private newTagCreated = (response: Tag): void => {
 		this._ngZone.run(() => {
 			this.messagingService.message('New Tag Created!');
+			this.allTags.push(response);
 			this.resetAutocomplete();
 			this.emitTagChosen(response);
 		});
@@ -87,5 +88,9 @@ export class TagAutocompleteComponent implements OnInit {
 		if (!newTag) return;
 
 		this.tagChosen.emit(newTag);
+	}
+
+	public stopPropagation(event): void {
+		event.stopPropagation();
 	}
 }

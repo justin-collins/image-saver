@@ -1,5 +1,5 @@
 <mat-form-field>
-	<input type="text" matInput placeholder="Type Tag Name Here" [formControl]="newTagControl" [matAutocomplete]="tagsAutocomplete">
+	<input type="text" matInput placeholder="Type Tag Name Here" [formControl]="newTagControl" [matAutocomplete]="tagsAutocomplete" (keydown)="stopPropagation($event)">
 </mat-form-field>
 
 <mat-autocomplete #tagsAutocomplete="matAutocomplete" [displayWith]="autocompleteDisplay" (optionSelected)="autocompleteOptionChosen($event)">
