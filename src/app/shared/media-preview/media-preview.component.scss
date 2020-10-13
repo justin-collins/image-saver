@@ -6,9 +6,7 @@
 }
 
 .container,
-.media-frame,
-.image,
-.video {
+isvr-media-renderer {
 	@include size(100%, 100%);
 }
 
@@ -20,7 +18,7 @@
 	transition: background-color 150ms ease-out;
 	overflow: hidden;
 
-	.media-frame {
+	isvr-media-renderer {
 		position: relative;
 		bottom: 0;
 		z-index: 2;
@@ -30,21 +28,10 @@
 	&.navigable:hover {
 		background-color: lightblue;
 
-		&.editable .media-frame {
+		&.editable isvr-media-renderer {
 			bottom: 60px;
 		}
 	}
-}
-
-.video {
-	background-color: black;
-}
-
-.image {
-	background-color: black;
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-position: center center;
 }
 
 .drawer {

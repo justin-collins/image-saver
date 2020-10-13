@@ -1,0 +1,36 @@
+@import 'includes';
+
+:host {
+	display: block;
+	@include size(100%);
+}
+
+.media-frame,
+.image,
+.video,
+.filler {
+	@include size(100%, 100%);
+}
+
+.video {
+	background-color: black;
+}
+
+.image {
+	background-color: black;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.filler {
+	background-color: gray;
+	text-align: center;
+
+	mat-icon {
+		@include position(relative, 50% null null null);
+		margin-top: -125px;
+		@include mat-icon-size(250px);
+		color: #fff;
+	}
+}

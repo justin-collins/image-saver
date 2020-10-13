@@ -1,6 +1,7 @@
 @import 'includes';
 
 mat-sidenav-content {
+	background-color: black;
 	padding-right: 20px; //space for drawer
 }
 
@@ -12,8 +13,6 @@ isvr-media-detail-navigation {
 
 isvr-alert {
 	width: 100%;
-	@include position(absolute, 0 null null 0);
-	z-index: 2;
 
 	a {
 		cursor: pointer;
@@ -21,23 +20,10 @@ isvr-alert {
 }
 
 
-.media-frame {
+isvr-media-renderer {
 	@include size(100%, calc(100% - 40px));
-	background-color: black;
+	margin: 0 auto;
 	text-align: center;
-
-	.image,
-	.video {
-		@include size(100%, 100%);
-		margin: 0 auto;
-		transform-origin: 50% 0%;
-	}
-
-	.image {
-		background-size: contain;
-		background-repeat: no-repeat;
-		background-position: center center;
-	}
 }
 
 .drawer-toggle-btn {

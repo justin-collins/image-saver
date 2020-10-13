@@ -5,7 +5,6 @@ import { MediaType } from '../core/mediaType';
 import { MediaService } from '../core/media.service';
 import { ISVRAnimations } from '../shared/animations';
 import { SettingsService } from '../core/settings.service';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
 	selector: 'isvr-media-detail',
@@ -25,7 +24,6 @@ export class MediaDetailComponent implements OnInit {
 	constructor(private mediaService: MediaService,
 				private settingsService: SettingsService,
 				private activatedRoute: ActivatedRoute,
-				private sanitizer: DomSanitizer,
 				private _ngZone: NgZone) {
 		this.activatedRoute.params.subscribe(this.initialize);
 	}
@@ -69,25 +67,8 @@ export class MediaDetailComponent implements OnInit {
 	public calcStyles(): Object {
 		let styles: Object = {};
 
-		if (this.media.type === MediaType.IMAGE || this.media.type === MediaType.GIF) styles['background-image'] = 'url(' + this.fixedEscape(this.media.url) + ')';
-		if (this.media.rotation > 0) {
-			styles['transform'] = 'rotate(' + this.media.rotation + 'deg)';
-
-			switch(this.media.rotation) {
-				case 90:
-					styles['transform'] += ' translate(50%, -50%)';
-					break;
-				case 180:
-					styles['transform'] += ' translate(0%, -100%)';
-					break;
-				case 270:
-					styles['transform'] += ' translate(-50%, -50%)';
-					break;
-			}
-
-			styles['max-width'] = this.calcMediaWidth() + 'px';
-			styles['max-height'] = this.calcMediaHeight() + 'px';
-		}
+		styles['max-width'] = this.calcMediaWidth() + 'px';
+		styles['max-height'] = this.calcMediaHeight() + 'px';
 
 		return styles;
 	}
@@ -106,12 +87,15 @@ export class MediaDetailComponent implements OnInit {
 
 	public calcMediaHeight(): number {
 		let outputHeight: number;
+		let trashedBannerHeight: number = 44;
 
 		if (this.media.rotation === 0 || this.media.rotation === 180) {
 			outputHeight = this.screenHeight - this.screenNavPadding;
 		} else {
 			outputHeight = this.screenWidth;
 		}
+
+		if (this.media.trashed) outputHeight -= trashedBannerHeight;
 
 		return outputHeight;
 	}
@@ -124,19 +108,6 @@ export class MediaDetailComponent implements OnInit {
 		this._ngZone.run(() => {
 			this.media.trashed = false;
 		});
-	}
-
-	public fixedEscape(url: string): string {
-		let escapedUrl: string = escape(url);
-		escapedUrl = escapedUrl.replace('media%3A', 'media:');
-
-		return escapedUrl;
-	}
-
-	public sanitizeVideoUrl(url: string): SafeResourceUrl {
-		let escapedUrl: string = this.fixedEscape(url);
-
-		return this.sanitizer.bypassSecurityTrustResourceUrl(escapedUrl);
 	}
 
 	@HostListener('window:keydown', ['$event'])

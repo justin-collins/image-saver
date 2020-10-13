@@ -28,6 +28,7 @@ import { NewTagDialogComponent } from './new-tag-dialog/new-tag-dialog.component
 import { NewTagButtonDirective } from './new-tag-button.directive';
 import { TagAutocompleteComponent } from './tag-autocomplete/tag-autocomplete.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
+import { MediaRendererComponent } from './media-renderer/media-renderer.component';
 
 @NgModule({
 	imports: [
@@ -62,7 +63,8 @@ import { MainNavComponent } from './main-nav/main-nav.component';
 		NewTagDialogComponent,
 		NewTagButtonDirective,
 		TagAutocompleteComponent,
-		MainNavComponent
+		MainNavComponent,
+		MediaRendererComponent
 	],
 	declarations: [
 		MediaPreviewComponent,
@@ -87,7 +89,8 @@ import { MainNavComponent } from './main-nav/main-nav.component';
 		NewTagDialogComponent,
 		NewTagButtonDirective,
 		TagAutocompleteComponent,
-		MainNavComponent
+		MainNavComponent,
+		MediaRendererComponent
 	],
 	entryComponents: [
 		NewMediaDialogComponent,
