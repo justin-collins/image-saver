@@ -7,12 +7,8 @@ import { MediaType } from './mediaType';
 import { MediaLocation } from './mediaLocation';
 import { Tag } from './tag';
 import { TagService } from './tag.service';
-
-export interface MediaFilter {
-	term?: string;
-	type?: MediaType;
-	location?: MediaLocation;
-}
+import { MediaFilter } from './mediaFilter';
+import { MediaSortBy } from './mediaSortBy';
 
 @Injectable({
 	providedIn: 'root'
@@ -52,7 +48,7 @@ export class MediaService {
 					LEFT JOIN tags ON mediaTagsMap.tag_id == tags.id`;
 		}
 
-		sql += ` WHERE media.trashed == false`;
+		sql += ` WHERE media.trashed == 0`;
 
 		if (filter.term) {
 			sql += ` AND (tags.title LIKE "%${filter.term}%" OR media.title LIKE "%${filter.term}%" OR media.url LIKE "%${filter.term}%")`;
@@ -61,7 +57,8 @@ export class MediaService {
 		if (filter.type) sql += ` AND media.type == "${filter.type}"`;
 		if (filter.location) sql += ` AND media.location == "${filter.location}"`;
 
-		sql += ` ORDER BY created_at DESC`;
+		if (!filter.sortBy || filter.sortBy === MediaSortBy.DATE) sql += ` ORDER BY media.created_at DESC`;
+		else if (filter.sortBy && filter.sortBy === MediaSortBy.NAME) sql += ` ORDER BY media.title COLLATE NOCASE ASC`;
 
 		const values = {};
 

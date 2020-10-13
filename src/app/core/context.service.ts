@@ -4,7 +4,7 @@ import { ContextType } from './contextType';
 import { BehaviorSubject } from 'rxjs';
 import { Album } from './album';
 import { Tag } from './tag';
-import { MediaFilter } from './media.service';
+import { MediaFilter } from './mediaFilter';
 
 @Injectable({
 	providedIn: 'root'

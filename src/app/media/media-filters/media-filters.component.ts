@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MediaFilter } from 'src/app/core/media.service';
 import { MediaType } from 'src/app/core/mediaType';
 import { MediaLocation } from 'src/app/core/mediaLocation';
 import { debounceTime } from 'rxjs/operators';
@@ -7,6 +6,8 @@ import { FormControl } from '@angular/forms';
 import { ContextService } from 'src/app/core/context.service';
 import { Context } from 'src/app/core/context';
 import { ContextType } from 'src/app/core/contextType';
+import { MediaFilter } from 'src/app/core/mediaFilter';
+import { MediaSortBy } from 'src/app/core/mediaSortBy';
 
 @Component({
 	selector: 'isvr-media-filters',
@@ -17,6 +18,7 @@ export class MediaFiltersComponent implements OnInit {
 	public filters: MediaFilter;
 	public mediaTypes: MediaType[] = Object.keys(MediaType).map(type => MediaType[type]);
 	public mediaLocations: MediaLocation[] = Object.keys(MediaLocation).map(location => MediaLocation[location]);
+	public mediaSortBy = MediaSortBy;
 
 	public searchControl: FormControl = new FormControl();
 	public context: Context;
@@ -34,7 +36,6 @@ export class MediaFiltersComponent implements OnInit {
 		this.searchControl.valueChanges.pipe(
 			debounceTime(300)
 		).subscribe(this.filterBySearch);
-
 	}
 
 	private contextChanged = (newContext: Context): void => {
@@ -88,7 +89,8 @@ export class MediaFiltersComponent implements OnInit {
 		return {
 			term: '',
 			type: null,
-			location: null
+			location: null,
+			sortBy: MediaSortBy.DATE
 		};
 	}
 
@@ -98,7 +100,7 @@ export class MediaFiltersComponent implements OnInit {
 	}
 
 	private filtersAreEmpty(): boolean {
-		if (this.filters.term || this.filters.type || this.filters.location) return false;
+		if (this.filters.term || this.filters.type || this.filters.location || this.filters.sortBy !== MediaSortBy.DATE) return false;
 		return true;
 	}
 }

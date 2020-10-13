@@ -2,9 +2,10 @@ import { Component, OnInit, Output, EventEmitter, Input, HostListener } from '@a
 import { Media } from 'src/app/core/media';
 import { Context } from 'src/app/core/context';
 import { ContextService } from 'src/app/core/context.service';
-import { MediaService, MediaFilter } from 'src/app/core/media.service';
+import { MediaService } from 'src/app/core/media.service';
 import { ContextType } from 'src/app/core/contextType';
 import { SettingsService } from 'src/app/core/settings.service';
+import { MediaFilter } from 'src/app/core/mediaFilter';
 
 @Component({
 	selector: 'isvr-media-detail-navigation',
