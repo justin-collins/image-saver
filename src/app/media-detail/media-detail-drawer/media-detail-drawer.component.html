@@ -14,3 +14,5 @@
 <mat-divider></mat-divider>
 
 <isvr-tag-manager [media]="media"></isvr-tag-manager>
+
+<button mat-icon-button color="warn" matTooltip="Trash" isvrConfirmButton message="Trash '{{media.title}}'?'" (confirmed)="trashMedia()"><mat-icon>delete_outline</mat-icon></button>

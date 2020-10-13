@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Media } from 'src/app/core/media';
+import { MediaService } from 'src/app/core/media.service';
 
 var shell = require('electron').shell;
 
@@ -10,8 +11,9 @@ var shell = require('electron').shell;
 })
 export class MediaDetailDrawerComponent implements OnInit {
 	@Input() media: Media;
+	@Output() onMediaChange = new EventEmitter<Media>();
 
-	constructor() { }
+	constructor(private mediaService: MediaService) { }
 
 	ngOnInit() {
 		if (!this.media) {
@@ -21,5 +23,14 @@ export class MediaDetailDrawerComponent implements OnInit {
 
 	public openSource(): void {
 		shell.openExternal(this.media.source);
+	}
+
+	public trashMedia(): void {
+		this.mediaService.trash(this.media).subscribe(this.mediaTrashed);
+	}
+
+	private mediaTrashed = (): void => {
+		this.media.trashed = true;
+		this.onMediaChange.emit(this.media);
 	}
 }

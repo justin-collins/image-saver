@@ -53,7 +53,9 @@ export class MediaDetailComponent implements OnInit {
 	}
 
 	public newMediaSelected(newMedia: Media): void {
-		this.media = newMedia;
+		this._ngZone.run(() => {
+			this.media = newMedia;
+		});
 	}
 
 	public toggleDrawer(): void {

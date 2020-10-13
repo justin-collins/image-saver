@@ -13,6 +13,6 @@
 	</mat-sidenav-content>
 
 	<mat-sidenav #sidenav mode="side" position="end" [opened]="drawerIsOpen">
-    	<isvr-media-detail-drawer [media]="media" *ngIf="media"></isvr-media-detail-drawer>
+    	<isvr-media-detail-drawer *ngIf="media" [media]="media" (onMediaChange)="newMediaSelected($event)"></isvr-media-detail-drawer>
   </mat-sidenav>
 </mat-sidenav-container>
