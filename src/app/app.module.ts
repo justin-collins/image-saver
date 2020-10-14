@@ -22,6 +22,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { QuickStartDialogComponent } from './media/quick-start-dialog/quick-start-dialog.component';
 import { UnlockComponent } from './unlock/unlock.component';
 import { ImportExportComponent } from './import-export/import-export.component';
+import { VirtualScrollerModule } from 'ngx-virtual-scroller';
 
 @NgModule({
 	declarations: [
@@ -50,7 +51,8 @@ import { ImportExportComponent } from './import-export/import-export.component';
 		CoreModule,
 		SharedModule,
 		ISVRRoutingModule,
-		ImageViewerMaterialModule
+		ImageViewerMaterialModule,
+		VirtualScrollerModule
 	],
 	providers: [],
 	bootstrap: [AppComponent],

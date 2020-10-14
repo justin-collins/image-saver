@@ -11,8 +11,12 @@ h2 {
 	margin: 0;
 }
 
-mat-grid-tile {
-	::ng-deep .mat-figure {
-		align-items: start;
-	}
+virtual-scroller {
+	height: calc(100% - 76px);
+}
+
+.media-sizer {
+	display: inline-block;
+	width: 18%;
+	margin: 0 1% 25px;
 }

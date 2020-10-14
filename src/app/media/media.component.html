@@ -1,10 +1,10 @@
 <isvr-media-filters></isvr-media-filters>
 
-<mat-grid-list [cols]="numCols" gutterSize="0.5%">
-	<mat-grid-tile *ngFor="let singleMedia of media">
+<virtual-scroller #scroll [items]="media">
+	<div class="media-sizer" *ngFor="let singleMedia of scroll.viewPortItems" [style.height]="calcMediaHeight() + 'px'">
 		<isvr-media-preview [media]="singleMedia" (mediaRemoved)="mediaRemoved($event)"></isvr-media-preview>
-	</mat-grid-tile>
-</mat-grid-list>
+	</div>
+</virtual-scroller>
 
 <h2 *ngIf="warning">{{warning}}</h2>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, HostListener } from '@angular/core';
 import { Media } from '../core/media';
 import { MediaService } from '../core/media.service';
 import { ContextService } from '../core/context.service';
@@ -16,7 +16,6 @@ import { MediaFilter } from '../core/mediaFilter';
 })
 export class MediaComponent implements OnInit {
 	public media: Media[];
-	public numCols: number = 5;
 	public warning: string = '';
 	public filters: MediaFilter;
 
@@ -101,6 +100,12 @@ export class MediaComponent implements OnInit {
 		}
 	}
 
+	public calcMediaHeight(): number {
+		let newSize: number = window.innerWidth *.18;
+
+		return newSize;
+	}
+
 	private resetFilters(): void {
 		this.filters = {
 			term: '',
@@ -113,5 +118,10 @@ export class MediaComponent implements OnInit {
 	private filtersAreEmpty(): boolean {
 		if (this.filters.term || this.filters.type || this.filters.location) return false;
 		return true;
+	}
+
+	@HostListener('window:resize', ['$event'])
+	onResize(event?) {
+		this.calcMediaHeight();
 	}
 }
