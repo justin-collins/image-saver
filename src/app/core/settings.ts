@@ -1,5 +1,5 @@
 export class Settings {
-	show_quickstart: boolean;
+	show_quickstart: string;
 	slideshow_speed_ms: number;
 	starting_media_drawer_position: string;
 	landing_page: string;
@@ -27,9 +27,6 @@ export class Settings {
 			const row = rows[i];
 
 			this[row['setting']] = row['saved_value'];
-
-			//convert to true boolean
-			if (row['setting'] === 'show_quickstart') this.show_quickstart = (row['saved_value'] =="true");
 		}
 
 		return this;

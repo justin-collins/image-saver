@@ -89,7 +89,7 @@ export class TagService {
 		const sql = `DELETE FROM mediaTagsMap WHERE tag_id == $tagId AND media_id == $mediaId`;
 		const values = { $tagId: tag.id, $mediaId: media.id };
 
-		return DatabaseService.update(sql, values).pipe(
+		return DatabaseService.delete(sql, values).pipe(
 			map(() => tag)
 		);
 	}
@@ -98,7 +98,7 @@ export class TagService {
 		const sql = `INSERT INTO mediaTagsMap (media_id, tag_id) VALUES ($mediaId, $tagId) ON CONFLICT(media_id, tag_id) DO UPDATE SET tag_id = $tagId`;
 		const values = { $tagId: tag.id, $mediaId: media.id };
 
-		return DatabaseService.update(sql, values).pipe(
+		return DatabaseService.insert(sql, values).pipe(
 			map(() => tag)
 		);
 	}
@@ -115,7 +115,7 @@ export class TagService {
 		sql += ` ON CONFLICT(media_id, tag_id) DO UPDATE SET media_id = ${media.id}`;
 		const values = {};
 
-		return DatabaseService.update(sql, values).pipe(
+		return DatabaseService.insert(sql, values).pipe(
 			map(() => tags)
 		);
 	}

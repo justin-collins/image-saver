@@ -123,7 +123,7 @@ export class AlbumService {
 		const values = { $mediaId: media.id, $albumId: album.id };
 
 		return DatabaseService.insert(sql, values).pipe(
-			map(() => media)
+			map(_ => media)
 		);
 	}
 
@@ -132,7 +132,7 @@ export class AlbumService {
 		const values = { $title: album.title, $albumId: album.id };
 
 		let albumUpdate = DatabaseService.update(sql, values).pipe(
-			map(() => album)
+			map(_ => album)
 		);
 
 		let coverInsert = this.insertCover(album);
@@ -146,7 +146,7 @@ export class AlbumService {
 		const values = { $albumId: album.id, $mediaId: albumCoverId };
 
 		return DatabaseService.insert(sql, values).pipe(
-			map(() => album)
+			map(_ => album)
 		);
 	}
 
@@ -154,8 +154,8 @@ export class AlbumService {
 		const sql = `DELETE FROM mediaAlbumsMap WHERE album_id == $albumId AND media_id == $mediaId`;
 		const values = { $albumId: album.id, $mediaId: media.id };
 
-		return DatabaseService.update(sql, values).pipe(
-			map(() => album)
+		return DatabaseService.delete(sql, values).pipe(
+			map(_ => album)
 		);
 	}
 
@@ -164,7 +164,7 @@ export class AlbumService {
 		const values = { $albumId: album.id };
 
 		return DatabaseService.delete(sql, values).pipe(
-			map(() => true)
+			map(_ => true)
 		);
 	}
 
@@ -173,7 +173,7 @@ export class AlbumService {
 		const values = { $mediaId: media.id };
 
 		return DatabaseService.delete(sql, values).pipe(
-			map(() => true)
+			map(_ => true)
 		);
 	}
 
@@ -182,7 +182,7 @@ export class AlbumService {
 		const values = {$albumId: album.id};
 
 		return DatabaseService.delete(sql, values).pipe(
-			map(() => true)
+			map(_ => true)
 		);
 	}
 

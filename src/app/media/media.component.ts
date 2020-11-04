@@ -52,20 +52,20 @@ export class MediaComponent implements OnInit {
 
 	private checkShowQuickStart(): void {
 		if (this.quickStartDialogRef) return;
-		if (!this.settingsService.settings.show_quickstart) return;
+		if (this.settingsService.settings.show_quickstart.toLowerCase() === 'false') return;
 
 		if (this.media && this.media.length === 0) {
 			this.quickStartDialogRef = this.dialog.open(QuickStartDialogComponent, this.quickStartDialogConfig);
 			this.quickStartDialogRef.afterClosed().subscribe((result) => {
 				this.quickStartDialogRef = null;
-				if (result) this.quickStartRun();
+				this.quickStartRun();
 			});
 		}
 	}
 
 	private quickStartRun(): void {
 		this.resetFilters();
-		this.settingsService.update('show_quickstart', 'false');
+		this.settingsService.update('show_quickstart', 'false').subscribe(_ => '');
 		this.loadMedia(this.filters);
 	}
 
