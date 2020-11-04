@@ -52,6 +52,8 @@ export class MediaFiltersComponent implements OnInit {
 			if (this.searchControl.value !== context.dataObject['term']&& context.dataObject['term'] !== '') {
 				this.searchControl.setValue(context.dataObject['term']);
 			}
+
+			this.filters = <MediaFilter>context.dataObject;
 		}
 	}
 
