@@ -14,7 +14,7 @@ export class MediaSelectorDirective {
 	private mediaSelectorDialogRef: MatDialogRef<MediaSelectorDialogComponent>;
 	private mediaSelectorDialogConfig: MatDialogConfig = {
 		width: '80%',
-		maxHeight: '400px'
+		height: '80%'
 	};
 
 	constructor(private dialog: MatDialog) { }

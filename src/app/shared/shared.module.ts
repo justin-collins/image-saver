@@ -29,6 +29,7 @@ import { NewTagButtonDirective } from './new-tag-button.directive';
 import { TagAutocompleteComponent } from './tag-autocomplete/tag-autocomplete.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { MediaRendererComponent } from './media-renderer/media-renderer.component';
+import { VirtualScrollerModule } from 'ngx-virtual-scroller';
 
 @NgModule({
 	imports: [
@@ -38,7 +39,8 @@ import { MediaRendererComponent } from './media-renderer/media-renderer.componen
 		BrowserAnimationsModule,
 		ImageViewerMaterialModule,
 		CoreModule,
-		RouterModule
+		RouterModule,
+		VirtualScrollerModule
 	],
 	exports: [
 		MediaPreviewComponent,

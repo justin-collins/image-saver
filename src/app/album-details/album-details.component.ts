@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, HostListener } from '@angular/core';
 import { Album } from '../core/album';
 import { AlbumService } from '../core/album.service';
 import { ActivatedRoute } from '@angular/router';
@@ -16,8 +16,6 @@ import { ContextType } from '../core/contextType';
 export class AlbumDetailsComponent implements OnInit {
 	public album: Album;
 	public media: Media[];
-
-	public numCols: number = 5;
 
 	public mediaSelectorSettings: MediaSelectorSettings;
 
@@ -93,5 +91,16 @@ export class AlbumDetailsComponent implements OnInit {
 				this.media.unshift(newMedia);
 			}
 		});
+	}
+
+	public calcMediaHeight(): number {
+		let newSize: number = window.innerWidth *.18;
+
+		return newSize;
+	}
+
+	@HostListener('window:resize', ['$event'])
+	onResize(event?) {
+		this.calcMediaHeight();
 	}
 }

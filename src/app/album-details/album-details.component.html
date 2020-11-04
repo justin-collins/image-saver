@@ -7,11 +7,11 @@
 
 	<hr>
 
-	<mat-grid-list [cols]="numCols" gutterSize="0.5%">
-		<mat-grid-tile *ngFor="let singleMedia of media">
+	<virtual-scroller #scroll [items]="media">
+		<div class="media-sizer" *ngFor="let singleMedia of scroll.viewPortItems" [style.height]="calcMediaHeight() + 'px'">
 			<isvr-media-preview [media]="singleMedia" (mediaRemoved)="mediaRemoved($event)"></isvr-media-preview>
-		</mat-grid-tile>
-	</mat-grid-list>
+		</div>
+	</virtual-scroller>
 
 	<button mat-fab isvrMediaSelector [settings]="mediaSelectorSettings" class="add-btn" matTooltip="Add Media to Album" matTooltipPosition="left" (mediaSelected)="addMediaToAlbum($event)">
 		<mat-icon>add</mat-icon>

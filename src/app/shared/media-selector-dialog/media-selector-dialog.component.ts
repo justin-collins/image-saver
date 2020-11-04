@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, NgZone } from '@angular/core';
+import { Component, OnInit, Inject, NgZone, HostListener } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Media } from 'src/app/core/media';
 import { MediaService } from 'src/app/core/media.service';
@@ -91,5 +91,16 @@ export class MediaSelectorDialogComponent implements OnInit {
 		this._ngZone.run(() => {
 			this.dialogRef.close(this.mediaSelected);
 		});
+	}
+
+	public calcMediaHeight(): number {
+		let newSize: number = window.innerWidth *.18;
+
+		return newSize;
+	}
+
+	@HostListener('window:resize', ['$event'])
+	onResize(event?) {
+		this.calcMediaHeight();
 	}
 }
