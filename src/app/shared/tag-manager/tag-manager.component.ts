@@ -9,6 +9,8 @@ import { TagService } from 'src/app/core/tag.service';
 	styleUrls: ['./tag-manager.component.scss']
 })
 export class TagManagerComponent implements OnInit {
+	@Input() disabled: boolean = false;
+
 	private _media: Media;
     @Input() set media(value: Media) {
        this._media = value;

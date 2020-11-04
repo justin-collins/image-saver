@@ -3,15 +3,15 @@
 
 	<mat-list-item *ngIf="tags.length > 0">
 		<mat-chip-list>
-			<mat-chip *ngFor="let tag of tags" [removable]="true" (removed)="removeTag(tag)">
+			<mat-chip *ngFor="let tag of tags" [removable]="!disabled" (removed)="removeTag(tag)">
 				{{tag.title}}
-				<mat-icon matChipRemove>cancel</mat-icon>
+				<mat-icon matChipRemove *ngIf="!disabled">cancel</mat-icon>
 			</mat-chip>
 		</mat-chip-list>
 	</mat-list-item>
 
 	<p *ngIf="tags.length === 0">No Assigned Tags</p>
 
-	<button mat-button *ngIf="!newTag" (click)="showNewTag()">+ Add Tag</button>
+	<button mat-button *ngIf="!newTag" (click)="showNewTag()" [disabled]="disabled">+ Add Tag</button>
 	<isvr-tag-autocomplete *ngIf="newTag" (tagChosen)="addNewTag($event)"></isvr-tag-autocomplete>
 </mat-list>

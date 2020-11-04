@@ -13,6 +13,7 @@ import { Tag } from 'src/app/core/tag';
 export class NewMediaDialogComponent implements OnInit {
 	public newMedia: Media[] = [];
 	public tags: Tag[];
+	public interfaceDisabled: boolean = false;
 
 	public newMediaUrl: string;
 	public newMediaTitle: string;
@@ -27,6 +28,7 @@ export class NewMediaDialogComponent implements OnInit {
 	}
 
 	public saveNewMedia(): void {
+		this.interfaceDisabled = true;
 		this.checkURl();
 		this.checkTitles();
 		this.mediaService.insertWithTags(this.newMedia, this.tags).subscribe(this.mediaSaved);
@@ -48,7 +50,8 @@ export class NewMediaDialogComponent implements OnInit {
 			this.newMedia.push(media);
 		}
 
-		this.newMediaUrl = 'Local';
+		this.newMediaUrl = `${event.target.files.length} Local File`;
+		if (event.target.files.length !== 1) this.newMediaUrl += 's';
 	}
 
 	public checkURl(): void {
@@ -72,6 +75,7 @@ export class NewMediaDialogComponent implements OnInit {
 
 	private savingFinished = (): void => {
 		this._ngZone.run(() => {
+			this.interfaceDisabled = false;
 			this.messagingService.message('Media Saved!');
 			this.dialogRef.close(this.newMedia);
 		});
