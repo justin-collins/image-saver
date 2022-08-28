@@ -109,13 +109,13 @@ export class AlbumService {
 	}
 
 	private addManyMedia(album: Album, media: Media[]): Observable<Media[]> {
-		let inserts = [];
+		let inserts: Observable<Media>[] = [];
 		for (let i = 0; i < media.length; i++) {
 			const theMedia = media[i];
 			inserts.push(this.addSingleMedia(album, theMedia));
 		}
 
-		return forkJoin<Media>(inserts);
+		return forkJoin<Media[]>(inserts);
 	}
 
 	private addSingleMedia(album: Album, media: Media): Observable<Media> {
@@ -137,7 +137,7 @@ export class AlbumService {
 
 		let coverInsert = this.insertCover(album);
 
-		return concat<Album>(albumUpdate, coverInsert);
+		return concat(albumUpdate, coverInsert);
 	}
 
 	private insertCover(album: Album): Observable<Album> {

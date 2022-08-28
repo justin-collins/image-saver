@@ -1,6 +1,9 @@
 import { app, BrowserWindow, screen, protocol } from 'electron';
+import * as remoteMain from '@electron/remote/main';
 import * as path from 'path';
 import * as url from 'url';
+
+remoteMain.initialize();
 
 // const exec = require('child_process').exec;
 let win, serve;
@@ -23,8 +26,8 @@ function createWindow() {
 		height: 1000,
 		webPreferences: {
 			nodeIntegration: true,
-			allowRunningInsecureContent: (serve) ? true : false,
-			enableRemoteModule: true
+            contextIsolation: false,
+			allowRunningInsecureContent: (serve)
 		},
 		icon: icon
 	});
@@ -70,8 +73,6 @@ function createWindow() {
 }
 
 try {
-	app.allowRendererProcessReuse = false;
-
 	// This method will be called when Electron has finished
 	// initialization and is ready to create browser windows.
 	// Some APIs can only be used after this event occurs.

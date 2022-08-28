@@ -6,6 +6,7 @@
 /out-tsc
 main.js
 *.js.map
+.angular
 
 # database
 /database/database.db

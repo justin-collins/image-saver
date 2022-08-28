@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { remote } from 'electron';
 import { Injectable } from '@angular/core';
 import { Database } from '@journeyapps/sqlcipher';
 import { Observable, merge } from 'rxjs';
@@ -34,7 +33,7 @@ export class DatabaseService {
 	}
 
 	private static initPaths(): void {
-		const appPath = remote.app.getAppPath();
+		const appPath = '';
 		DatabaseService.dbFolder = path.join(appPath, 'database');
 		DatabaseService.dbPath = path.join(DatabaseService.dbFolder, 'database.db');
 		DatabaseService.schemaPath = path.join(DatabaseService.dbFolder, 'database.schema.sql');
@@ -130,7 +129,7 @@ export class DatabaseService {
 	}
 
 	public static changePassword(oldPass: string, newPass: string): Observable<boolean> {
-		let curKey = Observable.create((observer) => {
+		let curKey: Observable<boolean> = Observable.create((observer) => {
 			DatabaseService.db.run(`PRAGMA key = ${oldPass}`, (err) => {
 				if (err) {
 					observer.error(err);
@@ -141,7 +140,7 @@ export class DatabaseService {
 			});
 		});
 
-		let newKey = Observable.create((observer) => {
+		let newKey: Observable<boolean> = Observable.create((observer) => {
 			DatabaseService.db.run(`PRAGMA rekey = ${newPass}`, (err) => {
 				if (err) {
 					observer.error(err);

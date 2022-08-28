@@ -3,7 +3,7 @@ import { ExportService, ExportOptions } from '../core/export.service';
 import { ImportService } from '../core/import.service';
 import { MessagingService } from '../core/messaging.service';
 
-const { dialog } = require('electron').remote;
+// import { dialog } from '@electron/remote';
 
 @Component({
 	selector: 'isvr-import-export',
@@ -25,11 +25,13 @@ export class ImportExportComponent implements OnInit {
 	}
 
 	public openDirectoryDialog(): void {
-		this.exportFolder = dialog.showOpenDialogSync({ properties:['openDirectory', 'createDirectory'] });
+		// TODO check back when electron remote updated past 2.0.8
+		// this.exportFolder = dialog.showOpenDialogSync({ properties:['openDirectory', 'createDirectory'] })[0];
 	}
 
 	public openFileDialog(): void {
-		this.importFile = dialog.showOpenDialogSync({ properties:['openFile'] });
+		// TODO check back when electron remote updated past 2.0.8
+		// this.importFile = dialog.showOpenDialogSync({ properties:['openFile'] })[0];
 	}
 
 	public export(): void {

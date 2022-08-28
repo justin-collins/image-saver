@@ -116,7 +116,7 @@ export class MediaService {
 				));
 			}
 
-			return forkJoin<Media>(inserts);
+			return forkJoin<Media[]>(inserts);
 		} else {
 			return this.insert(media);
 		}
@@ -129,7 +129,7 @@ export class MediaService {
 			inserts.push(this.insertSingle(theMedia));
 		}
 
-		return forkJoin<Media>(inserts);
+		return forkJoin<Media[]>(inserts);
 	}
 
 	private insertSingle(media: Media): Observable<Media> {
@@ -242,7 +242,7 @@ export class MediaService {
 	}
 
 	private urlIsImage(url: string): boolean {
-		let match = url.match(/(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:jpe?g|png|bmp))(?:\?([^#]*))?(?:#(.*))?/);
+		let match = url.match(/(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:jpe?g|JPE?G|png|bmp|webp))(?:\?([^#]*))?(?:#(.*))?/);
 		return (match && match.length > 0) ? true : false;
 	}
 
@@ -252,7 +252,7 @@ export class MediaService {
 	}
 
 	private urlIsVideo(url: string): boolean {
-		let match = url.match(/(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:mp4|webm|ogg))(?:\?([^#]*))?(?:#(.*))?/);
+		let match = url.match(/(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*\.(?:mp4|webm|ogg|m4v|mkv|mpg|mpeg|mov|avi))(?:\?([^#]*))?(?:#(.*))?/);
 		return (match && match.length > 0) ? true : false;
 	}
 
