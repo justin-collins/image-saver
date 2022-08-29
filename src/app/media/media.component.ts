@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, HostListener } from '@angular/core';
+import { Component, OnInit, NgZone, HostListener, ViewChild } from '@angular/core';
 import { Media } from '../core/types/media';
 import { MediaService } from '../core/services/media.service';
 import { ContextService } from '../core/services/context.service';
@@ -7,6 +7,9 @@ import { MatDialogRef, MatDialogConfig, MatDialog } from '@angular/material/dial
 import { QuickStartDialogComponent } from './quick-start-dialog/quick-start-dialog.component';
 import { SettingsService } from '../core/services/settings.service';
 import { MediaFilter } from '../core/types/mediaFilter';
+import { MediaViewOptionsService } from '../core/services/mediaViewOptions.service';
+import { MediaViewOption } from '../core/types/mediaViewOption';
+import { VirtualScrollerComponent } from 'ngx-virtual-scroller';
 
 @Component({
 	selector: 'isvr-media',
@@ -17,6 +20,10 @@ export class MediaComponent implements OnInit {
 	public media: Media[];
 	public warning: string = '';
 	public filters: MediaFilter;
+	public viewOptions: MediaViewOption;
+
+	@ViewChild(VirtualScrollerComponent)
+    private virtualScroller: VirtualScrollerComponent;
 
 	private quickStartDialogRef: MatDialogRef<QuickStartDialogComponent>;
 	private quickStartDialogConfig: MatDialogConfig = {
@@ -27,12 +34,14 @@ export class MediaComponent implements OnInit {
 	constructor(private mediaService: MediaService,
 				private contextService: ContextService,
 				private settingsService: SettingsService,
+				private mediaViewOptionsService: MediaViewOptionsService,
 				private dialog: MatDialog,
 				private _ngZone: NgZone) {
 	}
 
 	ngOnInit() {
 		this.contextService.contextChanged.subscribe(this.contextChanged);
+		this.mediaViewOptionsService.mediaViewOptionsChanged.subscribe(this.viewOptionsChanged);
 	}
 
 	private loadMedia(newFilter: MediaFilter): void {
@@ -72,6 +81,14 @@ export class MediaComponent implements OnInit {
 		this.loadMedia(this.filters);
 	}
 
+	private viewOptionsChanged = (viewOptions: MediaViewOption): void => {
+		if (viewOptions) {
+			this.viewOptions = viewOptions;
+		}
+
+		this.virtualScroller.refresh();
+	}
+
 	public newMediaAdded(newMedia: Media): void {
 		this.media.unshift(newMedia);
 	}
@@ -93,10 +110,27 @@ export class MediaComponent implements OnInit {
 		}
 	}
 
-	public calcMediaHeight(): number {
-		let newSize: number = window.innerWidth *.18;
+	public calcMediaSize(): Object {
+		let scrollbarWidth = 30;
+		let minMarginSize: number = 0.01;
+		let newMediaSize: number = this.viewOptions.thumbSize - (minMarginSize * 2);
+		let marginSize: number = this.calcMediaMargin(newMediaSize);
+		let finalSize: number = (window.innerWidth - scrollbarWidth) * newMediaSize;
 
-		return newSize;
+		return {
+			width: finalSize + 'px',
+			height: finalSize + 'px',
+			marginLeft: (marginSize * 100) + '%',
+			marginRight: (marginSize * 100) + '%'
+		};
+	}
+
+	private calcMediaMargin(newMediaSize: number): number {
+		let numberOfThumbs: number = Math.floor(1/newMediaSize);
+		let leftoverSize: number = 1 - (numberOfThumbs * newMediaSize);
+		let outputSize = (leftoverSize / numberOfThumbs) / 2;
+
+		return outputSize;
 	}
 
 	private filtersAreEmpty(): boolean {
@@ -106,6 +140,7 @@ export class MediaComponent implements OnInit {
 
 	@HostListener('window:resize', ['$event'])
 	onResize(event?) {
-		this.calcMediaHeight();
+		this.calcMediaSize();
+		this.virtualScroller.refresh();
 	}
 }

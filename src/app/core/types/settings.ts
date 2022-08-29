@@ -14,6 +14,7 @@ export class Settings {
 	open_media_drawer_1: string;
 	open_media_drawer_2: string;
 	default_media_sort: MediaSortBy;
+	thumb_size: number;
 
 	constructor(settings?: Settings) {
 		if (settings) this.duplicateFromExisting(settings);

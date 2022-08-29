@@ -51,8 +51,7 @@ export class ContextService {
 	}
 
 	public resetContext(): void {
-		let emptyFilter: MediaFilter = this.emptyFilter();
-		this.createSimpleContext(emptyFilter, ContextType.SEARCH);
+		this.createInitialContext();
 	}
 
 	private emptyFilter(): MediaFilter {

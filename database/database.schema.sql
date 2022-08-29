@@ -80,6 +80,7 @@ INSERT OR IGNORE INTO settings(setting, saved_value) VALUES
 ('start_stop_slideshow_2', ''),
 ('open_media_drawer_1', 's'),
 ('open_media_drawer_2', 'ArrowDown'),
-('default_media_sort', 'DATE');
+('default_media_sort', 'DATE'),
+('thumb_size', '0.25');
 
 COMMIT;

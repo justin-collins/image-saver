@@ -1,0 +1,38 @@
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MediaViewOptionsService } from 'src/app/core/services/mediaViewOptions.service';
+import { MediaViewOption } from 'src/app/core/types/mediaViewOption';
+
+@Component({
+	selector: 'isvr-media-view-options',
+	templateUrl: './media-view-options.component.html',
+	styleUrls: ['./media-view-options.component.scss']
+})
+export class MediaViewOptionsComponent implements OnInit {
+	@Output() viewOptionsUpdated = new EventEmitter<MediaViewOption>();
+
+	public viewOptions: MediaViewOption;
+
+	constructor(private mediaViewOptionsService: MediaViewOptionsService) {
+	}
+
+	ngOnInit() {
+		this.mediaViewOptionsService.mediaViewOptionsChanged.subscribe(this.overrideViewOptions);
+	}
+
+	private overrideViewOptions = (newViewOptions: MediaViewOption) => {
+		this.viewOptions = newViewOptions;
+	}
+
+	public thumbSizeChanged(event): void {
+		this.viewOptions.thumbSize = event.value;
+		this.viewOptionsChanged();
+	}
+
+	public viewOptionsChanged(): void {
+		this.mediaViewOptionsService.mediaViewOptions = this.viewOptions;
+	}
+
+	resetViewOptions(): void {
+		this.mediaViewOptionsService.resetInitialViewOptions();
+	}
+}

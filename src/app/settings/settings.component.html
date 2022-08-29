@@ -25,6 +25,11 @@
 						<mat-option *ngFor="let option of mediaSortBy" [value]="option">{{option}}</mat-option>
 					</mat-select>
 				</mat-form-field>
+
+				<div class="slider">
+					<mat-label>Default Thumbnail Size</mat-label>
+					<mat-slider min="0.15" max="0.5" step="0.05" [(ngModel)]="settings.thumb_size" (input)="thumbSizeChanged($event)"></mat-slider>
+				</div>
 			</div>
 
 			<div class="actions">

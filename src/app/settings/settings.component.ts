@@ -6,6 +6,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { DatabaseService } from '../core/services/database.service';
 import { ConfirmErrorStateMatcher } from '../shared/confirmErrorStateMatcher';
 import { MediaSortBy } from '../core/types/mediaSortBy';
+import { ContextService } from '../core/services/context.service';
+import { MediaViewOptionsService } from '../core/services/mediaViewOptions.service';
 
 @Component({
 	selector: 'isvr-settings',
@@ -21,13 +23,14 @@ export class SettingsComponent implements OnInit {
 
 	constructor(private settingsService: SettingsService,
 				private messagingService: MessagingService,
+				private contextService: ContextService,
+				private mediaViewOptionsService: MediaViewOptionsService,
 				private formBuilder: FormBuilder,
 				private _ngZone: NgZone) { }
 
 	ngOnInit() {
 		this.resetSettings();
 		this.setupPasswordForm();
-		console.log(this.settings)
 	}
 
 	private setupPasswordForm(): void {
@@ -57,6 +60,12 @@ export class SettingsComponent implements OnInit {
 	private settingsSaved = (response: Settings): void => {
 		this.messagingService.message('Settings Saved!');
 		this.resetSettings();
+		this.updateServices();
+	}
+
+	private updateServices(): void {
+		this.contextService.resetContext();
+		this.mediaViewOptionsService.resetInitialViewOptions();
 	}
 
 	public resetPasswords(): void {
@@ -84,5 +93,9 @@ export class SettingsComponent implements OnInit {
 		let confirmPass = group.get('confirmPass').value;
 
 		return pass === confirmPass ? null : { notSame: true }
+	}
+
+	public thumbSizeChanged(event): void {
+		this.settings.thumb_size = event.value;
 	}
 }
