@@ -8,6 +8,7 @@ import { ConfirmErrorStateMatcher } from '../shared/confirmErrorStateMatcher';
 import { MediaSortBy } from '../core/types/mediaSortBy';
 import { ContextService } from '../core/services/context.service';
 import { MediaViewOptionsService } from '../core/services/mediaViewOptions.service';
+import { MediaDisplayType } from '../core/types/mediaDisplayType';
 
 @Component({
 	selector: 'isvr-settings',
@@ -20,6 +21,7 @@ export class SettingsComponent implements OnInit {
 
 	public newPassForm: FormGroup = new FormGroup({});
 	public formErrorMatcher = new ConfirmErrorStateMatcher();
+	public mediaDisplayType = MediaDisplayType;
 
 	constructor(private settingsService: SettingsService,
 				private messagingService: MessagingService,
@@ -96,6 +98,8 @@ export class SettingsComponent implements OnInit {
 	}
 
 	public thumbSizeChanged(event): void {
-		this.settings.thumb_size = event.value;
+		if (event && event.value) {
+			this.settings.thumb_size = event.value;
+		}
 	}
 }

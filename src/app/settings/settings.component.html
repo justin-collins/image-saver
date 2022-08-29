@@ -26,6 +26,14 @@
 					</mat-select>
 				</mat-form-field>
 
+				<div class="display-toggle">
+					<mat-label>Default Media Display</mat-label>
+					<mat-button-toggle-group [(ngModel)]="settings.media_display_type">
+						<mat-button-toggle [value]="mediaDisplayType.GRID" matTooltip="Grid"><mat-icon>grid_view</mat-icon></mat-button-toggle>
+						<mat-button-toggle [value]="mediaDisplayType.TABLE" matTooltip="Table"><mat-icon>table_rows</mat-icon></mat-button-toggle>
+					</mat-button-toggle-group>
+				</div>
+
 				<div class="slider">
 					<mat-label>Default Thumbnail Size</mat-label>
 					<mat-slider min="0.15" max="0.5" step="0.05" [(ngModel)]="settings.thumb_size" (input)="thumbSizeChanged($event)"></mat-slider>

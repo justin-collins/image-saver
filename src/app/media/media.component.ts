@@ -10,6 +10,8 @@ import { MediaFilter } from '../core/types/mediaFilter';
 import { MediaViewOptionsService } from '../core/services/mediaViewOptions.service';
 import { MediaViewOption } from '../core/types/mediaViewOption';
 import { VirtualScrollerComponent } from 'ngx-virtual-scroller';
+import { MediaDisplayType } from '../core/types/mediaDisplayType';
+import { MatTable } from '@angular/material/table';
 
 @Component({
 	selector: 'isvr-media',
@@ -17,13 +19,18 @@ import { VirtualScrollerComponent } from 'ngx-virtual-scroller';
 	styleUrls: ['./media.component.scss']
 })
 export class MediaComponent implements OnInit {
+	public displayedColumns: string[] = ['preview', 'title', 'type', 'createdAt', 'actions'];
 	public media: Media[];
 	public warning: string = '';
 	public filters: MediaFilter;
 	public viewOptions: MediaViewOption;
+	public mediaDisplayType = MediaDisplayType;
 
 	@ViewChild(VirtualScrollerComponent)
     private virtualScroller: VirtualScrollerComponent;
+
+	@ViewChild(MatTable)
+	private table: MatTable<Media[]>;
 
 	private quickStartDialogRef: MatDialogRef<QuickStartDialogComponent>;
 	private quickStartDialogConfig: MatDialogConfig = {
@@ -86,18 +93,30 @@ export class MediaComponent implements OnInit {
 			this.viewOptions = viewOptions;
 		}
 
-		this.virtualScroller.refresh();
+		if (this.virtualScroller) {
+			this.virtualScroller.refresh();
+		}
 	}
 
 	public newMediaAdded(newMedia: Media): void {
 		this.media.unshift(newMedia);
 	}
 
-	public mediaRemoved(removeMedia: Media): void {
+	public trashMedia(removeMedia: Media): void {
+		this.mediaService.trash(removeMedia).subscribe(this.mediaRemoved);
+	}
+
+	public mediaRemoved = (removeMedia: Media): void => {
 		let index: number = this.media.findIndex(med => med.id === removeMedia.id);
 
 		if (index > -1) {
-			this.media.splice(index, 1);
+			this._ngZone.run(() => {
+				this.media.splice(index, 1);
+
+				if (this.table) {
+					this.table.renderRows();
+				}
+			});
 		}
 	}
 
@@ -136,6 +155,11 @@ export class MediaComponent implements OnInit {
 	private filtersAreEmpty(): boolean {
 		if (this.filters.term || this.filters.type || this.filters.location) return false;
 		return true;
+	}
+
+	public preventDefault(event): void {
+		event.preventDefault();
+		event.stopPropagation();
 	}
 
 	@HostListener('window:resize', ['$event'])

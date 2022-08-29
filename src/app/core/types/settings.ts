@@ -1,3 +1,4 @@
+import { MediaDisplayType } from "./mediaDisplayType";
 import { MediaSortBy } from "./mediaSortBy";
 
 export class Settings {
@@ -15,6 +16,7 @@ export class Settings {
 	open_media_drawer_2: string;
 	default_media_sort: MediaSortBy;
 	thumb_size: number;
+	media_display_type: MediaDisplayType;
 
 	constructor(settings?: Settings) {
 		if (settings) this.duplicateFromExisting(settings);

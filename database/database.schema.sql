@@ -81,6 +81,7 @@ INSERT OR IGNORE INTO settings(setting, saved_value) VALUES
 ('open_media_drawer_1', 's'),
 ('open_media_drawer_2', 'ArrowDown'),
 ('default_media_sort', 'DATE'),
-('thumb_size', '0.25');
+('thumb_size', '0.25'),
+('media_display_type', 'GRID');
 
 COMMIT;

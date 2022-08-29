@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MediaViewOptionsService } from 'src/app/core/services/mediaViewOptions.service';
+import { MediaDisplayType } from 'src/app/core/types/mediaDisplayType';
 import { MediaViewOption } from 'src/app/core/types/mediaViewOption';
 
 @Component({
@@ -11,6 +12,7 @@ export class MediaViewOptionsComponent implements OnInit {
 	@Output() viewOptionsUpdated = new EventEmitter<MediaViewOption>();
 
 	public viewOptions: MediaViewOption;
+	public mediaDisplayType = MediaDisplayType;
 
 	constructor(private mediaViewOptionsService: MediaViewOptionsService) {
 	}
@@ -24,8 +26,10 @@ export class MediaViewOptionsComponent implements OnInit {
 	}
 
 	public thumbSizeChanged(event): void {
-		this.viewOptions.thumbSize = event.value;
-		this.viewOptionsChanged();
+		if (event && event.value) {
+			this.viewOptions.thumbSize = event.value;
+			this.viewOptionsChanged();
+		}
 	}
 
 	public viewOptionsChanged(): void {

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { MediaDisplayType } from '../types/mediaDisplayType';
 import { MediaViewOption } from '../types/mediaViewOption';
 import { SettingsService } from './settings.service';
 
@@ -22,7 +23,8 @@ export class MediaViewOptionsService {
 
 	private createInitialViewOptions(): void {
 		let newMediaViewOption: MediaViewOption = {
-			thumbSize: this.settingsService.settings.thumb_size
+			thumbSize: this.settingsService.settings.thumb_size,
+			displayType: this.settingsService.settings.media_display_type
 		};
 
 		this.mediaViewOptions = newMediaViewOption;

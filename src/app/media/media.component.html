@@ -2,9 +2,47 @@
 <isvr-media-view-options></isvr-media-view-options>
 
 <virtual-scroller #scroll [items]="media" *ngIf="media">
-	<div class="media-sizer" *ngFor="let singleMedia of scroll.viewPortItems" [style]="calcMediaSize()">
-		<isvr-media-preview [media]="singleMedia" (mediaRemoved)="mediaRemoved($event)"></isvr-media-preview>
-	</div>
+	<ng-container *ngIf="viewOptions.displayType === mediaDisplayType.GRID">
+		<div class="media-thumb-sizer" *ngFor="let singleMedia of scroll.viewPortItems" [style]="calcMediaSize()">
+			<isvr-media-preview [media]="singleMedia" (mediaRemoved)="mediaRemoved($event)"></isvr-media-preview>
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="viewOptions.displayType === mediaDisplayType.TABLE">
+		<table mat-table [dataSource]="media">
+			<ng-container matColumnDef="preview">
+				<th mat-header-cell *matHeaderCellDef> Preview </th>
+				<td mat-cell *matCellDef="let element" class="preview-column">
+					<isvr-media-preview [media]="element" [editable]="false"></isvr-media-preview>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="title">
+				<th mat-header-cell *matHeaderCellDef> Name </th>
+				<td mat-cell *matCellDef="let element"> {{element.title}} </td>
+			</ng-container>
+
+			<ng-container matColumnDef="type">
+				<th mat-header-cell *matHeaderCellDef> Type </th>
+				<td mat-cell *matCellDef="let element"> {{element.type}} </td>
+			</ng-container>
+
+			<ng-container matColumnDef="createdAt">
+				<th mat-header-cell *matHeaderCellDef> Created At </th>
+				<td mat-cell *matCellDef="let element"> {{element.createdAt | date:'short'}} </td>
+			</ng-container>
+
+			<ng-container matColumnDef="actions">
+				<th mat-header-cell *matHeaderCellDef> Actions </th>
+				<td mat-cell *matCellDef="let element" class="actions-column">
+					<button mat-icon-button matTooltip="Trash Media" color="warn" (click)="preventDefault($event); trashMedia(element)"><mat-icon>delete_outline</mat-icon></button>
+				</td>
+			</ng-container>
+
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/media', row.id, 'detail']"></tr>
+		</table>
+	</ng-container>
 </virtual-scroller>
 
 <h2 *ngIf="warning">{{warning}}</h2>
