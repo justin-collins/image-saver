@@ -1,9 +1,9 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Media } from 'src/app/core/media';
-import { MessagingService } from 'src/app/core/messaging.service';
-import { MediaService } from 'src/app/core/media.service';
-import { Tag } from 'src/app/core/tag';
+import { Media } from 'src/app/core/types/media';
+import { MessagingService } from 'src/app/core/services/messaging.service';
+import { MediaService } from 'src/app/core/services/media.service';
+import { Tag } from 'src/app/core/types/tag';
 
 @Component({
 	selector: 'isvr-new-media-dialog',

@@ -1,11 +1,11 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { SettingsService } from '../core/settings.service';
-import { Settings } from '../core/settings';
-import { MessagingService } from '../core/messaging.service';
+import { SettingsService } from '../core/services/settings.service';
+import { Settings } from '../core/types/settings';
+import { MessagingService } from '../core/services/messaging.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { DatabaseService } from '../core/database.service';
+import { DatabaseService } from '../core/services/database.service';
 import { ConfirmErrorStateMatcher } from '../shared/confirmErrorStateMatcher';
-import { MediaSortBy } from '../core/mediaSortBy';
+import { MediaSortBy } from '../core/types/mediaSortBy';
 
 @Component({
 	selector: 'isvr-settings',

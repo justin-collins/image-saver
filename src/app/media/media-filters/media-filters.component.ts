@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { MediaType } from 'src/app/core/mediaType';
-import { MediaLocation } from 'src/app/core/mediaLocation';
+import { MediaType } from 'src/app/core/types/mediaType';
+import { MediaLocation } from 'src/app/core/types/mediaLocation';
 import { debounceTime } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-import { ContextService } from 'src/app/core/context.service';
-import { Context } from 'src/app/core/context';
-import { ContextType } from 'src/app/core/contextType';
-import { MediaFilter } from 'src/app/core/mediaFilter';
-import { MediaSortBy } from 'src/app/core/mediaSortBy';
+import { ContextService } from 'src/app/core/services/context.service';
+import { Context } from 'src/app/core/types/context';
+import { ContextType } from 'src/app/core/types/contextType';
+import { MediaFilter } from 'src/app/core/types/mediaFilter';
+import { MediaSortBy } from 'src/app/core/types/mediaSortBy';
 
 @Component({
 	selector: 'isvr-media-filters',
@@ -84,10 +84,5 @@ export class MediaFiltersComponent implements OnInit {
 
 	public resetFilters(): void {
 		this.contextService.resetContext();
-	}
-
-	private filtersAreEmpty(): boolean {
-		if (this.filters.term || this.filters.type || this.filters.location || this.filters.sortBy !== MediaSortBy.DATE) return false;
-		return true;
 	}
 }

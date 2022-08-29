@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Context } from './context';
-import { ContextType } from './contextType';
+import { Context } from '../types/context';
+import { ContextType } from '../types/contextType';
 import { BehaviorSubject } from 'rxjs';
-import { Album } from './album';
-import { Tag } from './tag';
-import { MediaFilter } from './mediaFilter';
+import { Album } from '../types/album';
+import { Tag } from '../types/tag';
+import { MediaFilter } from '../types/mediaFilter';
 import { SettingsService } from './settings.service';
 
 @Injectable({

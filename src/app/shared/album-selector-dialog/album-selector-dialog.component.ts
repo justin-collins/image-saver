@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, NgZone } from '@angular/core';
-import { Album } from 'src/app/core/album';
+import { Album } from 'src/app/core/types/album';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { AlbumService } from 'src/app/core/album.service';
+import { AlbumService } from 'src/app/core/services/album.service';
 
 @Component({
 	selector: 'isvr-album-selector-dialog',

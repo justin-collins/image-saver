@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, NgZone, ElementRef } from '@angular/core';
-import { StartupService } from '../core/startup.service';
+import { StartupService } from '../core/services/startup.service';
 import { Router } from '@angular/router';
-import { MessagingService } from '../core/messaging.service';
-import { SettingsService } from '../core/settings.service';
-import { DatabaseService } from '../core/database.service';
+import { MessagingService } from '../core/services/messaging.service';
+import { SettingsService } from '../core/services/settings.service';
+import { DatabaseService } from '../core/services/database.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConfirmErrorStateMatcher } from '../shared/confirmErrorStateMatcher';
 @Component({

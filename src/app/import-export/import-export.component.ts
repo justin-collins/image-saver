@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ExportService, ExportOptions } from '../core/export.service';
-import { ImportService } from '../core/import.service';
-import { MessagingService } from '../core/messaging.service';
+import { ExportService, ExportOptions } from '../core/services/export.service';
+import { ImportService } from '../core/services/import.service';
+import { MessagingService } from '../core/services/messaging.service';
 
 // import { dialog } from '@electron/remote';
 

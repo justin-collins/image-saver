@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Settings } from './settings';
+import { Settings } from '../types/settings';
 import { DatabaseService } from './database.service';
 import { Observable, empty, merge } from 'rxjs';
 import { map } from 'rxjs/operators';

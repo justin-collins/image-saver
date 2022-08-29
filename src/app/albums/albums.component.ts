@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { Album } from '../core/album';
-import { AlbumService, AlbumFilter } from '../core/album.service';
+import { Album } from '../core/types/album';
+import { AlbumService, AlbumFilter } from '../core/services/album.service';
 
 @Component({
 	selector: 'isvr-albums',

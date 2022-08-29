@@ -1,8 +1,8 @@
 import { Directive, Output, EventEmitter, HostListener, Input } from '@angular/core';
 import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Media } from '../core/media';
+import { Media } from '../core/types/media';
 import { MediaSelectorDialogComponent } from './media-selector-dialog/media-selector-dialog.component';
-import { ContextType } from '../core/contextType';
+import { ContextType } from '../core/types/contextType';
 
 @Directive({
 	selector: '[isvrMediaSelector]'

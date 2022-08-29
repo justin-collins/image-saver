@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
-import { Media } from './media';
+import { Media } from '../types/media';
 import { DatabaseService } from './database.service';
 import { map, flatMap } from 'rxjs/operators';
-import { MediaType } from './mediaType';
-import { MediaLocation } from './mediaLocation';
-import { Tag } from './tag';
+import { MediaType } from '../types/mediaType';
+import { MediaLocation } from '../types/mediaLocation';
+import { Tag } from '../types/tag';
 import { TagService } from './tag.service';
-import { MediaFilter } from './mediaFilter';
-import { MediaSortBy } from './mediaSortBy';
+import { MediaFilter } from '../types/mediaFilter';
+import { MediaSortBy } from '../types/mediaSortBy';
 
 @Injectable({
 	providedIn: 'root'

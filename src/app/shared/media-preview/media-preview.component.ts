@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter, NgZone } from '@angular/core';
-import { Media } from 'src/app/core/media';
+import { Media } from 'src/app/core/types/media';
 import { Router } from '@angular/router';
-import { MediaType } from 'src/app/core/mediaType';
-import { MediaService } from 'src/app/core/media.service';
-import { ContextService } from 'src/app/core/context.service';
-import { Context } from 'src/app/core/context';
-import { ContextType } from 'src/app/core/contextType';
-import { AlbumService } from 'src/app/core/album.service';
-import { Album } from 'src/app/core/album';
+import { MediaType } from 'src/app/core/types/mediaType';
+import { MediaService } from 'src/app/core/services/media.service';
+import { ContextService } from 'src/app/core/services/context.service';
+import { Context } from 'src/app/core/types/context';
+import { ContextType } from 'src/app/core/types/contextType';
+import { AlbumService } from 'src/app/core/services/album.service';
+import { Album } from 'src/app/core/types/album';
 
 @Component({
 	selector: 'isvr-media-preview',

@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { StartupService } from './core/startup.service';
+import { StartupService } from './core/services/startup.service';
 
 @Component({
 	selector: 'isvr-root',

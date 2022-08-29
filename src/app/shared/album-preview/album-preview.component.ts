@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Album } from 'src/app/core/album';
-import { MediaType } from 'src/app/core/mediaType';
+import { Album } from 'src/app/core/types/album';
+import { MediaType } from 'src/app/core/types/mediaType';
 import { Router } from '@angular/router';
 
 @Component({

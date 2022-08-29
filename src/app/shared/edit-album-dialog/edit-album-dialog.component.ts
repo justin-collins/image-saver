@@ -1,12 +1,12 @@
 import { Component, OnInit, Inject, NgZone } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Album } from 'src/app/core/album';
-import { AlbumService } from 'src/app/core/album.service';
-import { MessagingService } from 'src/app/core/messaging.service';
-import { Media } from 'src/app/core/media';
+import { Album } from 'src/app/core/types/album';
+import { AlbumService } from 'src/app/core/services/album.service';
+import { MessagingService } from 'src/app/core/services/messaging.service';
+import { Media } from 'src/app/core/types/media';
 import { Router } from '@angular/router';
 import { MediaSelectorSettings } from '../media-selector.directive';
-import { ContextType } from 'src/app/core/contextType';
+import { ContextType } from 'src/app/core/types/contextType';
 
 @Component({
 	selector: 'isvr-edit-album-dialog',

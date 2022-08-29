@@ -1,6 +1,6 @@
 import { Directive, Output, EventEmitter, HostListener, Input } from '@angular/core';
 import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Album } from '../core/album';
+import { Album } from '../core/types/album';
 import { EditAlbumDialogComponent } from './edit-album-dialog/edit-album-dialog.component';
 
 @Directive({

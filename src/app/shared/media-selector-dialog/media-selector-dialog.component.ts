@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject, NgZone, HostListener } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Media } from 'src/app/core/media';
-import { MediaService } from 'src/app/core/media.service';
+import { Media } from 'src/app/core/types/media';
+import { MediaService } from 'src/app/core/services/media.service';
 import { MediaSelectorSettings } from '../media-selector.directive';
-import { ContextType } from 'src/app/core/contextType';
+import { ContextType } from 'src/app/core/types/contextType';
 
 @Component({
 	selector: 'isvr-media-selector-dialog',

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, NgZone } from '@angular/core';
-import { Album } from 'src/app/core/album';
-import { AlbumService } from 'src/app/core/album.service';
-import { Media } from 'src/app/core/media';
+import { Album } from 'src/app/core/types/album';
+import { AlbumService } from 'src/app/core/services/album.service';
+import { Media } from 'src/app/core/types/media';
 import { Router } from '@angular/router';
 
 @Component({

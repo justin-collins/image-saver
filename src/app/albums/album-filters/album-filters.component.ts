@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { AlbumFilter } from 'src/app/core/album.service';
+import { AlbumFilter } from 'src/app/core/services/album.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 

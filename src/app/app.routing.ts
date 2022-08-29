@@ -8,7 +8,7 @@ import { AlbumDetailsComponent } from './album-details/album-details.component';
 import { TagsComponent } from './tags/tags.component';
 import { SettingsComponent } from './settings/settings.component';
 import { UnlockComponent } from './unlock/unlock.component';
-import { UnlockedGuard } from './core/unlocked.guard';
+import { UnlockedGuard } from './core/guards/unlocked.guard';
 import { ImportExportComponent } from './import-export/import-export.component';
 
 const routes: Routes = [

@@ -1,8 +1,8 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { Tag } from 'src/app/core/tag';
+import { Tag } from 'src/app/core/types/tag';
 import { MatDialogRef } from '@angular/material/dialog';
-import { TagService } from 'src/app/core/tag.service';
-import { MessagingService } from 'src/app/core/messaging.service';
+import { TagService } from 'src/app/core/services/tag.service';
+import { MessagingService } from 'src/app/core/services/messaging.service';
 
 @Component({
 	selector: 'isvr-new-tag-dialog',

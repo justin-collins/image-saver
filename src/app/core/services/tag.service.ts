@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Tag } from './tag';
+import { Tag } from '../types/tag';
 import { DatabaseService } from './database.service';
 import { map } from 'rxjs/operators';
-import { Media } from './media';
+import { Media } from '../types/media';
 
 export interface TagFilter {
 	term?: string;

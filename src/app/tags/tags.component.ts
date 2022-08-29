@@ -1,8 +1,8 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { TagService, TagFilter } from '../core/tag.service';
-import { Tag } from '../core/tag';
+import { TagService, TagFilter } from '../core/services/tag.service';
+import { Tag } from '../core/types/tag';
 import { Router } from '@angular/router';
-import { ContextService } from '../core/context.service';
+import { ContextService } from '../core/services/context.service';
 
 @Component({
 	selector: 'isvr-tags',

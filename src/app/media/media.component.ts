@@ -1,13 +1,12 @@
 import { Component, OnInit, NgZone, HostListener } from '@angular/core';
-import { Media } from '../core/media';
-import { MediaService } from '../core/media.service';
-import { ContextService } from '../core/context.service';
-import { Context } from '../core/context';
-import { ContextType } from '../core/contextType';
+import { Media } from '../core/types/media';
+import { MediaService } from '../core/services/media.service';
+import { ContextService } from '../core/services/context.service';
+import { Context } from '../core/types/context';
 import { MatDialogRef, MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { QuickStartDialogComponent } from './quick-start-dialog/quick-start-dialog.component';
-import { SettingsService } from '../core/settings.service';
-import { MediaFilter } from '../core/mediaFilter';
+import { SettingsService } from '../core/services/settings.service';
+import { MediaFilter } from '../core/types/mediaFilter';
 
 @Component({
 	selector: 'isvr-media',

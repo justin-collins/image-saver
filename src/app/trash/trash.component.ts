@@ -1,7 +1,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { Media } from '../core/media';
-import { MediaService } from '../core/media.service';
-import { MediaType } from '../core/mediaType';
+import { Media } from '../core/types/media';
+import { MediaService } from '../core/services/media.service';
+import { MediaType } from '../core/types/mediaType';
 import { Router } from '@angular/router';
 
 @Component({

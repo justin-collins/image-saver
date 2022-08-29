@@ -1,6 +1,6 @@
 import { Directive, Output, EventEmitter, HostListener } from '@angular/core';
 import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Tag } from '../core/tag';
+import { Tag } from '../core/types/tag';
 import { NewTagDialogComponent } from './new-tag-dialog/new-tag-dialog.component';
 
 @Directive({
