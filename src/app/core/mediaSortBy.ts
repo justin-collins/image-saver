@@ -1,4 +1,5 @@
 export enum MediaSortBy {
 	DATE = 'DATE',
-	NAME = 'NAME'
+	NAME = 'NAME',
+	SHUFFLE = 'SHUFFLE'
 }

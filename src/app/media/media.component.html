@@ -1,6 +1,6 @@
 <isvr-media-filters></isvr-media-filters>
 
-<virtual-scroller #scroll [items]="media">
+<virtual-scroller #scroll [items]="media" *ngIf="media">
 	<div class="media-sizer" *ngFor="let singleMedia of scroll.viewPortItems" [style.height]="calcMediaHeight() + 'px'">
 		<isvr-media-preview [media]="singleMedia" (mediaRemoved)="mediaRemoved($event)"></isvr-media-preview>
 	</div>

@@ -1,3 +1,5 @@
+import { MediaSortBy } from "./mediaSortBy";
+
 export class Settings {
 	show_quickstart: string;
 	slideshow_speed_ms: number;
@@ -11,6 +13,7 @@ export class Settings {
 	start_stop_slideshow_2: string;
 	open_media_drawer_1: string;
 	open_media_drawer_2: string;
+	default_media_sort: MediaSortBy;
 
 	constructor(settings?: Settings) {
 		if (settings) this.duplicateFromExisting(settings);

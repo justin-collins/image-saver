@@ -30,11 +30,9 @@ export class MediaComponent implements OnInit {
 				private settingsService: SettingsService,
 				private dialog: MatDialog,
 				private _ngZone: NgZone) {
-		this.resetFilters();
 	}
 
 	ngOnInit() {
-		this.loadMedia(this.filters);
 		this.contextService.contextChanged.subscribe(this.contextChanged);
 	}
 
@@ -64,23 +62,19 @@ export class MediaComponent implements OnInit {
 	}
 
 	private quickStartRun(): void {
-		this.resetFilters();
 		this.settingsService.update('show_quickstart', 'false').subscribe(_ => '');
 		this.loadMedia(this.filters);
 	}
 
 	private contextChanged = (context: Context): void => {
-		if (context && context.type === ContextType.SEARCH) {
+		if (context) {
 			this.filters = <MediaFilter>context.dataObject;
-			this.loadMedia(this.filters);
-		} else if (!context) {
-			this.resetFilters();
 		}
+		this.loadMedia(this.filters);
 	}
 
 	public newMediaAdded(newMedia: Media): void {
 		this.media.unshift(newMedia);
-		this.resetFilters();
 	}
 
 	public mediaRemoved(removeMedia: Media): void {
@@ -104,15 +98,6 @@ export class MediaComponent implements OnInit {
 		let newSize: number = window.innerWidth *.18;
 
 		return newSize;
-	}
-
-	private resetFilters(): void {
-		this.filters = {
-			term: '',
-			type: null,
-			location: null
-		};
-		this.loadMedia(this.filters);
 	}
 
 	private filtersAreEmpty(): boolean {

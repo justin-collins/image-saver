@@ -19,6 +19,12 @@
 						<mat-option value="albums">Albums</mat-option>
 					</mat-select>
 				</mat-form-field>
+
+				<mat-form-field>
+					<mat-select [(ngModel)]="settings.default_media_sort" name="defaultMediaSort" placeholder="Default Media Sort">
+						<mat-option *ngFor="let option of mediaSortBy" [value]="option">{{option}}</mat-option>
+					</mat-select>
+				</mat-form-field>
 			</div>
 
 			<div class="actions">

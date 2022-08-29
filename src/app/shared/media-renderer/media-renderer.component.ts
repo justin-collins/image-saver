@@ -35,6 +35,8 @@ export class MediaRendererComponent implements OnInit {
 	public fixedEscape(url: string): string {
 		let escapedUrl: string = escape(url);
 		escapedUrl = escapedUrl.replace('media%3A', 'media:');
+		escapedUrl = escapedUrl.replace('http%3A', 'http:');
+		escapedUrl = escapedUrl.replace('https%3A', 'https:');
 
 		return escapedUrl;
 	}

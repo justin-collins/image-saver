@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Album } from './album';
 import { Tag } from './tag';
 import { MediaFilter } from './mediaFilter';
+import { SettingsService } from './settings.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -19,7 +20,8 @@ export class ContextService {
 		this.contextChanged.next(this._context);
 	}
 
-	constructor() {
+	constructor(private settingsService: SettingsService) {
+		this.createInitialContext();
 	}
 
 	public setContextAlbum(album: Album): void {
@@ -34,6 +36,11 @@ export class ContextService {
 		this.createSimpleContext(filter, ContextType.SEARCH);
 	}
 
+	private createInitialContext(): void {
+		let initialFilter = this.emptyFilter();
+		this.createSimpleContext(initialFilter, ContextType.SEARCH);
+	}
+
 	private createSimpleContext(dataObject: any, type: ContextType): void {
 		let newContext: Context = {
 			dataObject: dataObject,
@@ -44,6 +51,16 @@ export class ContextService {
 	}
 
 	public resetContext(): void {
-		this.context = null;
+		let emptyFilter: MediaFilter = this.emptyFilter();
+		this.createSimpleContext(emptyFilter, ContextType.SEARCH);
+	}
+
+	private emptyFilter(): MediaFilter {
+		return {
+			term: '',
+			type: null,
+			location: null,
+			sortBy: this.settingsService.settings.default_media_sort
+		};
 	}
 }

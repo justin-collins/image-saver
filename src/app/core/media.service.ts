@@ -59,6 +59,7 @@ export class MediaService {
 
 		if (!filter.sortBy || filter.sortBy === MediaSortBy.DATE) sql += ` ORDER BY media.created_at DESC`;
 		else if (filter.sortBy && filter.sortBy === MediaSortBy.NAME) sql += ` ORDER BY media.title COLLATE NOCASE ASC`;
+		else if (filter.sortBy && filter.sortBy === MediaSortBy.SHUFFLE) sql += ` ORDER BY random()`;
 
 		const values = {};
 

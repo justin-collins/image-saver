@@ -5,6 +5,7 @@ import { MessagingService } from '../core/messaging.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { DatabaseService } from '../core/database.service';
 import { ConfirmErrorStateMatcher } from '../shared/confirmErrorStateMatcher';
+import { MediaSortBy } from '../core/mediaSortBy';
 
 @Component({
 	selector: 'isvr-settings',
@@ -13,6 +14,7 @@ import { ConfirmErrorStateMatcher } from '../shared/confirmErrorStateMatcher';
 })
 export class SettingsComponent implements OnInit {
 	public settings: Settings;
+	public mediaSortBy: MediaSortBy[] = Object.keys(MediaSortBy).map(sort => MediaSortBy[sort]);
 
 	public newPassForm: FormGroup = new FormGroup({});
 	public formErrorMatcher = new ConfirmErrorStateMatcher();
@@ -25,6 +27,7 @@ export class SettingsComponent implements OnInit {
 	ngOnInit() {
 		this.resetSettings();
 		this.setupPasswordForm();
+		console.log(this.settings)
 	}
 
 	private setupPasswordForm(): void {

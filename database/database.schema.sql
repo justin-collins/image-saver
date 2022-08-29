@@ -79,6 +79,7 @@ INSERT OR IGNORE INTO settings(setting, saved_value) VALUES
 ('start_stop_slideshow_1', 'Space'),
 ('start_stop_slideshow_2', ''),
 ('open_media_drawer_1', 's'),
-('open_media_drawer_2', 'ArrowDown');
+('open_media_drawer_2', 'ArrowDown'),
+('default_media_sort', 'DATE');
 
 COMMIT;
