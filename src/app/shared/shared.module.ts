@@ -30,6 +30,7 @@ import { TagAutocompleteComponent } from './tag-autocomplete/tag-autocomplete.co
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { MediaRendererComponent } from './media-renderer/media-renderer.component';
 import { VirtualScrollerModule } from 'ngx-virtual-scroller';
+import { DrawerToggleBtnComponent } from './drawer-toggle-btn/drawer-toggle-btn.component';
 
 @NgModule({
 	imports: [
@@ -66,7 +67,8 @@ import { VirtualScrollerModule } from 'ngx-virtual-scroller';
 		NewTagButtonDirective,
 		TagAutocompleteComponent,
 		MainNavComponent,
-		MediaRendererComponent
+		MediaRendererComponent,
+		DrawerToggleBtnComponent
 	],
 	declarations: [
 		MediaPreviewComponent,
@@ -92,7 +94,8 @@ import { VirtualScrollerModule } from 'ngx-virtual-scroller';
 		NewTagButtonDirective,
 		TagAutocompleteComponent,
 		MainNavComponent,
-		MediaRendererComponent
+		MediaRendererComponent,
+		DrawerToggleBtnComponent
 	],
 	entryComponents: [
 		NewMediaDialogComponent,

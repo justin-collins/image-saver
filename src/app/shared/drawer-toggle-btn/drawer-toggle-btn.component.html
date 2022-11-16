@@ -1,0 +1,3 @@
+<div class="drawer-toggle-btn" (click)="toggleDrawer()" [ngClass]="{open:drawerIsOpen, 'position-start': position==='start', 'position-end': position==='end'}" [@drawerOpenStart]="shouldAnimateStart()" [@drawerOpenEnd]="shouldAnimateEnd()">
+	<mat-icon class="chevron">keyboard_arrow_left</mat-icon>
+</div>

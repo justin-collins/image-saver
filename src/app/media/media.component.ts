@@ -25,6 +25,7 @@ export class MediaComponent implements OnInit {
 	public filters: MediaFilter;
 	public viewOptions: MediaViewOption;
 	public mediaDisplayType = MediaDisplayType;
+	public filtersIsOpen: boolean = false;
 
 	@ViewChild(VirtualScrollerComponent)
     private virtualScroller: VirtualScrollerComponent;
@@ -160,6 +161,10 @@ export class MediaComponent implements OnInit {
 	public preventDefault(event): void {
 		event.preventDefault();
 		event.stopPropagation();
+	}
+
+	public updateDrawerState(isOpen: boolean): void {
+		this.filtersIsOpen = isOpen;
 	}
 
 	@HostListener('window:resize', ['$event'])

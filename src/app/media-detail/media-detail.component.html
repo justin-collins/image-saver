@@ -1,4 +1,4 @@
-<mat-sidenav-container>
+<mat-sidenav-container autosize>
 	<mat-sidenav-content>
 		<isvr-media-detail-navigation *ngIf="media" [startingMedia]="media" (onMediaChange)="newMediaSelected($event)" (onMediaRotate)="rotateMedia($event)"></isvr-media-detail-navigation>
 		<isvr-alert *ngIf="media?.trashed">This item is currently in the trash. <a (click)="restoreMedia()">Click here to restore</a></isvr-alert>
@@ -7,12 +7,10 @@
 
 		<mat-progress-bar mode="indeterminate" *ngIf="!media"></mat-progress-bar>
 
-		<div class="drawer-toggle-btn" (click)="toggleDrawer()" [ngClass]="{open:drawerIsOpen}" [@drawerOpen]="drawerIsOpen">
-			<mat-icon class="chevron">keyboard_arrow_left</mat-icon>
-		</div>
+		<isvr-drawer-toggle-btn position="end" [isOpen]="drawerIsOpen" (onToggle)="updateDrawerState($event)"></isvr-drawer-toggle-btn>
 	</mat-sidenav-content>
 
 	<mat-sidenav #sidenav mode="side" position="end" [opened]="drawerIsOpen">
     	<isvr-media-detail-drawer *ngIf="media" [media]="media" (onMediaChange)="newMediaSelected($event)"></isvr-media-detail-drawer>
-  </mat-sidenav>
+  	</mat-sidenav>
 </mat-sidenav-container>

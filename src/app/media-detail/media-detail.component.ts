@@ -3,23 +3,22 @@ import { Media } from '../core/types/media';
 import { ActivatedRoute } from '@angular/router';
 import { MediaType } from '../core/types/mediaType';
 import { MediaService } from '../core/services/media.service';
-import { ISVRAnimations } from '../shared/animations';
 import { SettingsService } from '../core/services/settings.service';
 
 @Component({
 	selector: 'isvr-media-detail',
 	templateUrl: './media-detail.component.html',
-	styleUrls: ['./media-detail.component.scss'],
-	animations: [ISVRAnimations.drawerOpen]
+	styleUrls: ['./media-detail.component.scss']
 })
 export class MediaDetailComponent implements OnInit {
 	public media: Media;
 
 	public mediaType = MediaType;
-	public drawerIsOpen: boolean = false;
 	public screenHeight: number;
 	public screenWidth: number;
 	public screenNavPadding: number = 105;
+
+	public drawerIsOpen: boolean = false;
 
 	constructor(private mediaService: MediaService,
 				private settingsService: SettingsService,
@@ -30,7 +29,7 @@ export class MediaDetailComponent implements OnInit {
 
 	ngOnInit() {
 		this.onResize(window);
-
+		
 		this.drawerIsOpen = (this.settingsService.settings.starting_media_drawer_position === 'open');
 	}
 
@@ -58,8 +57,12 @@ export class MediaDetailComponent implements OnInit {
 		});
 	}
 
-	public toggleDrawer(): void {
+	private toggleDrawer(): void {
 		this.drawerIsOpen = !this.drawerIsOpen;
+	}
+
+	public updateDrawerState(isOpen: boolean): void {
+		this.drawerIsOpen = isOpen;
 	}
 
 	public rotateMedia(rotationDeg: number): void {
