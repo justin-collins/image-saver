@@ -24,11 +24,13 @@ import { QuickStartDialogComponent } from './media/quick-start-dialog/quick-star
 import { UnlockComponent } from './unlock/unlock.component';
 import { ImportExportComponent } from './import-export/import-export.component';
 import { VirtualScrollerModule } from 'ngx-virtual-scroller';
+import { MediaDrawerComponent } from './media/media-drawer/media-drawer.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		MediaComponent,
+		MediaDrawerComponent,
 		MediaDetailComponent,
 		AlbumsComponent,
 		TrashComponent,

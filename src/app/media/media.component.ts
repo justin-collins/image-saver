@@ -132,10 +132,12 @@ export class MediaComponent implements OnInit {
 
 	public calcMediaSize(): Object {
 		let scrollbarWidth = 30;
+		let drawerToggleBtnWidth = 36;
+		let drawerWidth = this.filtersIsOpen ? 301 : 0;
 		let minMarginSize: number = 0.01;
 		let newMediaSize: number = this.viewOptions.thumbSize - (minMarginSize * 2);
 		let marginSize: number = this.calcMediaMargin(newMediaSize);
-		let finalSize: number = (window.innerWidth - scrollbarWidth) * newMediaSize;
+		let finalSize: number = (window.innerWidth - scrollbarWidth - drawerToggleBtnWidth - drawerWidth) * newMediaSize;
 
 		return {
 			width: finalSize + 'px',

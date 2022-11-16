@@ -1,5 +1,12 @@
 @import 'includes';
 
+$drawer-toggle-btn-width: 26px;
+
+mat-sidenav-content {
+	padding-top: 25px;
+	padding-left: $drawer-toggle-btn-width + 10px;
+}
+
 .add-btn {
 	display: inline-block;
 	@include position(fixed, null 20px 20px null);
@@ -12,7 +19,7 @@ h2 {
 }
 
 virtual-scroller {
-	height: calc(100% - 76px);
+	height: 100%;
 }
 
 .media-thumb-sizer {

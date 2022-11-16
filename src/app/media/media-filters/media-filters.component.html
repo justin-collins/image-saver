@@ -33,7 +33,7 @@
 		</button>
 	</mat-form-field>
 
-	<div class="toggle">
+	<div class="sort-toggle">
 		<mat-button-toggle-group [(ngModel)]="filters.sortBy" (change)="filtersChanged()">
 			<mat-button-toggle [value]="mediaSortBy.DATE"><mat-icon>schedule</mat-icon></mat-button-toggle>
 			<mat-button-toggle [value]="mediaSortBy.NAME"><mat-icon>sort_by_alpha</mat-icon></mat-button-toggle>

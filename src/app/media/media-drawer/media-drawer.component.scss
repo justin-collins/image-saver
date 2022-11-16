@@ -1,0 +1,12 @@
+@import 'includes';
+
+:host {
+	display: block;
+	@include size(300px, 100%);
+	padding: 20px 15px;
+	background-color: lightgray;
+
+	@include MQ(M) {
+		width: 200px;
+	}
+}

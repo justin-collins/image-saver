@@ -1,13 +1,10 @@
 <mat-sidenav-container autosize>
 	<mat-sidenav #sidenav mode="side" position="start" [opened]="filtersIsOpen">
-    	sidenav
+    	<isvr-media-drawer></isvr-media-drawer>
   	</mat-sidenav>
 	
 	<mat-sidenav-content>
 		<isvr-drawer-toggle-btn position="start" (onToggle)="updateDrawerState($event)"></isvr-drawer-toggle-btn>
-
-		<isvr-media-filters></isvr-media-filters>
-		<isvr-media-view-options></isvr-media-view-options>
 
 		<virtual-scroller #scroll [items]="media" *ngIf="media">
 			<ng-container *ngIf="viewOptions.displayType === mediaDisplayType.GRID">
