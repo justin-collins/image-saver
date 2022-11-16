@@ -166,5 +166,8 @@
 			}
 		}
 	},
-	"defaultProject": "image-saver"
+  "defaultProject": "image-saver",
+  "cli": {
+    "analytics": false
+  }
 }

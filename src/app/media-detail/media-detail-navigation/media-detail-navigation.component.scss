@@ -1,5 +1,6 @@
 :host {
 	display: block;
+	position: relative;
 	height: 40px;
 	background-color: #505050;
 	color: #fff;
@@ -12,4 +13,10 @@ span {
 
 button.running {
 	color: green;
+}
+
+.context-counter {
+	position: absolute;
+	top: 13px;
+	right: 20px;
 }

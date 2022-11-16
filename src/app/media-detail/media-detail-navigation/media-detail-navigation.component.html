@@ -3,4 +3,5 @@
 	<button mat-icon-button matTooltip="{{(slideshowTimer)? 'Stop' : 'Start'}} Slideshow" (click)="toggleSlideshow()" [ngClass]="{running: slideshowTimer}"><mat-icon>slideshow</mat-icon></button>
 	<button mat-icon-button matTooltip="Next" (click)="nextMedia()"><mat-icon>arrow_forward</mat-icon></button>
 	<button mat-icon-button matTooltip="Rotate" (click)="rotateMedia()"><mat-icon>rotate_right</mat-icon></button>
+	<div class="context-counter">{{currentPosition + 1}} of {{media?.length}}</div>
 </div>
