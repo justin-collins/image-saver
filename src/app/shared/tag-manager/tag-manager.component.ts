@@ -10,6 +10,10 @@ import { TagService } from 'src/app/core/services/tag.service';
 })
 export class TagManagerComponent implements OnInit {
 	@Input() disabled: boolean = false;
+	@Input() newTagAllowed: boolean = false;
+	@Input() label: string = '';
+	@Input() displayType: 'button' | 'input' = 'button';
+	@Input() placeholder = 'Type Tag Name Here';
 
 	private _media: Media;
     @Input() set media(value: Media) {
@@ -43,7 +47,11 @@ export class TagManagerComponent implements OnInit {
 	}
 
 	public removeTag(tag: Tag): void {
-		this.tagService.removeFromMedia(this.media, tag).subscribe(this.tagRemoved);
+		if (this.newTagAllowed) {
+			this.tagService.removeFromMedia(this.media, tag).subscribe(this.tagRemoved);
+		} else {
+			this.tagRemoved(tag);
+		}
 	}
 
 	private tagRemoved = (removeTag: Tag): void => {
@@ -51,6 +59,7 @@ export class TagManagerComponent implements OnInit {
 			let index: number = this.tags.findIndex(tag => tag.id === removeTag.id);
 
 			if (index > -1) this.tags.splice(index, 1);
+			this.updateTagsOutput();
 		});
 	}
 
@@ -63,11 +72,9 @@ export class TagManagerComponent implements OnInit {
 	}
 
 	public addNewTag(selectedTag: Tag): void {
-		if (this.tagsContains(selectedTag)) {
-			return;
-		}
+		if (this.tagsContains(selectedTag)) return;
 
-		if (this.media && this.media.id) {
+		if (this.media && this.media.id && this.newTagAllowed) {
 			this.tagService.addToMedia(this.media, selectedTag).subscribe(this.tagAdded);
 		} else {
 			this.tagAdded(selectedTag);

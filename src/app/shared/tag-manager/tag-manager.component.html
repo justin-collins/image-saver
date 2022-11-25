@@ -1,17 +1,15 @@
-<mat-list *ngIf="tags">
-	<h3 mat-subheader>Tags</h3>
+<div *ngIf="tags">
+	<h4 *ngIf="label">{{label}}</h4>
 
-	<mat-list-item *ngIf="tags.length > 0">
+	<div class="chip-container" *ngIf="tags.length > 0">
 		<mat-chip-list>
 			<mat-chip *ngFor="let tag of tags" [removable]="!disabled" (removed)="removeTag(tag)">
 				{{tag.title}}
 				<mat-icon matChipRemove *ngIf="!disabled">cancel</mat-icon>
 			</mat-chip>
 		</mat-chip-list>
-	</mat-list-item>
+	</div>
 
-	<p *ngIf="tags.length === 0">No Assigned Tags</p>
-
-	<button mat-button *ngIf="!newTag" (click)="showNewTag()" [disabled]="disabled">+ Add Tag</button>
-	<isvr-tag-autocomplete *ngIf="newTag" (tagChosen)="addNewTag($event)"></isvr-tag-autocomplete>
-</mat-list>
+	<button mat-button *ngIf="displayType === 'button' && !newTag" (click)="showNewTag()" [disabled]="disabled">+ Add Tag</button>
+	<isvr-tag-autocomplete *ngIf="displayType === 'input' || newTag" [newTagAllowed]="newTagAllowed" [placeholder]="placeholder" (tagChosen)="addNewTag($event)"></isvr-tag-autocomplete>
+</div>

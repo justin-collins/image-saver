@@ -9,7 +9,7 @@
 		<input type="text" matInput [(ngModel)]="newMediaTitle" name="title" placeholder="Title" [disabled]="interfaceDisabled" />
 	</mat-form-field>
 
-	<isvr-tag-manager (tagsChanged)="tagsChanged($event)" [disabled]="interfaceDisabled"></isvr-tag-manager>
+	<isvr-tag-manager label="Tags" (tagsChanged)="tagsChanged($event)" [newTagAllowed]="true" [disabled]="interfaceDisabled"></isvr-tag-manager>
 
 	<mat-progress-bar mode="indeterminate" *ngIf="interfaceDisabled"></mat-progress-bar>
 

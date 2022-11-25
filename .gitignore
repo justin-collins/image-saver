@@ -10,6 +10,7 @@ main.js
 
 # database
 /database/database.db
+/database/database.db.bak
 /database/database.db-journal
 database.session.sql
 

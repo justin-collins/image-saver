@@ -1,8 +1,8 @@
 <mat-form-field>
-	<input type="text" matInput placeholder="Type Tag Name Here" [formControl]="newTagControl" [matAutocomplete]="tagsAutocomplete" (keydown)="stopPropagation($event)">
+	<input type="text" matInput [placeholder]="placeholder" [formControl]="newTagControl" [matAutocomplete]="tagsAutocomplete" (keydown)="stopPropagation($event)">
 </mat-form-field>
 
 <mat-autocomplete #tagsAutocomplete="matAutocomplete" [displayWith]="autocompleteDisplay" (optionSelected)="autocompleteOptionChosen($event)">
 	<mat-option *ngFor="let tag of filteredAllTags | async" [value]="tag">{{tag.title}}</mat-option>
-	<mat-option *ngIf="(filteredAllTags | async)?.length === 0" [value]="newTagControl.value">Add New Tag</mat-option>
+	<mat-option *ngIf="(((filteredAllTags | async)?.length === 0) && newTagAllowed)" [value]="newTagControl.value">Add New Tag</mat-option>
 </mat-autocomplete>

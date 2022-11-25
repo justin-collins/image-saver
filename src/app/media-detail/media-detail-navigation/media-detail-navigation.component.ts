@@ -34,7 +34,7 @@ export class MediaDetailNavigationComponent implements OnInit {
 
 		this.context = this.contextService.context;
 		if (this.context) {
-			this.getMediaFromContext();
+			this.mediaService.getMediaByContext(this.context).subscribe(this.mediaLoaded);
 		} else {
 			this.getDefaultMedia();
 		}
@@ -42,22 +42,6 @@ export class MediaDetailNavigationComponent implements OnInit {
 
 	private getDefaultMedia(): void {
 		this.mediaService.getAll().subscribe(this.mediaLoaded);
-	}
-
-	private getMediaFromContext(): void {
-		if (this.context.type === ContextType.SEARCH) {
-			this.getMediaFromSearch();
-		} else if (this.context.type === ContextType.ALBUM) {
-			this.getMediaFromAlbum();
-		}
-	}
-
-	private getMediaFromSearch(): void {
-		this.mediaService.getFiltered(<MediaFilter>this.context.dataObject).subscribe(this.mediaLoaded);
-	}
-
-	private getMediaFromAlbum(): void {
-		this.mediaService.getByAlbumId(this.context.dataObject['id']).subscribe(this.mediaLoaded);
 	}
 
 	private mediaLoaded = (response: Media[]): void => {

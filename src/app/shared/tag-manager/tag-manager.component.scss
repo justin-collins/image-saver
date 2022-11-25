@@ -1,10 +1,13 @@
 @import 'includes';
 
-.mat-list-base .mat-list-item {
-	height: auto;
-	padding: 16px 0;
+h4 {
+	margin: 15px 0 0;
 }
 
 mat-form-field {
 	width: 100%;
+}
+
+.chip-container {
+	margin: 15px 0;
 }

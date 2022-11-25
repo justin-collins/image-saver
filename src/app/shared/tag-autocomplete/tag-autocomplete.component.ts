@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, NgZone } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, NgZone, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Tag } from 'src/app/core/types/tag';
 import { Observable } from 'rxjs';
@@ -13,6 +13,8 @@ import { MessagingService } from 'src/app/core/services/messaging.service';
 	styleUrls: ['./tag-autocomplete.component.scss']
 })
 export class TagAutocompleteComponent implements OnInit {
+	@Input() newTagAllowed: boolean = false;
+	@Input() placeholder = 'Type Tag Name Here';
 	@Output() tagChosen = new EventEmitter<Tag>();
 
 	public newTagControl = new FormControl();

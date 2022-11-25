@@ -9,13 +9,17 @@ import { Tag } from '../types/tag';
 import { TagService } from './tag.service';
 import { MediaFilter } from '../types/mediaFilter';
 import { MediaSortBy } from '../types/mediaSortBy';
+import { Context } from '../types/context';
+import { ContextType } from '../types/contextType';
+import { ContextService } from './context.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class MediaService {
 
-	constructor(private tagService: TagService) { }
+	constructor(private tagService: TagService,
+				private contextService: ContextService) { }
 
 	public getAll(): Observable<Media[]> {
 		return this.getBulk(false);
@@ -29,25 +33,29 @@ export class MediaService {
 		const sql = `SELECT * FROM media WHERE trashed == $trashed ORDER BY created_at DESC`;
 		const values = {$trashed: trashed};
 
-		return DatabaseService.selectAll(sql, values).pipe(
-			map((rows) => {
-				const media: Media[] = [];
-				for (const row of rows) {
-					media.push(new Media().fromRow(row));
-				}
-				return media;
-			})
-		);
+		return this.databaseSelectAll(sql, values);
+	}
+
+	public getMediaByContext(context: Context): Observable<Media[]> {
+		if (!context) return null;
+		
+		if (context.type === ContextType.SEARCH) {
+			return this.getFiltered(<MediaFilter>context.dataObject);
+		} else if (context.type === ContextType.ALBUM) {
+			return this.getByAlbumId(context.dataObject['id']);
+		}
 	}
 
 	public getFiltered(filter: MediaFilter): Observable<Media[]> {
-		let sql = `SELECT distinct media.* FROM media`
+		let sql = `SELECT distinct media.* FROM media`;
 
 		if (filter.term) {
-			sql += ` LEFT JOIN mediaTagsMap ON media.id == mediaTagsMap.media_id
-					LEFT JOIN tags ON mediaTagsMap.tag_id == tags.id`;
+			sql += ` LEFT JOIN mediaTagsMap ON mediaTagsMap.media_id == media.id
+					LEFT JOIN tags ON tags.id == mediaTagsMap.tag_id`;
 		}
 
+		sql += this.buildFilteredByTagSql(filter, 'media');
+		
 		sql += ` WHERE media.trashed == 0`;
 
 		if (filter.term) {
@@ -57,21 +65,41 @@ export class MediaService {
 		if (filter.type) sql += ` AND media.type == "${filter.type}"`;
 		if (filter.location) sql += ` AND media.location == "${filter.location}"`;
 
-		if (!filter.sortBy || filter.sortBy === MediaSortBy.DATE) sql += ` ORDER BY media.created_at DESC`;
-		else if (filter.sortBy && filter.sortBy === MediaSortBy.NAME) sql += ` ORDER BY media.title COLLATE NOCASE ASC`;
-		else if (filter.sortBy && filter.sortBy === MediaSortBy.SHUFFLE) sql += ` ORDER BY random()`;
+		sql += this.buildFilteredSortBySql(filter, 'media');
 
 		const values = {};
 
-		return DatabaseService.selectAll(sql, values).pipe(
-			map((rows) => {
-				const media: Media[] = [];
-				for (const row of rows) {
-					media.push(new Media().fromRow(row));
-				}
-				return media;
-			})
-		);
+		return this.databaseSelectAll(sql, values);
+	}
+
+	private buildFilteredByTagSql(filter: MediaFilter, mediaTableName: string): string {
+		if (!filter.tags || filter.tags.length === 0) return '';
+
+		let sql = ``;
+		const maximumLoops = 24;
+		let lastLetter: string = 'a';
+
+		for (let i = 0; (i < filter.tags.length && i < maximumLoops); i++) {
+			let mediaTagsMapName: string = String.fromCharCode(lastLetter.charCodeAt(0) + 1);
+			let tagsName: string = String.fromCharCode(lastLetter.charCodeAt(0) + 2);
+			lastLetter = tagsName;
+			
+			const tag: Tag = filter.tags[i];
+			sql += ` INNER JOIN mediaTagsMap ${mediaTagsMapName} ON ${mediaTagsMapName}.media_id == ${mediaTableName}.id`;
+			sql += ` INNER JOIN tags ${tagsName} ON (${tagsName}.id == ${mediaTagsMapName}.tag_id AND ${tagsName}.id == ${tag.id})`;
+		}
+
+		return sql;
+	}
+
+	private buildFilteredSortBySql(filter: MediaFilter, mediaTableName: string): string {
+		let sql = ``;
+
+		if (!filter.sortBy || filter.sortBy === MediaSortBy.DATE) sql += ` ORDER BY ${mediaTableName}.created_at DESC`;
+		else if (filter.sortBy && filter.sortBy === MediaSortBy.NAME) sql += ` ORDER BY ${mediaTableName}.title COLLATE NOCASE ASC`;
+		else if (filter.sortBy && filter.sortBy === MediaSortBy.SHUFFLE) sql += ` ORDER BY random()`;
+
+		return sql;
 	}
 
 	public getByAlbumId(albumId: number, exclude?: boolean): Observable<Media[]> {
@@ -85,15 +113,7 @@ export class MediaService {
 
 		const values = { $albumId: albumId };
 
-		return DatabaseService.selectAll(sql, values).pipe(
-			map((rows) => {
-				const media: Media[] = [];
-				for (const row of rows) {
-					media.push(new Media().fromRow(row));
-				}
-				return media;
-			})
-		);
+		return this.databaseSelectAll(sql, values);
 	}
 
 	public get(id: number): Observable<Media> {
@@ -196,6 +216,18 @@ export class MediaService {
 
 		return DatabaseService.delete(sql, values).pipe(
 			map(() => true)
+		);
+	}
+
+	private databaseSelectAll(sql: string, values: Object): Observable<Media[]> {
+		return DatabaseService.selectAll(sql, values).pipe(
+			map((rows) => {
+				const media: Media[] = [];
+				for (const row of rows) {
+					media.push(new Media().fromRow(row));
+				}
+				return media;
+			})
 		);
 	}
 
