@@ -1,5 +1,6 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { ContextService, MediaService } from '../../core/services';
 import { 
@@ -18,7 +19,7 @@ import {
 	templateUrl: './media-filters.component.html',
 	styleUrls: ['./media-filters.component.scss']
 })
-export class MediaFiltersComponent implements OnInit {
+export class MediaFiltersComponent implements OnInit, OnDestroy {
 	public filters: MediaFilter;
 	public mediaTypes: MediaType[] = Object.keys(MediaType).map(type => MediaType[type]);
 	public mediaLocations: MediaLocation[] = Object.keys(MediaLocation).map(location => MediaLocation[location]);
@@ -28,13 +29,15 @@ export class MediaFiltersComponent implements OnInit {
 	public context: Context;
 	public mediaCount: number = 0;
 
+	private contextSubscription: Subscription;
+
 	constructor(private contextService: ContextService,
 				private mediaService: MediaService,
 				private _ngZone: NgZone) { }
 
 	ngOnInit() {
 		this.setupSearchInput();
-		this.contextService.contextChanged.subscribe(this.contextChanged);
+		this.contextSubscription = this.contextService.contextChanged.subscribe(this.contextChanged);
 	}
 
 	private setupSearchInput(): void {
@@ -45,7 +48,7 @@ export class MediaFiltersComponent implements OnInit {
 
 	private contextChanged = (newContext: Context): void => {
 		this.context = newContext;
-		if (this.context) {
+		if (this.context && this.context.type === ContextType.SEARCH) {
 			this.handleContext(this.context);
 			this.getMediaCount(this.context);
 		}
@@ -109,5 +112,9 @@ export class MediaFiltersComponent implements OnInit {
 
 	public resetFilters(): void {
 		this.contextService.resetContext();
+	}
+
+	ngOnDestroy() {
+		this.contextSubscription.unsubscribe();
 	}
 }

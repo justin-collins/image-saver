@@ -1,14 +1,15 @@
-import { Component, OnInit, Input, Output, EventEmitter, NgZone } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, NgZone, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Album, Context, ContextType, Media, MediaType } from '../../core/types';
 import { AlbumService, ContextService, MediaService } from '../../core/services';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'isvr-media-preview',
 	templateUrl: './media-preview.component.html',
 	styleUrls: ['./media-preview.component.scss']
 })
-export class MediaPreviewComponent implements OnInit {
+export class MediaPreviewComponent implements OnInit, OnDestroy {
 	@Input() media: Media;
 	@Input() editable: boolean = true;
 	@Input() navigable: boolean = true;
@@ -18,6 +19,8 @@ export class MediaPreviewComponent implements OnInit {
 	public mediaType = MediaType;
 	public contextType = ContextType;
 	public context: Context;
+
+	private contextSubscription: Subscription;
 
 	constructor(private mediaService: MediaService,
 				private albumService: AlbumService,
@@ -29,7 +32,8 @@ export class MediaPreviewComponent implements OnInit {
 		if (!this.media) {
 			console.error('A media must be provided for the preview component');
 		}
-		this.contextService.contextChanged.subscribe(this.contextChanged);
+
+		this.contextSubscription = this.contextService.contextChanged.subscribe(this.contextChanged);
 	}
 
 	private contextChanged = (newContext: Context): void => {
@@ -59,5 +63,9 @@ export class MediaPreviewComponent implements OnInit {
 	public preventDefault(event): void {
 		event.preventDefault();
 		event.stopPropagation();
+	}
+
+	ngOnDestroy() {
+		this.contextSubscription.unsubscribe();
 	}
 }

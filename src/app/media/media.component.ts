@@ -1,4 +1,5 @@
-import { Component, OnInit, NgZone, HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit, NgZone, HostListener, ViewChild, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { MatDialogRef, MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import { VirtualScrollerComponent } from 'ngx-virtual-scroller';
@@ -11,7 +12,7 @@ import { MediaService, ContextService, SettingsService, MediaViewOptionsService 
 	templateUrl: './media.component.html',
 	styleUrls: ['./media.component.scss']
 })
-export class MediaComponent implements OnInit {
+export class MediaComponent implements OnInit, OnDestroy {
 	public displayedColumns: string[] = ['preview', 'title', 'type', 'createdAt', 'actions'];
 	public media: Media[];
 	public warning: string = '';
@@ -32,6 +33,9 @@ export class MediaComponent implements OnInit {
 		maxHeight: '400px'
 	};
 
+	private contextSubscription: Subscription;
+	private mediaViewSubscription: Subscription;
+
 	constructor(private mediaService: MediaService,
 				private contextService: ContextService,
 				private settingsService: SettingsService,
@@ -41,8 +45,8 @@ export class MediaComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.contextService.contextChanged.subscribe(this.contextChanged);
-		this.mediaViewOptionsService.mediaViewOptionsChanged.subscribe(this.viewOptionsChanged);
+		this.contextSubscription = this.contextService.contextChanged.subscribe(this.contextChanged);
+		this.mediaViewSubscription = this.mediaViewOptionsService.mediaViewOptionsChanged.subscribe(this.viewOptionsChanged);
 	}
 
 	private loadMedia(newFilter: MediaFilter): void {
@@ -168,5 +172,10 @@ export class MediaComponent implements OnInit {
 	onResize(event?) {
 		this.calcMediaSize();
 		this.virtualScroller.refresh();
+	}
+
+	ngOnDestroy() {
+		this.contextSubscription.unsubscribe();
+		this.mediaViewSubscription.unsubscribe();
 	}
 }

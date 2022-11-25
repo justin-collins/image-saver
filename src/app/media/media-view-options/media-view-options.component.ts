@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { MediaViewOptionsService } from '../../core/services';
 import { MediaDisplayType, MediaViewOption } from '../../core/types';
 
@@ -7,17 +8,19 @@ import { MediaDisplayType, MediaViewOption } from '../../core/types';
 	templateUrl: './media-view-options.component.html',
 	styleUrls: ['./media-view-options.component.scss']
 })
-export class MediaViewOptionsComponent implements OnInit {
+export class MediaViewOptionsComponent implements OnInit, OnDestroy {
 	@Output() viewOptionsUpdated = new EventEmitter<MediaViewOption>();
 
 	public viewOptions: MediaViewOption;
 	public mediaDisplayType = MediaDisplayType;
 
+	private mediaViewSubscription: Subscription;
+
 	constructor(private mediaViewOptionsService: MediaViewOptionsService) {
 	}
 
 	ngOnInit() {
-		this.mediaViewOptionsService.mediaViewOptionsChanged.subscribe(this.overrideViewOptions);
+		this.mediaViewSubscription = this.mediaViewOptionsService.mediaViewOptionsChanged.subscribe(this.overrideViewOptions);
 	}
 
 	private overrideViewOptions = (newViewOptions: MediaViewOption) => {
@@ -35,7 +38,11 @@ export class MediaViewOptionsComponent implements OnInit {
 		this.mediaViewOptionsService.mediaViewOptions = this.viewOptions;
 	}
 
-	resetViewOptions(): void {
+	private resetViewOptions(): void {
 		this.mediaViewOptionsService.resetInitialViewOptions();
+	}
+
+	ngOnDestroy() {
+		this.mediaViewSubscription.unsubscribe();
 	}
 }
