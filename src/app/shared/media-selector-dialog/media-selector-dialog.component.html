@@ -1,13 +1,17 @@
 <div class="container" *ngIf="media">
+	<isvr-media-selector-dialog-filters (onFilterChanged)="filterMedia($event)"></isvr-media-selector-dialog-filters>
+
+	<button mat-button (click)="selectAll()">Select All</button>
+	<button mat-button (click)="selectNone()">Select None</button>
+
 	<p *ngIf="media.length > 0">Click the Media you would like to select</p>
+	<p *ngIf="media.length === 0">No media found within filter criteria</p>
 
 	<virtual-scroller #scroll [items]="media">
 		<div class="media-sizer" *ngFor="let singleMedia of scroll.viewPortItems" [style.height]="calcMediaHeight() + 'px'">
 			<isvr-media-preview [media]="singleMedia" [editable]="false" [navigable]="false" [ngClass]="{selected: mediaSelectedContains(singleMedia)}" (click)="toggleMediaSelection(singleMedia)"></isvr-media-preview>
 		</div>
 	</virtual-scroller>
-
-	<h2 *ngIf="media.length === 0">No media found for selection</h2>
 
 	<div class="actions">
 		<button mat-raised-button color="primary" [disabled]="mediaSelected.length === 0" (click)="mediaSelectionComplete()">Select</button>

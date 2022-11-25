@@ -1,5 +1,14 @@
 @import 'includes';
 
+isvr-media-selector-dialog-filters {
+	width: 50%;
+	display: inline-block;
+}
+
+p {
+	display: inline;
+}
+
 mat-grid-tile {
 	::ng-deep .mat-figure {
 		align-items: start;
@@ -41,7 +50,7 @@ isvr-media-preview {
 }
 
 virtual-scroller {
-	height: calc(100% - 35px);
+	height: calc(100% - 65px);
 }
 
 .media-sizer {

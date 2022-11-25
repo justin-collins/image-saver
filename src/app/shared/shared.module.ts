@@ -31,6 +31,7 @@ import { MainNavComponent } from './main-nav/main-nav.component';
 import { MediaRendererComponent } from './media-renderer/media-renderer.component';
 import { VirtualScrollerModule } from 'ngx-virtual-scroller';
 import { DrawerToggleBtnComponent } from './drawer-toggle-btn/drawer-toggle-btn.component';
+import { MediaSelectorDialogFiltersComponent } from './media-selector-dialog/media-selector-dialog-filters/media-selector-dialog-filters.component';
 
 @NgModule({
 	imports: [
@@ -81,6 +82,7 @@ import { DrawerToggleBtnComponent } from './drawer-toggle-btn/drawer-toggle-btn.
 		NewAlbumButtonDirective,
 		NewAlbumDialogComponent,
 		MediaSelectorDialogComponent,
+		MediaSelectorDialogFiltersComponent,
 		EditAlbumDialogComponent,
 		EditAlbumButtonDirective,
 		MediaSelectorDirective,

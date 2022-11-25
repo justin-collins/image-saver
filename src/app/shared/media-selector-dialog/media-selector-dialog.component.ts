@@ -33,7 +33,6 @@ export class MediaSelectorDialogComponent implements OnInit {
 		let finalSettings: MediaSelectorSettings = startingSettings;
 
 		finalSettings.exclude = finalSettings.exclude || false;
-		finalSettings.maxSelections = finalSettings.maxSelections;
 
 		return finalSettings;
 	}
@@ -48,8 +47,8 @@ export class MediaSelectorDialogComponent implements OnInit {
 		}
 	}
 
-	private loadMediaByAlbum(): void {
-		this.mediaService.getByAlbumId(this.settings.dataId, this.settings.exclude).subscribe(this.mediaLoaded);
+	private loadMediaByAlbum(term?: string): void {
+		this.mediaService.getByAlbumId(this.settings.dataId, this.settings.exclude, term).subscribe(this.mediaLoaded);
 	}
 
 	private loadMediaByTag(): void {
@@ -57,7 +56,13 @@ export class MediaSelectorDialogComponent implements OnInit {
 	}
 
 	private mediaLoaded = (mediaResponse: Media[]): void => {
-		this.media = mediaResponse;
+		this._ngZone.run(() => {
+			this.media = mediaResponse;
+		});
+	}
+
+	public filterMedia = (newFilterTerm: string): void => {
+		this.loadMediaByAlbum(newFilterTerm);
 	}
 
 	public toggleMediaSelection(selectedMedia: Media): void {
@@ -96,6 +101,18 @@ export class MediaSelectorDialogComponent implements OnInit {
 		let newSize: number = window.innerWidth *.18;
 
 		return newSize;
+	}
+
+	public selectAll = (): void => {
+		this._ngZone.run(() => {
+			this.mediaSelected = this.media;
+		});
+	}
+
+	public selectNone = (): void => {
+		this._ngZone.run(() => {
+			this.mediaSelected = [];
+		});
 	}
 
 	@HostListener('window:resize', ['$event'])

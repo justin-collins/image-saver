@@ -32,8 +32,6 @@ export class AlbumDetailsComponent implements OnInit {
 
 		if (!albumId) console.error('Invalid albumId in URL');
 
-		this.contextService.setContextAlbum(this.album);
-
 		this.loadAlbum(albumId);
 	}
 
@@ -44,6 +42,7 @@ export class AlbumDetailsComponent implements OnInit {
 	private albumLoaded = (albumResponse: Album): void => {
 		this._ngZone.run(() => {
 			this.album = albumResponse;
+			this.contextService.setContextAlbum(this.album);	
 			this.setupMediaSelectorSettings();
 			this.loadAlbumMedia();
 		});
@@ -53,7 +52,8 @@ export class AlbumDetailsComponent implements OnInit {
 		this.mediaSelectorSettings = {
 			dataId: this.album.id,
 			dataType: ContextType.ALBUM,
-			exclude: true
+			exclude: true,
+			showFilters: true
 		}
 	}
 

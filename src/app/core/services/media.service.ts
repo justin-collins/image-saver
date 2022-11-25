@@ -102,12 +102,25 @@ export class MediaService {
 		return sql;
 	}
 
-	public getByAlbumId(albumId: number, exclude?: boolean): Observable<Media[]> {
-		let sql = `SELECT media.*`;
+	public getByAlbumId(albumId: number, exclude?: boolean, term?: string): Observable<Media[]> {
+		let sql = `SELECT distinct media.*`;
+
 		if (!exclude) {
 			sql += ` FROM mediaAlbumsMap INNER JOIN media ON media.id == mediaAlbumsMap.media_id WHERE mediaAlbumsMap.album_id == $albumId `;
 		} else {
-			sql += ` FROM media WHERE media.id NOT IN (SELECT mediaAlbumsMap.media_id from mediaAlbumsMap WHERE mediaAlbumsMap.album_id == $albumId) `;
+			sql += ` FROM media`;
+
+			if (term) {
+				sql += ` LEFT JOIN mediaTagsMap ON mediaTagsMap.media_id == media.id
+						LEFT JOIN tags ON tags.id == mediaTagsMap.tag_id`;
+			}
+	
+			sql += ` WHERE media.id NOT IN (SELECT mediaAlbumsMap.media_id from mediaAlbumsMap WHERE mediaAlbumsMap.album_id == $albumId) `;
+
+
+			if (term) {
+				sql += ` AND (tags.title LIKE "%${term}%" OR media.title LIKE "%${term}%" OR media.url LIKE "%${term}%")`;
+			}
 		}
 		sql += `AND media.trashed == 0 ORDER BY media.created_at DESC;`;
 

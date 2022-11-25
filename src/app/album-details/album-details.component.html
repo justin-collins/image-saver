@@ -15,7 +15,7 @@
 		</div>
 	</virtual-scroller>
 
-	<button mat-fab isvrMediaSelector (click)="pauseVideos()" (modalClosed)="unpauseVideos()" [settings]="mediaSelectorSettings" class="add-btn" matTooltip="Add Media to Album" matTooltipPosition="left" (mediaSelected)="addMediaToAlbum($event)">
+	<button mat-fab isvrMediaSelector class="add-btn" (click)="pauseVideos()" (modalClosed)="unpauseVideos()" [settings]="mediaSelectorSettings" matTooltip="Add Media to Album" matTooltipPosition="left" (mediaSelected)="addMediaToAlbum($event)">
 		<mat-icon>add</mat-icon>
 	</button>
 </div>

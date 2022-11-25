@@ -40,5 +40,6 @@ export interface MediaSelectorSettings {
 	dataId?: number,
 	dataType?: ContextType,
 	exclude?: boolean,
-	maxSelections?: number
+	maxSelections?: number,
+	showFilters?: boolean
 }

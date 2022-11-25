@@ -24,7 +24,7 @@ export class TagFiltersComponent implements OnInit {
 
 	private setupSearchInput(): void {
 		this.searchControl.valueChanges.pipe(
-			debounceTime(300)
+			debounceTime(500)
 		).subscribe(this.filterBySearch);
 	}
 
@@ -50,5 +50,4 @@ export class TagFiltersComponent implements OnInit {
 		};
 		this.filtersChanged();
 	}
-
 }
