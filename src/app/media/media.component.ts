@@ -3,7 +3,7 @@ import { MatDialogRef, MatDialogConfig, MatDialog } from '@angular/material/dial
 import { MatTable } from '@angular/material/table';
 import { VirtualScrollerComponent } from 'ngx-virtual-scroller';
 import { QuickStartDialogComponent } from './quick-start-dialog/quick-start-dialog.component';
-import { Context, Media, MediaFilter, MediaViewOption, MediaDisplayType } from '../core/types';
+import { Context, Media, MediaFilter, MediaViewOption, MediaDisplayType, ContextType } from '../core/types';
 import { MediaService, ContextService, SettingsService, MediaViewOptionsService } from '../core/services';
 
 @Component({
@@ -76,8 +76,10 @@ export class MediaComponent implements OnInit {
 	}
 
 	private contextChanged = (context: Context): void => {
-		if (context) {
+		if (context && context.type === ContextType.SEARCH) {
 			this.filters = <MediaFilter>context.dataObject;
+		} else {
+			this.contextService.resetContext();
 		}
 		this.loadMedia(this.filters);
 	}

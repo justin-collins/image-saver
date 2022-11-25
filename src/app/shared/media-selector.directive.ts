@@ -9,6 +9,7 @@ import { ContextType, Media } from '../core/types';
 export class MediaSelectorDirective {
 	@Input() settings: MediaSelectorSettings;
 	@Output() mediaSelected = new EventEmitter<Media[]>();
+	@Output() modalClosed = new EventEmitter<boolean>();
 
 	private mediaSelectorDialogRef: MatDialogRef<MediaSelectorDialogComponent>;
 	private mediaSelectorDialogConfig: MatDialogConfig = {
@@ -29,6 +30,7 @@ export class MediaSelectorDirective {
 		this.mediaSelectorDialogRef = this.dialog.open(MediaSelectorDialogComponent, this.mediaSelectorDialogConfig);
 		this.mediaSelectorDialogRef.afterClosed().subscribe((result) => {
 			if (result) this.mediaSelected.emit(result);
+			this.modalClosed.emit(true);
 			this.mediaSelectorDialogRef = null;
 		});
 	}

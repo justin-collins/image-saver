@@ -1,5 +1,5 @@
 <div class="container" (click)="navigateToDetails()" [ngClass]="{editable: editable, navigable: navigable}">
-	<isvr-media-renderer [media]="media"></isvr-media-renderer>
+	<isvr-media-renderer [media]="media" [autoplayVideos]="autoplayVideos"></isvr-media-renderer>
 
 	<div class="drawer" *ngIf="editable">
 		<div class="title">{{media.title | truncate: 78}}</div>

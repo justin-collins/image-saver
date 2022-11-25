@@ -1,6 +1,6 @@
 <div class="media-frame">
 	<div *ngIf="media.type === mediaType.IMAGE || media.type === mediaType.GIF" class="image" [ngStyle]="{'background-image': 'url(' + fixedEscape(media.url) + ')', 'transform':'rotate(' + media.rotation + 'deg)'}"></div>
-	<video *ngIf="media.type === mediaType.VIDEO" class="video" [src]="safeVideoUrl" [muted]="'muted'" [ngStyle]="{'transform':'rotate(' + media.rotation + 'deg)'}" [autoplay]="autoplayVideos" loop [controls]="controls"></video>
+	<video *ngIf="media.type === mediaType.VIDEO" class="video" #videoElement [src]="safeVideoUrl" [muted]="'muted'" [ngStyle]="{'transform':'rotate(' + media.rotation + 'deg)'}" [autoplay]="autoplayVideos" loop [controls]="controls"></video>
 
 	<div class="filler" *ngIf="!media.id"><mat-icon>account_box</mat-icon></div>
 </div>

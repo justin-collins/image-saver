@@ -1,19 +1,21 @@
 <div class="container" *ngIf="album && media">
 	<div class="info">
-		<isvr-media-preview *ngIf="album.cover.id" [media]="album.cover" [editable]="false" [navigable]="false"></isvr-media-preview>
-		<h1>{{album.title}}&nbsp;&nbsp;<button mat-icon-button matTooltip="Edit Album" isvrEditAlbumButton [album]="album" (albumSaved)="albumEdited($event)"><mat-icon>edit</mat-icon></button></h1>
-		<p>{{media.length}} Item{{media.length > 1 ? 's' : ''}}</p>
+		<isvr-media-preview *ngIf="album.cover.id" [media]="album.cover" [editable]="false" [navigable]="false" [autoplayVideos]="playVideos"></isvr-media-preview>
+		<div class="album-details">
+			<h1>{{album.title}}&nbsp;&nbsp;<button mat-icon-button matTooltip="Edit Album" isvrEditAlbumButton [album]="album" (albumSaved)="albumEdited($event)"><mat-icon>edit</mat-icon></button></h1>
+			<p>{{media.length}} Item{{media.length > 1 ? 's' : ''}}</p>
+		</div>
 	</div>
 
 	<hr>
 
 	<virtual-scroller #scroll [items]="media">
 		<div class="media-sizer" *ngFor="let singleMedia of scroll.viewPortItems" [style.height]="calcMediaHeight() + 'px'">
-			<isvr-media-preview [media]="singleMedia" (mediaRemoved)="mediaRemoved($event)"></isvr-media-preview>
+			<isvr-media-preview [media]="singleMedia" (mediaRemoved)="mediaRemoved($event)" [autoplayVideos]="playVideos"></isvr-media-preview>
 		</div>
 	</virtual-scroller>
 
-	<button mat-fab isvrMediaSelector [settings]="mediaSelectorSettings" class="add-btn" matTooltip="Add Media to Album" matTooltipPosition="left" (mediaSelected)="addMediaToAlbum($event)">
+	<button mat-fab isvrMediaSelector (click)="pauseVideos()" (modalClosed)="unpauseVideos()" [settings]="mediaSelectorSettings" class="add-btn" matTooltip="Add Media to Album" matTooltipPosition="left" (mediaSelected)="addMediaToAlbum($event)">
 		<mat-icon>add</mat-icon>
 	</button>
 </div>

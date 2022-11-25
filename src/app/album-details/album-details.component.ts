@@ -14,6 +14,7 @@ export class AlbumDetailsComponent implements OnInit {
 	public media: Media[];
 
 	public mediaSelectorSettings: MediaSelectorSettings;
+	public playVideos: boolean = true;
 
 	constructor(private albumService: AlbumService,
 		private mediaService: MediaService,
@@ -86,6 +87,18 @@ export class AlbumDetailsComponent implements OnInit {
 			} else {
 				this.media.unshift(newMedia);
 			}
+		});
+	}
+
+	public pauseVideos = (): void => {
+		this._ngZone.run(() => {
+			this.playVideos = false;
+		});
+	}
+
+	public unpauseVideos = (): void => {
+		this._ngZone.run(() => {
+			this.playVideos = true;
 		});
 	}
 

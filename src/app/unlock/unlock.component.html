@@ -16,7 +16,7 @@
 <div class="unlock-container" *ngIf="dbExists">
 	<form (ngSubmit)="unlock()" #editSettingsForm="ngForm">
 		<mat-form-field>
-			<input type="password" #passKeyInput matInput [(ngModel)]="passKey" name="passKey" placeholder="Enter Password To Unlock" />
+			<input type="password" #passKeyInput matInput [(ngModel)]="passKey" name="passKey" placeholder="Enter Password To Unlock" cdkFocusInitial />
 			<mat-hint *ngIf="error">Incorrect Password</mat-hint>
 		</mat-form-field>
 

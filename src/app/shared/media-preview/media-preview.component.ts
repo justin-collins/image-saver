@@ -12,6 +12,7 @@ export class MediaPreviewComponent implements OnInit {
 	@Input() media: Media;
 	@Input() editable: boolean = true;
 	@Input() navigable: boolean = true;
+	@Input() autoplayVideos: boolean = true;
 	@Output() mediaRemoved = new EventEmitter<Media>();
 
 	public mediaType = MediaType;

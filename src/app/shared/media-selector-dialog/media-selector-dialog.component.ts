@@ -33,7 +33,7 @@ export class MediaSelectorDialogComponent implements OnInit {
 		let finalSettings: MediaSelectorSettings = startingSettings;
 
 		finalSettings.exclude = finalSettings.exclude || false;
-		finalSettings.maxSelections = finalSettings.maxSelections || 50;
+		finalSettings.maxSelections = finalSettings.maxSelections;
 
 		return finalSettings;
 	}
@@ -69,7 +69,7 @@ export class MediaSelectorDialogComponent implements OnInit {
 	}
 
 	private selectMedia(selectedMedia: Media): void {
-		if (this.mediaSelected.length === this.settings.maxSelections) return;
+		if (this.settings.maxSelections && this.mediaSelected.length === this.settings.maxSelections) return;
 
 		this.mediaSelected.push(selectedMedia);
 	}
