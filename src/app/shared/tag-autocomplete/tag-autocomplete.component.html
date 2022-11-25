@@ -1,5 +1,5 @@
 <mat-form-field>
-	<input type="text" matInput [placeholder]="placeholder" [formControl]="newTagControl" [matAutocomplete]="tagsAutocomplete" (keydown)="stopPropagation($event)">
+	<input type="text" matInput #tagsAutoInput [placeholder]="placeholder" [formControl]="newTagControl" [matAutocomplete]="tagsAutocomplete" (keydown)="stopPropagation($event)" cdkFocusInitial>
 </mat-form-field>
 
 <mat-autocomplete #tagsAutocomplete="matAutocomplete" [displayWith]="autocompleteDisplay" (optionSelected)="autocompleteOptionChosen($event)">

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, NgZone, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, NgZone, Input, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -11,10 +11,13 @@ import { MessagingService, TagService } from '../../core/services';
 	templateUrl: './tag-autocomplete.component.html',
 	styleUrls: ['./tag-autocomplete.component.scss']
 })
-export class TagAutocompleteComponent implements OnInit {
+export class TagAutocompleteComponent implements OnInit, AfterViewInit {
 	@Input() newTagAllowed: boolean = false;
-	@Input() placeholder = 'Type Tag Name Here';
+	@Input() autoFocus: boolean = false;
+	@Input() placeholder: string = 'Type Tag Name Here';
 	@Output() tagChosen = new EventEmitter<Tag>();
+
+	@ViewChild('tagsAutoInput') tagsAutoInput: ElementRef;
 
 	public newTagControl = new FormControl();
 	public allTags: Tag[];
@@ -26,6 +29,10 @@ export class TagAutocompleteComponent implements OnInit {
 
 	ngOnInit() {
 		this.loadAllTags();
+	}
+
+	ngAfterViewInit() {
+		if (this.autoFocus) this.tagsAutoInput.nativeElement.focus();
 	}
 
 	private loadAllTags(): void {

@@ -9,6 +9,7 @@ import { TagService } from '../../core/services';
 })
 export class TagManagerComponent implements OnInit {
 	@Input() disabled: boolean = false;
+	@Input() autoFocus: boolean = false;
 	@Input() newTagAllowed: boolean = false;
 	@Input() label: string = '';
 	@Input() displayType: 'button' | 'input' = 'button';
