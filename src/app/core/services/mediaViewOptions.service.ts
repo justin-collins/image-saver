@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { MediaDisplayType } from '../types/mediaDisplayType';
-import { MediaViewOption } from '../types/mediaViewOption';
-import { SettingsService } from './settings.service';
+import { MediaViewOption } from '../types';
+import { SettingsService } from './';
 
 @Injectable({
 	providedIn: 'root'

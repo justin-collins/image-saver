@@ -1,5 +1,5 @@
-import { ISVRAnimations } from './../animations';
 import { Component, OnInit, Input } from '@angular/core';
+import { ISVRAnimations } from './../animations';
 
 @Component({
 	selector: 'isvr-alert',

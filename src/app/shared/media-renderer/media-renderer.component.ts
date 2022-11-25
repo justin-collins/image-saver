@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Media } from 'src/app/core/types/media';
-import { MediaType } from 'src/app/core/types/mediaType';
+import { Media, MediaType } from 'src/app/core/types';
 
 @Component({
 	selector: 'isvr-media-renderer',

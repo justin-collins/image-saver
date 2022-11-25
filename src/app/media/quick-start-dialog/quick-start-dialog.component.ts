@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { DatabaseService } from 'src/app/core/services/database.service';
+import { DatabaseService } from 'src/app/core/services';
 
 @Component({
 	selector: 'isvr-quick-start-dialog',

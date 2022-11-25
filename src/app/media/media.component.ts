@@ -1,17 +1,10 @@
 import { Component, OnInit, NgZone, HostListener, ViewChild } from '@angular/core';
-import { Media } from '../core/types/media';
-import { MediaService } from '../core/services/media.service';
-import { ContextService } from '../core/services/context.service';
-import { Context } from '../core/types/context';
 import { MatDialogRef, MatDialogConfig, MatDialog } from '@angular/material/dialog';
-import { QuickStartDialogComponent } from './quick-start-dialog/quick-start-dialog.component';
-import { SettingsService } from '../core/services/settings.service';
-import { MediaFilter } from '../core/types/mediaFilter';
-import { MediaViewOptionsService } from '../core/services/mediaViewOptions.service';
-import { MediaViewOption } from '../core/types/mediaViewOption';
-import { VirtualScrollerComponent } from 'ngx-virtual-scroller';
-import { MediaDisplayType } from '../core/types/mediaDisplayType';
 import { MatTable } from '@angular/material/table';
+import { VirtualScrollerComponent } from 'ngx-virtual-scroller';
+import { QuickStartDialogComponent } from './quick-start-dialog/quick-start-dialog.component';
+import { Context, Media, MediaFilter, MediaViewOption, MediaDisplayType } from '../core/types';
+import { MediaService, ContextService, SettingsService, MediaViewOptionsService } from '../core/services';
 
 @Component({
 	selector: 'isvr-media',

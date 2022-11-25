@@ -1,13 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ImageViewerMaterialModule } from './material.module';
 import { ISVRRoutingModule } from './app.routing';
+import { AppComponent } from './app.component';
 import { MediaComponent } from './media/media.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MediaDetailComponent } from './media-detail/media-detail.component';
 import { AlbumsComponent } from './albums/albums.component';
 import { TrashComponent } from './trash/trash.component';

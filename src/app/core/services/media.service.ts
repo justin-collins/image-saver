@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin } from 'rxjs';
-import { Media } from '../types/media';
-import { DatabaseService } from './database.service';
 import { map, flatMap } from 'rxjs/operators';
-import { MediaType } from '../types/mediaType';
-import { MediaLocation } from '../types/mediaLocation';
-import { Tag } from '../types/tag';
-import { TagService } from './tag.service';
-import { MediaFilter } from '../types/mediaFilter';
-import { MediaSortBy } from '../types/mediaSortBy';
-import { Context } from '../types/context';
-import { ContextType } from '../types/contextType';
-import { ContextService } from './context.service';
+import { ContextService, DatabaseService, TagService } from './';
+import { 
+	Context, 
+	ContextType, 
+	Media, 
+	MediaFilter, 
+	MediaLocation, 
+	MediaSortBy, 
+	MediaType, 
+	Tag 
+} from '../types';
 
 @Injectable({
 	providedIn: 'root'

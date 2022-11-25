@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, concat, forkJoin } from 'rxjs';
-import { Album } from '../types/album';
-import { DatabaseService } from './database.service';
 import { map } from 'rxjs/operators';
-import { Media } from '../types/media';
+import { Album, Media } from '../types';
+import { DatabaseService } from './';
 
 export interface AlbumFilter {
 	term?: string;

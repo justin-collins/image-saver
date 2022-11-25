@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, merge, BehaviorSubject } from 'rxjs';
-import { DatabaseService } from './database.service';
-import { SettingsService } from './settings.service';
-import { flatMap } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { DatabaseService, SettingsService } from './';
 
 @Injectable({
 	providedIn: 'root'

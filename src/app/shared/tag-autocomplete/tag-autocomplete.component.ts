@@ -1,11 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, NgZone, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Tag } from 'src/app/core/types/tag';
-import { Observable } from 'rxjs';
-import { TagService } from 'src/app/core/services/tag.service';
-import { startWith, map } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MessagingService } from 'src/app/core/services/messaging.service';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
+import { Tag } from '../../core/types';
+import { MessagingService, TagService } from '../../core/services';
 
 @Component({
 	selector: 'isvr-tag-autocomplete',

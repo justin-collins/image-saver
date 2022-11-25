@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Media } from 'src/app/core/types/media';
-import { MediaService } from 'src/app/core/services/media.service';
+import { Media } from 'src/app/core/types';
+import { MediaService } from 'src/app/core/services';
 
 var shell = require('electron').shell;
 

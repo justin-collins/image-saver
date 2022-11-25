@@ -1,9 +1,7 @@
 import { Component, OnInit, NgZone, HostListener } from '@angular/core';
-import { Media } from '../core/types/media';
 import { ActivatedRoute } from '@angular/router';
-import { MediaType } from '../core/types/mediaType';
-import { MediaService } from '../core/services/media.service';
-import { SettingsService } from '../core/services/settings.service';
+import { Media, MediaType } from '../core/types';
+import { MediaService, SettingsService } from '../core/services';
 
 @Component({
 	selector: 'isvr-media-detail',

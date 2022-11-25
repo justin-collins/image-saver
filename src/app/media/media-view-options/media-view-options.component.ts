@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { MediaViewOptionsService } from 'src/app/core/services/mediaViewOptions.service';
-import { MediaDisplayType } from 'src/app/core/types/mediaDisplayType';
-import { MediaViewOption } from 'src/app/core/types/mediaViewOption';
+import { MediaViewOptionsService } from '../../core/services';
+import { MediaDisplayType, MediaViewOption } from '../../core/types';
 
 @Component({
 	selector: 'isvr-media-view-options',

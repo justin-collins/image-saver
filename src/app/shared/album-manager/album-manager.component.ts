@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, NgZone } from '@angular/core';
-import { Album } from 'src/app/core/types/album';
-import { AlbumService } from 'src/app/core/services/album.service';
-import { Media } from 'src/app/core/types/media';
 import { Router } from '@angular/router';
+import { AlbumService } from '../../core/services';
+import { Album, Media } from '../../core/types';
 
 @Component({
 	selector: 'isvr-album-manager',

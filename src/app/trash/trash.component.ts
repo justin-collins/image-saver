@@ -1,8 +1,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { Media } from '../core/types/media';
-import { MediaService } from '../core/services/media.service';
-import { MediaType } from '../core/types/mediaType';
 import { Router } from '@angular/router';
+import { Media, MediaType } from '../core/types';
+import { MediaService } from '../core/services';
 
 @Component({
 	selector: 'isvr-trash',

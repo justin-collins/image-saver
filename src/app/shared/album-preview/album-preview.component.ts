@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Album } from 'src/app/core/types/album';
-import { MediaType } from 'src/app/core/types/mediaType';
 import { Router } from '@angular/router';
+import { Album, MediaType } from 'src/app/core/types';
 
 @Component({
 	selector: 'isvr-album-preview',

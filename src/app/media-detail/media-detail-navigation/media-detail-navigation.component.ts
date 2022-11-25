@@ -1,11 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input, HostListener } from '@angular/core';
-import { Media } from 'src/app/core/types/media';
-import { Context } from 'src/app/core/types/context';
-import { ContextService } from 'src/app/core/services/context.service';
-import { MediaService } from 'src/app/core/services/media.service';
-import { ContextType } from 'src/app/core/types/contextType';
-import { SettingsService } from 'src/app/core/services/settings.service';
-import { MediaFilter } from 'src/app/core/types/mediaFilter';
+import { Context, Media } from '../../core/types';
+import { ContextService, MediaService, SettingsService } from '../../core/services';
 
 @Component({
 	selector: 'isvr-media-detail-navigation',

@@ -1,12 +1,8 @@
 import { Component, OnInit, NgZone, HostListener } from '@angular/core';
-import { Album } from '../core/types/album';
-import { AlbumService } from '../core/services/album.service';
 import { ActivatedRoute } from '@angular/router';
-import { Media } from '../core/types/media';
-import { ContextService } from '../core/services/context.service';
-import { MediaService } from '../core/services/media.service';
+import { Album, Media, ContextType } from '../core/types';
+import { AlbumService, ContextService, MediaService } from '../core/services';
 import { MediaSelectorSettings } from '../shared/media-selector.directive';
-import { ContextType } from '../core/types/contextType';
 
 @Component({
 	selector: 'isvr-album-details',

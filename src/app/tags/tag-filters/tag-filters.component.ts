@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
-import { TagFilter } from 'src/app/core/services/tag.service';
+import { TagFilter } from 'src/app/core/services';
 
 @Component({
   selector: 'isvr-tag-filters',

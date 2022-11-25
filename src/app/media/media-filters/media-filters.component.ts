@@ -1,16 +1,17 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { MediaType } from 'src/app/core/types/mediaType';
-import { MediaLocation } from 'src/app/core/types/mediaLocation';
-import { debounceTime } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-import { ContextService } from 'src/app/core/services/context.service';
-import { Context } from 'src/app/core/types/context';
-import { ContextType } from 'src/app/core/types/contextType';
-import { MediaFilter } from 'src/app/core/types/mediaFilter';
-import { MediaSortBy } from 'src/app/core/types/mediaSortBy';
-import { Tag } from 'src/app/core/types/tag';
-import { Media } from 'src/app/core/types/media';
-import { MediaService } from 'src/app/core/services/media.service';
+import { debounceTime } from 'rxjs/operators';
+import { ContextService, MediaService } from '../../core/services';
+import { 
+	Context, 
+	ContextType, 
+	Media, 
+	MediaFilter, 
+	MediaLocation, 
+	MediaSortBy, 
+	MediaType, 
+	Tag 
+} from '../../core/types';
 
 @Component({
 	selector: 'isvr-media-filters',

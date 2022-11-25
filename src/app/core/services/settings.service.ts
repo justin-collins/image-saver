@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Settings } from '../types/settings';
-import { DatabaseService } from './database.service';
-import { Observable, empty, merge } from 'rxjs';
+import { Observable,  merge } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Settings } from '../types';
+import { DatabaseService } from './';
 
 @Injectable({
 	providedIn: 'root'

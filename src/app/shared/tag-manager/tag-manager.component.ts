@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, NgZone, Output, EventEmitter } from '@angular/core';
-import { Tag } from 'src/app/core/types/tag';
-import { Media } from 'src/app/core/types/media';
-import { TagService } from 'src/app/core/services/tag.service';
+import { Media, Tag } from '../../core/types';
+import { TagService } from '../../core/services';
 
 @Component({
 	selector: 'isvr-tag-manager',

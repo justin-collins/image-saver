@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Context } from '../types/context';
-import { ContextType } from '../types/contextType';
 import { BehaviorSubject } from 'rxjs';
-import { Album } from '../types/album';
-import { Tag } from '../types/tag';
-import { MediaFilter } from '../types/mediaFilter';
-import { SettingsService } from './settings.service';
+import { Album, Context, ContextType, MediaFilter, Tag } from '../types';
+import { SettingsService } from './';
 
 @Injectable({
 	providedIn: 'root'

@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild, NgZone, ElementRef } from '@angular/core';
-import { StartupService } from '../core/services/startup.service';
-import { Router } from '@angular/router';
-import { MessagingService } from '../core/services/messaging.service';
-import { SettingsService } from '../core/services/settings.service';
-import { DatabaseService } from '../core/services/database.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ConfirmErrorStateMatcher } from '../shared/confirmErrorStateMatcher';
+import { DatabaseService, MessagingService, SettingsService, StartupService } from '../core/services';
+
 @Component({
 	selector: 'isvr-unlock',
 	templateUrl: './unlock.component.html',

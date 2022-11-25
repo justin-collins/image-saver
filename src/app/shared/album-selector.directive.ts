@@ -1,7 +1,7 @@
 import { Directive, HostListener, Output, EventEmitter } from '@angular/core';
 import { MatDialogRef, MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { AlbumSelectorDialogComponent } from './album-selector-dialog/album-selector-dialog.component';
-import { Album } from '../core/types/album';
+import { Album } from '../core/types';
 
 @Directive({
 	selector: '[isvrAlbumSelector]'
