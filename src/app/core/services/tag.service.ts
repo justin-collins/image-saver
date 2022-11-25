@@ -16,10 +16,13 @@ export class TagService {
 	constructor() { }
 
 	public getAll(): Observable<Tag[]> {
-		const sql = `SELECT tags.id, tags.title, tags.created_at, COUNT(*) as total FROM tags
+		let sql = `SELECT tags.id, tags.title, tags.created_at, COUNT(*) as total FROM tags
 					LEFT JOIN mediaTagsMap on mediaTagsMap.tag_id == tags.id
-					GROUP BY tags.id
-					ORDER BY total DESC`;
+					GROUP BY tags.id`;
+
+		// sql += ` ORDER BY total DESC`; // leaving commented until sort functionality added
+		sql += ` ORDER BY tags.title ASC`;
+		
 		const values = {};
 
 		return DatabaseService.selectAll(sql, values).pipe(
@@ -39,8 +42,10 @@ export class TagService {
 
 		if (filter.term) sql += ` WHERE tags.title LIKE "%${filter.term}%"`;
 
-		sql += ` GROUP BY tags.id
-				ORDER BY total DESC`;
+		sql += ` GROUP BY tags.id`;
+
+		// sql += ` ORDER BY total DESC`; // leaving commented until sort functionality added
+		sql += ` ORDER BY tags.title ASC`;
 
 		const values = {};
 

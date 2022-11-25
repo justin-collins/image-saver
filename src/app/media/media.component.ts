@@ -92,8 +92,8 @@ export class MediaComponent implements OnInit {
 		}
 	}
 
-	public newMediaAdded(newMedia: Media): void {
-		this.media.unshift(newMedia);
+	public newMediaAdded(newMedia: Media[]): void {
+		this.media = [...newMedia, ...this.media];
 	}
 
 	public trashMedia(removeMedia: Media): void {

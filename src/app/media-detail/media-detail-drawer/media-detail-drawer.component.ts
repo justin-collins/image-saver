@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Media } from 'src/app/core/types';
+import { Media, MediaLocation } from 'src/app/core/types';
 import { MediaService } from 'src/app/core/services';
 
 var shell = require('electron').shell;
@@ -22,7 +22,13 @@ export class MediaDetailDrawerComponent implements OnInit {
 	}
 
 	public openSource(): void {
-		shell.openExternal(this.media.source);
+		let formattedMediaSource: string = this.media.source;
+		if (this.media.location === MediaLocation.LOCAL) {
+			formattedMediaSource = formattedMediaSource.replace('media://', '');
+			shell.showItemInFolder(formattedMediaSource);
+		} else {
+			shell.openExternal(formattedMediaSource);
+		}
 	}
 
 	public trashMedia(): void {
